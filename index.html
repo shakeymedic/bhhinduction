@@ -255,68 +255,80 @@
                     </div>
                 </div>
                 
-                 <!-- Card: Medical Workforce Leads -->
+                 <!-- Card: Senior Leadership Team (New) -->
                  <div class="bg-white rounded-xl shadow-sm overflow-hidden md:col-span-2 lg:col-span-3">
-                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Workforce & Leadership</div>
-                    <div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-blue-50 px-4 py-3 border-b border-blue-100 font-bold text-blue-900 flex justify-between items-center cursor-pointer" onclick="toggleAccordion('senior-team')">
+                        <span><i class="fas fa-users-cog mr-2"></i> Senior Leadership Team & Leads</span>
+                        <i class="fas fa-chevron-down transform transition-transform" id="icon-senior-team"></i>
+                    </div>
+                    <div id="content-senior-team" class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm hidden">
+                        <!-- Consultants -->
+                        <div class="p-3 border border-gray-200 rounded bg-white">
+                            <p class="font-bold text-gray-800 mb-1">Dr Su Dorrian</p>
+                            <p class="text-xs text-gray-600 mb-1">Consultant, BHH</p>
+                            <ul class="text-xs list-disc list-inside text-gray-500">
+                                <li>Lead for QIP Co-ordination</li>
+                                <li>Solihull Urgent Care Clinical Lead</li>
+                                <li>Guidelines & NICE Compliance</li>
+                                <li>O&G / Women's Health Liaison</li>
+                            </ul>
+                            <p class="text-xs text-gray-400 mt-1 italic">Sec: Sean Shortt</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-200 rounded bg-white">
+                            <p class="font-bold text-gray-800 mb-1">Dr Amin Albahari</p>
+                            <p class="text-xs text-gray-600">Consultant</p>
+                            <p class="text-xs text-gray-500">EDI Lead</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-200 rounded bg-white">
+                            <p class="font-bold text-gray-800 mb-1">Dr Shruti Mehra</p>
+                            <p class="text-xs text-gray-600">Consultant</p>
+                            <p class="text-xs text-gray-500">Induction Lead</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-200 rounded bg-white">
+                            <p class="font-bold text-gray-800 mb-1">Dr Selina Ball</p>
+                            <p class="text-xs text-gray-600">Consultant</p>
+                            <p class="text-xs text-gray-500">Specialty Tutor</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-200 rounded bg-white">
+                            <p class="font-bold text-gray-800 mb-1">Dr Viorica Samoila</p>
+                            <p class="text-xs text-gray-600">Consultant</p>
+                            <p class="text-xs text-gray-500">Rota Lead (BHH)</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-200 rounded bg-white">
+                            <p class="font-bold text-gray-800 mb-1">Dr Rangaraju Ragunathan</p>
+                            <p class="text-xs text-gray-600">Consultant</p>
+                            <p class="text-xs text-gray-500">Rota Lead (GHH)</p>
+                        </div>
+
+                        <!-- Nursing & Admin Leads -->
+                        <div class="p-3 border border-gray-200 rounded bg-blue-50">
+                            <p class="font-bold text-gray-800 mb-1">Max Ngamsha</p>
+                            <p class="text-xs text-gray-600">Lead ENP</p>
+                            <p class="text-xs text-gray-500">BHH / GHH</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-200 rounded bg-blue-50">
+                            <p class="font-bold text-gray-800 mb-1">Zoe Lane</p>
+                            <p class="text-xs text-gray-600">Reception Service Manager</p>
+                        </div>
                         
-                        <!-- New Key Consultants Block -->
-                        <div class="p-2 border border-blue-200 bg-blue-50 rounded">
-                            <p class="font-bold text-blue-800 mb-1">Key ED Consultants</p>
-                            <div class="space-y-1">
-                                <p class="text-sm"><strong>Dr Shruti Mehra</strong> <span class="text-xs text-gray-500">(Induction Lead)</span></p>
-                                <p class="text-sm"><strong>Dr Selina Ball</strong> <span class="text-xs text-gray-500">(Specialty Tutor)</span></p>
-                                <p class="text-sm"><strong>Dr Viorica Samoila</strong> <span class="text-xs text-gray-500">(Rota Lead BHH)</span></p>
-                                <p class="text-sm"><strong>Dr Rangaraju Ragunathan</strong> <span class="text-xs text-gray-500">(Rota Lead GHH)</span></p>
-                                <p class="text-sm"><strong>Dr Amin Albahari</strong> <span class="text-xs text-gray-500">(EDI Lead)</span></p>
+                        <div class="p-3 border border-gray-200 rounded bg-blue-50">
+                            <p class="font-bold text-gray-800 mb-1">Lead ACP (Paeds)</p>
+                            <p class="text-xs text-gray-600">BHH / GHH</p>
+                        </div>
+                        
+                        <!-- Registrars -->
+                        <div class="p-3 border border-purple-200 rounded bg-purple-50 md:col-span-2 lg:col-span-3">
+                            <p class="font-bold text-purple-900 mb-1">Chief Registrars</p>
+                            <div class="flex gap-4 text-xs text-gray-700">
+                                <span><strong>Adele & Bushra</strong> (BHH)</span>
+                                <span><strong>Mo</strong> (GHH)</span>
                             </div>
-                        </div>
-
-                        <!-- Chief Registrars Block -->
-                        <div class="p-2 border border-blue-200 bg-blue-50 rounded">
-                            <p class="font-bold text-blue-800 mb-1">Chief Registrars</p>
-                            <div class="space-y-1">
-                                <p class="text-sm"><strong>Adele & Bushra</strong> <span class="text-xs text-gray-500">(BHH)</span></p>
-                                <p class="text-sm"><strong>Mo</strong> <span class="text-xs text-gray-500">(GHH)</span></p>
-                            </div>
-                        </div>
-
-                        <!-- Audit/QIP Leads -->
-                         <div class="p-2 border border-emerald-200 bg-emerald-50 rounded">
-                            <p class="font-bold text-emerald-800 mb-1">Audit & QIP Leads</p>
-                            <div class="space-y-1">
-                                <p class="text-sm">Jo Flowers</p>
-                                <p class="text-sm">Rachael Boddy</p>
-                            </div>
-                        </div>
-
-                        <div class="p-2 border rounded">
-                            <p class="font-bold text-gray-700">Sabia Tuohey (ED All)</p>
-                            <p class="text-xs text-blue-600">0777 6606 362</p>
-                        </div>
-                        <div class="p-2 border rounded">
-                            <p class="font-bold text-gray-700">Abid Ali (Med BHH)</p>
-                            <p class="text-xs text-blue-600">07792 029 714</p>
-                        </div>
-                         <div class="p-2 border rounded">
-                            <p class="font-bold text-gray-700">Michelle Jeffreys (Med GHH)</p>
-                            <p class="text-xs text-blue-600">07814 380 362</p>
-                        </div>
-                        <div class="p-2 border rounded">
-                            <p class="font-bold text-gray-700">Aneela Razaq (Med QEHB)</p>
-                            <p class="text-xs text-blue-600">07776 606 344</p>
-                        </div>
-                         <div class="p-2 border rounded">
-                            <p class="font-bold text-gray-700">Sallyanne Jones (Surgery)</p>
-                            <p class="text-xs text-blue-600">07776 605 933</p>
-                        </div>
-                         <div class="p-2 border rounded">
-                            <p class="font-bold text-gray-700">Neil Griffiths (T&O)</p>
-                            <p class="text-xs text-blue-600">07854 996 134</p>
-                        </div>
-                         <div class="p-2 border rounded">
-                            <p class="font-bold text-gray-700">Gaye Halliday (Paeds/Obs)</p>
-                            <p class="text-xs text-blue-600">07919 042 698</p>
                         </div>
                     </div>
                 </div>
@@ -342,6 +354,30 @@
                 </ul>
                  <p class="text-xs text-gray-500 mt-2"><em>*ECGs can be signed by FY2+, but escalate if unsure.</em></p>
             </div>
+            
+            <!-- SPUR Palliative Care Card -->
+            <div class="bg-purple-50 border-l-4 border-purple-600 rounded-lg p-4 shadow-sm mb-4">
+                <h3 class="text-lg font-bold text-purple-800 flex items-center mb-2">
+                    <i class="fas fa-hands-helping mr-2"></i> SPUR (Palliative Urgent Response)
+                </h3>
+                <p class="text-sm text-gray-700 mb-2">
+                    <strong>Avoid admission for palliative patients.</strong> SPUR provides 24/7 urgent specialist nursing at home (2hr response).
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <div class="bg-white p-2 rounded border border-purple-200">
+                        <span class="block font-bold text-purple-900">08:00 - 22:00</span>
+                        <span class="text-gray-600">Call HOBS</span>
+                        <br>
+                        <a href="tel:01218091900" class="font-bold text-blue-600">0121 809 1900</a>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-purple-200">
+                        <span class="block font-bold text-purple-900">22:00 - 08:00 (Overnight)</span>
+                        <span class="text-gray-600">Dedicated Hotline</span>
+                        <br>
+                        <a href="tel:03005551919" class="font-bold text-blue-600">0300 555 1919</a> (Option 2)
+                    </div>
+                </div>
+            </div>
 
             <!-- New Radiology Vetting Card -->
             <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm mb-4">
@@ -356,6 +392,18 @@
                         <li><strong>CT KUB:</strong> Renal Colic - <em>In hours only.</em></li>
                     </ul>
                 </div>
+            </div>
+            
+            <!-- Documentation Rules -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4 shadow-sm mb-6">
+                <h3 class="text-lg font-bold text-yellow-800 flex items-center mb-2">
+                    <i class="fas fa-file-contract mr-2"></i> Documentation Golden Rules
+                </h3>
+                <ul class="list-disc list-inside text-sm text-gray-800 font-medium space-y-1">
+                    <li><strong>Who:</strong> Always document the <strong>NAME</strong> of the senior/specialty doctor you discussed with (not just "SpR").</li>
+                    <li><strong>Plan:</strong> Clearly state disposal plan (To whom? Where? For what?).</li>
+                    <li><strong>Results:</strong> You must check results of investigations you ordered. If handing over, state the specific results pending.</li>
+                </ul>
             </div>
             
             <!-- WHO TO WHO Referral Guide -->
@@ -672,33 +720,25 @@
                     </div>
                 </div>
                 
-                 <!-- Study Leave & Expenses -->
+                 <!-- Study Leave & Expenses & Pay -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-500">
-                    <h3 class="text-lg font-bold text-indigo-600 mb-3"><i class="fas fa-book-reader mr-2"></i> Study Leave & Expenses</h3>
+                    <h3 class="text-lg font-bold text-indigo-600 mb-3"><i class="fas fa-book-reader mr-2"></i> Study Leave & Benefits</h3>
                     
                     <div class="space-y-4">
                         <div>
                             <h4 class="font-bold text-gray-800 text-sm mb-2">1. Applying for Study Leave</h4>
                             <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-                                <li><strong>Supervisor Approval:</strong> You must first get approval from your Educational/Clinical Supervisor.</li>
-                                <li><strong>Dual Application:</strong> Apply on <strong>BOTH</strong> Employee Online (EOL) and Accent systems. The Trust cannot approve unless submitted on both.</li>
-                                <li><strong>Access EOL:</strong> Access via the 'E' on the HGS intranet page under "Skills, Training & HR".</li>
-                                <li><strong>Timeline:</strong> Submit in good time to allow for cover planning.</li>
-                                <li><strong>Service:</strong> Centralised at Heartlands. Correspondence goes to the Study Leave email.</li>
+                                <li><strong>Dual Application:</strong> Apply on <strong>BOTH</strong> Allocate Loop (was EOL) and Accent systems.</li>
+                                <li><strong>Access:</strong> EOL via the 'E' on HGS intranet page.</li>
+                                <li><strong>Service:</strong> Centralised at Heartlands.</li>
                             </ul>
                         </div>
 
                         <div>
-                            <h4 class="font-bold text-gray-800 text-sm mb-2">2. Claiming Expenses</h4>
+                            <h4 class="font-bold text-gray-800 text-sm mb-2">2. Expenses & Tax Relief</h4>
                             <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-                                <li><strong>Prior Approval:</strong> Study leave must be approved by Postgraduate Medical Education before you can claim.</li>
-                                <li><strong>Register:</strong> You will receive an email to register with Finance Tools (complete Data Capture Form with payroll number).</li>
-                                <li><strong>Log On:</strong> <a href="http://nww.fintools.uhb.nhs.uk/UHBFT" class="text-blue-600 hover:underline">nww.fintools.uhb.nhs.uk/UHBFT</a> or via 'ME@qehb' link.</li>
-                                <li><strong>Create Claim:</strong> Click "New Claim" on dashboard.</li>
-                                <li><strong>Travel (Car):</strong> Select "Travel" > "Course Mileage". Enter postcodes.</li>
-                                <li><strong>Fees:</strong> Use "Courses Icon". Max per item £500 (split if higher).</li>
-                                <li><strong>Receipts:</strong> Upload all receipts/proof of attendance as PDF.</li>
-                                <li><strong>Submit:</strong> Move claim to 'Line Manager' for approval. Claims at 'Originator' level are not processed.</li>
+                                <li><strong>Claiming:</strong> Use Finance Tools (<a href="http://nww.fintools.uhb.nhs.uk/UHBFT" class="text-blue-600">nww.fintools.uhb.nhs.uk/UHBFT</a>). Must have prior approval.</li>
+                                <li><strong>Tax Relief:</strong> You can claim tax back (up to 4 years) on GMC fees, Royal College exams/subs, and uniform laundry. Contact HMRC or use online form.</li>
                             </ul>
                         </div>
 
@@ -707,13 +747,20 @@
                             <div class="text-sm text-gray-700 grid grid-cols-1 gap-2">
                                 <p><strong>General Queries:</strong> <a href="mailto:hgsstudy.leave@uhb.nhs.uk" class="text-blue-600">hgsstudy.leave@uhb.nhs.uk</a></p>
                                 <p><strong>Advisor:</strong> Angela Bird (<a href="mailto:Angela.Bird@uhb.nhs.uk" class="text-blue-600">Angela.Bird@uhb.nhs.uk</a>)</p>
-                                <p><strong>E-Rostering (EOL Login):</strong> <a href="mailto:erosteringdoctors@heartofengland.nhs.uk" class="text-blue-600">erosteringdoctors@heartofengland.nhs.uk</a> (Ext: 48948)</p>
                                 <p><strong>Expenses Team Leader:</strong> Asha Ellerton (<a href="mailto:Asha.Ellerton@uhb.nhs.uk" class="text-blue-600">Asha.Ellerton@uhb.nhs.uk</a>)</p>
-                                <p><strong>Relocation (HEE):</strong> <a href="mailto:Relocationexpenses.HEE@uhb.nhs.uk" class="text-blue-600">Relocationexpenses.HEE@uhb.nhs.uk</a></p>
                                 <p><strong>Payroll:</strong> 0121 371 7518</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Coroners & Police -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-gray-600">
+                    <h3 class="text-lg font-bold text-gray-700 mb-3"><i class="fas fa-balance-scale mr-2"></i> Medico-Legal</h3>
+                    <ul class="text-sm space-y-2 text-gray-700">
+                        <li><strong>Deaths:</strong> Discuss all deaths with the Consultant. Refer to Coroner if cause unknown/unnatural.</li>
+                        <li><strong>Police:</strong> Do NOT give statements without Consultant approval. Direct police to the Shift Leader. Data is only shared with consent or if public interest threshold met.</li>
+                    </ul>
                 </div>
                 
                 <!-- Locum Bank -->
@@ -802,6 +849,15 @@
             <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4 rounded shadow-sm">
                  <p class="font-bold text-blue-800"><i class="fas fa-info-circle mr-2"></i>IMG Extended Induction</p>
                  <p class="text-sm text-blue-700">All International Medical Graduates (IMGs) / JSDs undergo an extended induction (min. 4 weeks). <strong>You are not required to undertake nights until this is completed.</strong></p>
+                 <div class="mt-3 bg-white p-3 rounded border border-blue-200">
+                     <p class="font-bold text-xs text-blue-900 mb-1">MANDATORY FACE-TO-FACE SESSIONS (First 2 Days):</p>
+                     <ul class="text-xs list-disc list-inside text-blue-800">
+                         <li>PICS Training</li>
+                         <li>Blood Transfusion (F2F)</li>
+                         <li>Point of Care Testing (POCT)</li>
+                         <li>Resus Training</li>
+                     </ul>
+                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
