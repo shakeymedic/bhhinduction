@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHH & GHH ED Induction Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .nhs-blue {
+            background-color: #005EB8;
+        }
+
+        .nhs-blue-text {
+            color: #005EB8;
+        }
+
+        .nhs-dark-blue {
+            background-color: #003087;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="nhs-blue text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white text-blue-700 font-bold px-2 py-1 text-sm rounded">NHS</div>
+                    <span class="font-bold text-lg tracking-tight">Heartlands & Good Hope ED</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="showSection('dashboard')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Dashboard</button>
+                        <button onclick="showSection('contacts')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Contacts</button>
+                        <button onclick="showSection('clinical')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Clinical</button>
+                        <button onclick="showSection('admin')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Rota & HR</button>
+                        <button onclick="showSection('education')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Education</button>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button onclick="toggleMobileMenu()" type="button" class="bg-blue-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-blue-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="showSection('dashboard')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Dashboard</button>
+                <button onclick="showSection('contacts')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Contacts</button>
+                <button onclick="showSection('clinical')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Clinical</button>
+                <button onclick="showSection('admin')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Rota & HR</button>
+                <button onclick="showSection('education')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Education</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+
+        <!-- DASHBOARD SECTION -->
+        <div id="dashboard" class="section-content space-y-6">
+            
+            <!-- Welcome Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-6 text-white shadow-lg">
+                <h1 class="text-3xl font-bold mb-2">Welcome to the Team</h1>
+                <p class="opacity-90">"Experience is simply the name we give our mistakes. Smart people learn from their mistakes – but the real sharp ones learn from the mistakes of others."</p>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="bg-blue-900 bg-opacity-50 px-3 py-1 rounded-full text-xs font-semibold border border-blue-400">Heartlands (BHH)</span>
+                    <span class="bg-blue-900 bg-opacity-50 px-3 py-1 rounded-full text-xs font-semibold border border-blue-400">Good Hope (GHH)</span>
+                </div>
+            </div>
+
+            <!-- Urgent Codes Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Code Card 1 -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500 relative group overflow-hidden">
+                    <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-door-open text-4xl text-red-500"></i>
+                    </div>
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Resus Access</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-1">40894</p>
+                    <p class="text-xs text-gray-400 mt-2">Emergency Access</p>
+                </div>
+
+                <!-- Code Card 2 -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-500 relative group overflow-hidden">
+                    <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-user-md text-4xl text-blue-500"></i>
+                    </div>
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Staff Lounge/Lockers</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-1">C2679X</p>
+                    <p class="text-xs text-gray-400 mt-2">BHH Site</p>
+                </div>
+
+                <!-- Code Card 3 -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 relative group overflow-hidden">
+                    <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-coffee text-4xl text-emerald-500"></i>
+                    </div>
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Middle Grade Room</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-1">C4590Z</p>
+                    <p class="text-xs text-gray-400 mt-2">Break / Handover</p>
+                </div>
+
+                <!-- Code Card 4 -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-purple-500 relative group overflow-hidden">
+                    <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-clinic-medical text-4xl text-purple-500"></i>
+                    </div>
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Minors Clinical</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-1">C1267Y</p>
+                    <p class="text-xs text-gray-400 mt-2">Treatment Rooms</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Search Box -->
+                <div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6">
+                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-search text-blue-600"></i> Rapid Directory Search
+                    </h2>
+                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search for 'Urology', 'Admin', '41266'..." class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3">
+                    
+                    <div id="searchResults" class="mt-4 max-h-60 overflow-y-auto hide-scrollbar space-y-2">
+                        <!-- Dynamic Results will appear here -->
+                         <div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>
+                    </div>
+                </div>
+
+                <!-- Handover Times -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-clock text-blue-600"></i> Handover Times
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="font-medium text-gray-700">Morning</span>
+                            <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">08:00</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="font-medium text-gray-700">Afternoon</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">13:30</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-700">Night</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2 py-1 rounded">22:00</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-50 rounded text-xs text-blue-800">
+                        <i class="fas fa-info-circle mr-1"></i> <strong>Location:</strong> Seminar Room (Near EDAA Entrance at BHH, First Floor above AMU at GHH).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACTS SECTION -->
+        <div id="contacts" class="section-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Full Directory</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card: Internal Numbers -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Key Internal Extensions</div>
+                    <div class="p-4 space-y-2 text-sm max-h-80 overflow-y-auto">
+                        <div class="flex justify-between"><span>Majors A Nurse Station</span><span class="font-mono bg-gray-100 px-2 rounded">42274 / 42263</span></div>
+                        <div class="flex justify-between"><span>Majors B Nurse Station</span><span class="font-mono bg-gray-100 px-2 rounded">40274</span></div>
+                        <div class="flex justify-between"><span>Majors C Nurse Station</span><span class="font-mono bg-gray-100 px-2 rounded">41266 / 40273</span></div>
+                        <div class="flex justify-between"><span>EDAA Reception</span><span class="font-mono bg-gray-100 px-2 rounded">40130</span></div>
+                        <div class="flex justify-between"><span>Paeds Reception</span><span class="font-mono bg-gray-100 px-2 rounded">40481 / 52274</span></div>
+                        <div class="flex justify-between"><span>Resus</span><span class="font-mono bg-gray-100 px-2 rounded">40894</span></div>
+                        <div class="flex justify-between"><span>CT Room</span><span class="font-mono bg-gray-100 px-2 rounded">41289</span></div>
+                        <div class="flex justify-between"><span>Duty Radiologist</span><span class="font-mono bg-gray-100 px-2 rounded">42374 / 40345</span></div>
+                        <div class="flex justify-between"><span>IT Support (24/7)</span><span class="font-mono bg-gray-100 px-2 rounded">41130</span></div>
+                        <div class="flex justify-between"><span>ED IT (Office Hours)</span><span class="font-mono bg-gray-100 px-2 rounded">42277</span></div>
+                         <div class="flex justify-between"><span>Admin Office (Undercroft)</span><span class="font-mono bg-gray-100 px-2 rounded">42257</span></div>
+                         <div class="flex justify-between"><span>Admin Office (Minors)</span><span class="font-mono bg-gray-100 px-2 rounded">43091</span></div>
+                        <div class="flex justify-between"><span>Switchboard</span><span class="font-mono bg-gray-100 px-2 rounded">0</span></div>
+                    </div>
+                </div>
+
+                <!-- Card: Specialty Bleeps -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Specialty Bleeps</div>
+                    <div class="p-4 space-y-2 text-sm max-h-80 overflow-y-auto">
+                        <div class="flex justify-between"><span>RMO</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">1085</span></div>
+                        <div class="flex justify-between"><span>RSO (Surgery)</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3123</span></div>
+                        <div class="flex justify-between"><span>Surgical SpR</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3125</span></div>
+                        <div class="flex justify-between"><span>ENT SHO</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3124</span></div>
+                        <div class="flex justify-between"><span>T&O SpR</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3010</span></div>
+                        <div class="flex justify-between"><span>Gynae SpR</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3193</span></div>
+                        <div class="flex justify-between"><span>Cardiac Triage</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">2331</span></div>
+                        <div class="flex justify-between"><span>Psych Liaison (PLT)</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3344</span></div>
+                        <div class="flex justify-between"><span>OPAL Consultant</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">2060</span></div>
+                        <div class="flex justify-between"><span>OPAL Therapist</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">0213</span></div>
+                        <div class="mt-4 pt-2 border-t text-xs text-gray-500">
+                            <strong>Note:</strong> Vascular SpR & Urology SpR (In-hours) via Switch (Dial 0).
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Card: More Codes -->
+                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Access Codes (Full List)</div>
+                    <div class="p-4 space-y-2 text-sm">
+                        <div class="flex justify-between"><span>All Staff Lounge</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C2679X</span></div>
+                        <div class="flex justify-between"><span>Majors C Kitchen</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C2675X</span></div>
+                        <div class="flex justify-between"><span>Middle Grade Room</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C4590Z</span></div>
+                        <div class="flex justify-between"><span>Minors Staff Room</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C6235Y</span></div>
+                        <div class="flex justify-between"><span>Minors Clinical Rooms</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C1267Y</span></div>
+                        <div class="flex justify-between"><span>Staff Toilets</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C457XY</span></div>
+                        <div class="flex justify-between"><span>Majors A Reception</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">42265 / 42257</span></div>
+                    </div>
+                </div>
+                
+                 <!-- Card: Medical Workforce Leads -->
+                 <div class="bg-white rounded-xl shadow-sm overflow-hidden md:col-span-2 lg:col-span-3">
+                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Workforce & Leadership</div>
+                    <div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                        
+                        <!-- New Key Consultants Block -->
+                        <div class="p-2 border border-blue-200 bg-blue-50 rounded">
+                            <p class="font-bold text-blue-800 mb-1">Key ED Consultants</p>
+                            <div class="space-y-1">
+                                <p class="text-sm"><strong>Dr Shruti Mehra</strong> <span class="text-xs text-gray-500">(Induction Lead)</span></p>
+                                <p class="text-sm"><strong>Dr Selina Ball</strong> <span class="text-xs text-gray-500">(Specialty Tutor)</span></p>
+                                <p class="text-sm"><strong>Dr Viorica Samoila</strong> <span class="text-xs text-gray-500">(Rota Lead BHH)</span></p>
+                                <p class="text-sm"><strong>Dr Rangaraju Ragunathan</strong> <span class="text-xs text-gray-500">(Rota Lead GHH)</span></p>
+                                <p class="text-sm"><strong>Dr Amin Albahari</strong> <span class="text-xs text-gray-500">(EDI Lead)</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Chief Registrars Block -->
+                        <div class="p-2 border border-blue-200 bg-blue-50 rounded">
+                            <p class="font-bold text-blue-800 mb-1">Chief Registrars</p>
+                            <div class="space-y-1">
+                                <p class="text-sm"><strong>Adele & Bushra</strong> <span class="text-xs text-gray-500">(BHH)</span></p>
+                                <p class="text-sm"><strong>Mo</strong> <span class="text-xs text-gray-500">(GHH)</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Audit/QIP Leads -->
+                         <div class="p-2 border border-emerald-200 bg-emerald-50 rounded">
+                            <p class="font-bold text-emerald-800 mb-1">Audit & QIP Leads</p>
+                            <div class="space-y-1">
+                                <p class="text-sm">Jo Flowers</p>
+                                <p class="text-sm">Rachael Boddy</p>
+                            </div>
+                        </div>
+
+                        <div class="p-2 border rounded">
+                            <p class="font-bold text-gray-700">Sabia Tuohey (ED All)</p>
+                            <p class="text-xs text-blue-600">0777 6606 362</p>
+                        </div>
+                        <div class="p-2 border rounded">
+                            <p class="font-bold text-gray-700">Abid Ali (Med BHH)</p>
+                            <p class="text-xs text-blue-600">07792 029 714</p>
+                        </div>
+                         <div class="p-2 border rounded">
+                            <p class="font-bold text-gray-700">Michelle Jeffreys (Med GHH)</p>
+                            <p class="text-xs text-blue-600">07814 380 362</p>
+                        </div>
+                        <div class="p-2 border rounded">
+                            <p class="font-bold text-gray-700">Aneela Razaq (Med QEHB)</p>
+                            <p class="text-xs text-blue-600">07776 606 344</p>
+                        </div>
+                         <div class="p-2 border rounded">
+                            <p class="font-bold text-gray-700">Sallyanne Jones (Surgery)</p>
+                            <p class="text-xs text-blue-600">07776 605 933</p>
+                        </div>
+                         <div class="p-2 border rounded">
+                            <p class="font-bold text-gray-700">Neil Griffiths (T&O)</p>
+                            <p class="text-xs text-blue-600">07854 996 134</p>
+                        </div>
+                         <div class="p-2 border rounded">
+                            <p class="font-bold text-gray-700">Gaye Halliday (Paeds/Obs)</p>
+                            <p class="text-xs text-blue-600">07919 042 698</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLINICAL SECTION -->
+        <div id="clinical" class="section-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-slate-800">Critical Clinical Guidelines</h2>
+            <p class="text-gray-600">Red flags and referral pathways for high-risk presentations.</p>
+
+            <!-- New Mandatory Review Card -->
+            <div class="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-4 shadow-sm mb-4">
+                <h3 class="text-lg font-bold text-orange-800 flex items-center mb-2">
+                    <i class="fas fa-user-check mr-2"></i> Mandatory Senior Review (ST4+)
+                </h3>
+                <p class="text-sm text-gray-700 mb-2">The following patients <strong>MUST</strong> be reviewed/discharged by an ST4 or above:</p>
+                <ul class="list-disc list-inside text-sm text-gray-800 font-medium space-y-1">
+                    <li>Atraumatic Chest Pain (Age > 30)</li>
+                    <li>Abdominal Pain (Age > 70)</li>
+                    <li>Fever in children (Age < 1 year)</li>
+                    <li>All Re-attenders (Unscheduled return within 72 hrs)</li>
+                </ul>
+                 <p class="text-xs text-gray-500 mt-2"><em>*ECGs can be signed by FY2+, but escalate if unsure.</em></p>
+            </div>
+
+            <!-- New Radiology Vetting Card -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm mb-4">
+                <h3 class="text-lg font-bold text-blue-800 flex items-center mb-2">
+                    <i class="fas fa-radiation mr-2"></i> Radiology Vetting Rules
+                </h3>
+                <p class="text-sm text-gray-700"><strong>General Rule:</strong> All CT/MRI requests require vetting by the Duty Radiologist (Ext 42374 / 40345).</p>
+                <div class="mt-2 text-sm">
+                    <span class="font-bold text-blue-900">EXCEPTIONS (No call needed):</span>
+                    <ul class="list-disc list-inside mt-1 text-gray-800">
+                        <li><strong>CT Head:</strong> Trauma / Stroke (As per NICE) - <em>Any time.</em></li>
+                        <li><strong>CT KUB:</strong> Renal Colic - <em>In hours only.</em></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accordion Container -->
+            <div class="space-y-4">
+                
+                <!-- Cauda Equina -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 bg-red-50 hover:bg-red-100 flex justify-between items-center" onclick="toggleAccordion('ces')">
+                        <span><i class="fas fa-exclamation-triangle text-red-500 mr-2"></i> Cauda Equina Syndrome (CES)</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ces"></i>
+                    </button>
+                    <div id="content-ces" class="hidden px-6 py-4 border-t border-red-100">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-bold text-red-700 mb-2">Red Flags (NICE)</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1 text-gray-700">
+                                    <li>Bilateral sciatica</li>
+                                    <li>Severe/Progressive bilateral leg weakness</li>
+                                    <li>Difficulty initiating micturition</li>
+                                    <li>Urinary retention / Overflow incontinence</li>
+                                    <li>Loss of rectal fullness sensation / Faecal incontinence</li>
+                                    <li>Saddle anaesthesia (Perianal/Genital)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-2">Management</h4>
+                                <p class="text-sm text-gray-700 mb-2"><strong>Emergency MRI is MANDATORY.</strong></p>
+                                <p class="text-sm text-gray-700">Discussion with local spinal services is NOT required to request the MRI, but request form must contain detailed clinical info.</p>
+                                <p class="text-sm text-gray-700 mt-2">If scan positive: Refer to Neurosurgery immediately.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AAA -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('aaa')">
+                        <span><i class="fas fa-heartbeat text-red-500 mr-2"></i> Abdominal Aortic Aneurysm (AAA)</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-aaa"></i>
+                    </button>
+                    <div id="content-aaa" class="hidden px-6 py-4 border-t">
+                        <p class="text-sm text-gray-700 mb-2"><strong>Symptoms:</strong> Sudden severe pain (abdo/back/pelvis), Clammy/sweaty, Increased HR, Low BP, Syncope.</p>
+                        <div class="bg-blue-50 p-3 rounded-lg text-sm border-l-4 border-blue-500">
+                            <strong>Action:</strong> 
+                            <ul class="list-decimal list-inside mt-1">
+                                <li>Request CT Aortogram (Arterial Phase).</li>
+                                <li>Discuss with Vascular Team at BHH (via Switch).</li>
+                                <li>Confirm imaging modality with vascular clinician if unsure.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aortic Dissection -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ad')">
+                        <span><i class="fas fa-random text-red-500 mr-2"></i> Aortic Dissection</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ad"></i>
+                    </button>
+                    <div id="content-ad" class="hidden px-6 py-4 border-t">
+                         <p class="text-sm text-gray-700 mb-2"><strong>Presentation:</strong> Tearing chest pain radiating to back/neck/jaw. Pulse deficit. Systolic BP difference in arms.</p>
+                         <p class="text-sm text-gray-700 mb-2"><strong>Investigation:</strong> CT Angiogram / MRI is the ONLY definitive diagnostic investigation. (CXR/ECG/USS often normal).</p>
+                         <p class="text-sm text-gray-700"><strong>Referral:</strong> Cardiothoracic team at QE (via Switch). Control BP and HR.</p>
+                    </div>
+                </div>
+                
+                 <!-- Necrotising Fasciitis -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('nf')">
+                        <span><i class="fas fa-bacteria text-red-500 mr-2"></i> Necrotising Fasciitis</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-nf"></i>
+                    </button>
+                    <div id="content-nf" class="hidden px-6 py-4 border-t">
+                         <p class="text-sm text-gray-700 mb-2"><strong>Presentation:</strong> Intense pain disproportionate to skin injury. High fever. Swelling/redness. Later: Dark blotches/blisters.</p>
+                         <div class="bg-red-50 p-3 rounded-lg text-sm border-l-4 border-red-500">
+                             <strong>Action (Category 1 Emergency):</strong>
+                             <ul class="list-disc list-inside mt-1">
+                                 <li>Sepsis 6 Bundle immediately (IV Abx, Fluids, Lactate).</li>
+                                 <li>Urgent Senior Review to exclude Necrotising Fasciitis.</li>
+                                 <li>Refer Urgent General Surgery (Body) or ENT (Neck) or Vascular (Leg Gangrene).</li>
+                             </ul>
+                         </div>
+                    </div>
+                </div>
+                
+                 <!-- Ectopic Pregnancy -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ep')">
+                        <span><i class="fas fa-baby text-red-500 mr-2"></i> Ruptured Ectopic Pregnancy</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ep"></i>
+                    </button>
+                    <div id="content-ep" class="hidden px-6 py-4 border-t">
+                         <p class="text-sm text-gray-700 mb-2"><strong>Rule:</strong> All women of childbearing age with abdominal pain MUST have a pregnancy test.</p>
+                         <p class="text-sm text-gray-700 mb-2"><strong>Red Flags:</strong> Severe pain, peritonism, shoulder tip pain, syncope.</p>
+                         <p class="text-sm text-gray-700"><strong>Action:</strong> TV Ultrasound is diagnostic. Refer Gynae urgently if positive/unstable.</p>
+                    </div>
+                </div>
+
+                <!-- Testicular Torsion -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('tt')">
+                        <span><i class="fas fa-mars text-red-500 mr-2"></i> Testicular Torsion</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-tt"></i>
+                    </button>
+                    <div id="content-tt" class="hidden px-6 py-4 border-t">
+                        <div class="bg-red-50 p-3 rounded text-sm text-red-800 mb-2"><strong>"If in doubt, explore."</strong> Time is testis.</div>
+                        <p class="text-sm text-gray-700"><strong>Action:</strong></p>
+                        <ul class="list-disc list-inside text-sm text-gray-700">
+                            <li><strong>>16 Years (BHH & QE):</strong> Stream direct to SAU. Urology on-call.</li>
+                            <li><strong>>16 Years (GHH):</strong> ED review < 60 mins. Blue light transfer to BHH Urology.</li>
+                            <li><strong><16 Years:</strong> Senior Paediatric Surgical Review.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                 <!-- Airway Obstruction -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ao')">
+                        <span><i class="fas fa-wind text-red-500 mr-2"></i> Airway Obstruction (Tracheostomy)</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ao"></i>
+                    </button>
+                    <div id="content-ao" class="hidden px-6 py-4 border-t">
+                         <p class="text-sm text-gray-700 mb-2"><strong>Red Flags:</strong> Stridor, vocal changes, unable to swallow, trismus.</p>
+                         <p class="text-sm text-gray-700"><strong>Action:</strong> Assess for airway signs. Escalate immediately if clinical concern. High risk of hypoxic cardiac arrest.</p>
+                    </div>
+                </div>
+                
+                 <!-- NAI -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('nai')">
+                        <span><i class="fas fa-child text-red-500 mr-2"></i> Non-Accidental Injury (NAI)</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-nai"></i>
+                    </button>
+                    <div id="content-nai" class="hidden px-6 py-4 border-t">
+                         <div class="bg-red-50 p-3 rounded text-sm text-red-800 mb-2"><strong>"Don't Cruise, Don't Bruise."</strong></div>
+                         <p class="text-sm text-gray-700"><strong>Rule:</strong> All injuries in children < 1 year who do not mobilise need F2F review with a Consultant. Overnight they are admitted to PAU.</p>
+                    </div>
+                </div>
+
+                <!-- Specialty Referral Table -->
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden mt-6">
+                    <div class="px-6 py-4 bg-gray-800 text-white font-bold">Referral Matrix (BHH vs GHH)</div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-100 text-gray-600 uppercase">
+                                <tr>
+                                    <th class="px-6 py-3">Specialty</th>
+                                    <th class="px-6 py-3">Heartlands (BHH)</th>
+                                    <th class="px-6 py-3">Good Hope (GHH)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Stroke</td>
+                                    <td class="px-6 py-3">Discuss w/ Stroke Nurse QE. HASU is at QE.</td>
+                                    <td class="px-6 py-3">Same as BHH.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Cardiology</td>
+                                    <td class="px-6 py-3">24hr PPCI service.</td>
+                                    <td class="px-6 py-3">Discuss w/ Cardio Reg or Consultant. Transfer to BHH if STEMI.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Urology</td>
+                                    <td class="px-6 py-3">24hr Reg/Consultant cover (offsite overnight).</td>
+                                    <td class="px-6 py-3">No cover. Refer to BHH Urology (Reg day, RSO night).</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">ENT</td>
+                                    <td class="px-6 py-3">24hr. Refer via ENT SHO bleep.</td>
+                                    <td class="px-6 py-3">No cover. Refer to BHH ENT.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Neurosurgery</td>
+                                    <td class="px-6 py-3" colspan="2">Located at QE. Use <strong>NORSE</strong> online referral. Urgent? Call SpR.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                 </div>
+
+            </div>
+        </div>
+
+        <!-- ROTA & HR SECTION -->
+        <div id="admin" class="section-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-slate-800">Rota & HR Procedures</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Sickness Reporting -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-orange-500">
+                    <h3 class="text-lg font-bold text-orange-600 mb-3"><i class="fas fa-file-medical-alt mr-2"></i> Sickness Reporting</h3>
+                    <p class="text-sm text-gray-600 mb-4">You must notify the department if you are unable to attend.</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div class="bg-orange-100 text-orange-800 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">1</div>
+                            <div class="text-sm"><strong>Email:</strong> juniordoctorsickness@uhb.nhs.uk <br> <span class="text-xs text-gray-500">Include: Name, Number, Grade, Shift, Site, Reason, Return Date.</span></div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-orange-100 text-orange-800 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">2</div>
+                            <div class="text-sm"><strong>Call:</strong> Consultant via Switchboard (08:00-22:30). Overnight, call ED and ask for Reg/Consultant.</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-orange-100 text-orange-800 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">3</div>
+                            <div class="text-sm"><strong>Return:</strong> Complete 'Return to Work' form with Supervisor upon return.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leave & Swaps -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
+                    <h3 class="text-lg font-bold text-green-600 mb-3"><i class="fas fa-calendar-check mr-2"></i> Leave & Swaps</h3>
+                    <ul class="text-sm space-y-2 text-gray-700">
+                        <li><strong>System:</strong> Submit via <span class="font-semibold text-blue-600">Employee Online</span>.</li>
+                        <li><strong>Notice:</strong> At least 6 weeks in advance.</li>
+                        <li><strong>Restrictions:</strong> No annual leave on nights/weekends (must swap).</li>
+                        <li><strong>Swaps:</strong> Must use swap form. Email to <a href="mailto:a&erotateam@uhb.nhs.uk" class="text-blue-600 hover:underline">a&erotateam@uhb.nhs.uk</a>.</li>
+                        <li><strong>Bank Holidays:</strong> You are not automatically off. If rostered, you work.</li>
+                    </ul>
+                </div>
+                
+                 <!-- Study Leave & Expenses -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-500">
+                    <h3 class="text-lg font-bold text-indigo-600 mb-3"><i class="fas fa-book-reader mr-2"></i> Study Leave & Expenses</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm mb-2">1. Applying for Study Leave</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                <li><strong>Supervisor Approval:</strong> You must first get approval from your Educational/Clinical Supervisor.</li>
+                                <li><strong>Dual Application:</strong> Apply on <strong>BOTH</strong> Employee Online (EOL) and Accent systems. The Trust cannot approve unless submitted on both.</li>
+                                <li><strong>Access EOL:</strong> Access via the 'E' on the HGS intranet page under "Skills, Training & HR".</li>
+                                <li><strong>Timeline:</strong> Submit in good time to allow for cover planning.</li>
+                                <li><strong>Service:</strong> Centralised at Heartlands. Correspondence goes to the Study Leave email.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm mb-2">2. Claiming Expenses</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                <li><strong>Prior Approval:</strong> Study leave must be approved by Postgraduate Medical Education before you can claim.</li>
+                                <li><strong>Register:</strong> You will receive an email to register with Finance Tools (complete Data Capture Form with payroll number).</li>
+                                <li><strong>Log On:</strong> <a href="http://nww.fintools.uhb.nhs.uk/UHBFT" class="text-blue-600 hover:underline">nww.fintools.uhb.nhs.uk/UHBFT</a> or via 'ME@qehb' link.</li>
+                                <li><strong>Create Claim:</strong> Click "New Claim" on dashboard.</li>
+                                <li><strong>Travel (Car):</strong> Select "Travel" > "Course Mileage". Enter postcodes.</li>
+                                <li><strong>Fees:</strong> Use "Courses Icon". Max per item £500 (split if higher).</li>
+                                <li><strong>Receipts:</strong> Upload all receipts/proof of attendance as PDF.</li>
+                                <li><strong>Submit:</strong> Move claim to 'Line Manager' for approval. Claims at 'Originator' level are not processed.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm mb-2">Key Contacts</h4>
+                            <div class="text-sm text-gray-700 grid grid-cols-1 gap-2">
+                                <p><strong>General Queries:</strong> <a href="mailto:hgsstudy.leave@uhb.nhs.uk" class="text-blue-600">hgsstudy.leave@uhb.nhs.uk</a></p>
+                                <p><strong>Advisor:</strong> Angela Bird (<a href="mailto:Angela.Bird@uhb.nhs.uk" class="text-blue-600">Angela.Bird@uhb.nhs.uk</a>)</p>
+                                <p><strong>E-Rostering (EOL Login):</strong> <a href="mailto:erosteringdoctors@heartofengland.nhs.uk" class="text-blue-600">erosteringdoctors@heartofengland.nhs.uk</a> (Ext: 48948)</p>
+                                <p><strong>Expenses Team Leader:</strong> Asha Ellerton (<a href="mailto:Asha.Ellerton@uhb.nhs.uk" class="text-blue-600">Asha.Ellerton@uhb.nhs.uk</a>)</p>
+                                <p><strong>Relocation (HEE):</strong> <a href="mailto:Relocationexpenses.HEE@uhb.nhs.uk" class="text-blue-600">Relocationexpenses.HEE@uhb.nhs.uk</a></p>
+                                <p><strong>Payroll:</strong> 0121 371 7518</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Locum Bank -->
+                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
+                    <h3 class="text-lg font-bold text-purple-600 mb-3"><i class="fas fa-pound-sign mr-2"></i> Locum Bank</h3>
+                    <ul class="text-sm space-y-2 text-gray-700">
+                        <li><strong>System:</strong> TempRE (<a href="http://www.tempreupgrade.co.uk" target="_blank" class="text-blue-600">www.tempreupgrade.co.uk</a>)</li>
+                        <li><strong>Register:</strong> Email <a href="mailto:UHBLocumregister@uhb.nhs.uk" class="text-blue-600">UHBLocumregister@uhb.nhs.uk</a></li>
+                        <li><strong>Rates (Core/Unsocial):</strong>
+                            <ul class="list-disc list-inside ml-2 text-xs text-gray-600">
+                                <li>SHO: £50.00 / £55.00</li>
+                                <li>SpR: £70.00 / £80.00</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contacts -->
+                <div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3">Workforce Contacts</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                        <div class="p-3 bg-gray-50 rounded">
+                            <p class="font-bold text-gray-700">Sabia Tuohey</p>
+                            <p class="text-xs text-gray-500">ED Workforce Lead</p>
+                            <p class="text-blue-600">0777 6606 362</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded">
+                            <p class="font-bold text-gray-700">Zoya Nazir</p>
+                            <p class="text-xs text-gray-500">Medical Rota Coord</p>
+                            <p class="text-blue-600">0788 0137 419</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded">
+                            <p class="font-bold text-gray-700">Catherine Aagaard</p>
+                            <p class="text-xs text-gray-500">Locum Booking</p>
+                            <p class="text-blue-600">0782 5196 892</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded">
+                            <p class="font-bold text-gray-700">Rota Team Email</p>
+                            <p class="text-blue-600 break-words">AandErotateam@uhb.nhs.uk</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded">
+                            <p class="font-bold text-gray-700">Payroll</p>
+                            <p class="text-blue-600">heftpayroll@uhb.nhs.uk</p>
+                        </div>
+                         <div class="p-3 bg-gray-50 rounded">
+                            <p class="font-bold text-gray-700">Parking</p>
+                            <p class="text-blue-600">car.parking-staff@uhb.nhs.uk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION & WELLBEING SECTION -->
+        <div id="education" class="section-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-slate-800">Education & Wellbeing</h2>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4 rounded shadow-sm">
+                 <p class="font-bold text-blue-800"><i class="fas fa-info-circle mr-2"></i>IMG Extended Induction</p>
+                 <p class="text-sm text-blue-700">All International Medical Graduates (IMGs) / JSDs undergo an extended induction (min. 4 weeks). <strong>You are not required to undertake nights until this is completed.</strong></p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Teaching -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-blue-700 mb-3"><i class="fas fa-graduation-cap mr-2"></i> Teaching Schedule</h3>
+                    <p class="text-sm text-gray-700 mb-4">
+                        All new juniors attend the initial 4 teaching days.
+                    </p>
+                    <ul class="text-sm space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> <strong>Day 1:</strong> Medical Emergencies (Chest Pain, Sepsis, Stroke).</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> <strong>Day 2:</strong> Paediatrics & Surgical Presentations.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> <strong>Day 3:</strong> Major Trauma, Head Injury, Poisoning.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> <strong>Day 4:</strong> Women's Health, ENT, Eyes, Minor Injuries.</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t">
+                        <p class="text-sm"><strong>Specialty Tutor:</strong> Dr Selina Ball (<a href="mailto:Selina.ball@uhb.nhs.uk" class="text-blue-600">Selina.ball@uhb.nhs.uk</a>)</p>
+                         <p class="text-sm mt-1"><strong>Appraisals:</strong> Discuss Kaizen or Trust Portfolio with your supervisor.</p>
+                    </div>
+                </div>
+
+                <!-- Wellbeing -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-teal-700 mb-3"><i class="fas fa-heart mr-2"></i> Wellbeing & EDI</h3>
+                    <div class="bg-teal-50 p-4 rounded-lg mb-4">
+                        <p class="font-bold text-teal-900 text-sm">Wellbeing Support</p>
+                        <p class="text-sm text-gray-700">Contact: <strong>Darren Taylor</strong></p>
+                        <p class="text-sm text-blue-600">Darren.Taylor@uhb.nhs.uk | 07917 599 396</p>
+                    </div>
+                     <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                        <p class="font-bold text-purple-900 text-sm">EDI & Sexual Safety</p>
+                        <p class="text-sm text-gray-700">EDI Lead: <strong>Dr Amin Albahari</strong> (<a href="mailto:amin.albahari@uhb.nhs.uk" class="text-blue-600">amin.albahari@uhb.nhs.uk</a>)</p>
+                        <p class="text-xs text-gray-600 mt-1">We support the "Sexual Safety" campaign. Report concerns to consultants or HR.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Learning Links -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mt-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-3">Useful Learning Links</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    <a href="https://www.rcemlearning.co.uk/foamed/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-external-link-alt mr-2 text-xs"></i> RCEM Learning</a>
+                    <a href="https://www.rcemlearning.co.uk/rcem-induction/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-external-link-alt mr-2 text-xs"></i> RCEM Induction Modules</a>
+                    <a href="https://www.openevidence.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-robot mr-2 text-xs"></i> OpenEvidence (AI)</a>
+                    <a href="https://www.mdcalc.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-calculator mr-2 text-xs"></i> MDCalc</a>
+                    <a href="https://www.uhb.nhs.uk/major-trauma" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-ambulance mr-2 text-xs"></i> Midlands Major Trauma</a>
+                    <a href="https://dontforgetthebubbles.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-comment-medical mr-2 text-xs"></i> Don't Forget The Bubbles</a>
+                    <a href="https://litfl.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-book-medical mr-2 text-xs"></i> LITFL</a>
+                    <a href="https://theresusroom.co.uk/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-podcast mr-2 text-xs"></i> The Resus Room</a>
+                </div>
+            </div>
+
+            <!-- Essential Apps -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mt-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-3">Essential Mobile Apps</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    <a href="https://www.accurx.com/" target="_blank" class="p-3 bg-white hover:bg-green-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
+                        <div class="bg-green-100 text-green-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-comment-dots"></i></div>
+                        Accurx
+                    </a>
+                    <a href="https://bnf.nice.org.uk/" target="_blank" class="p-3 bg-white hover:bg-blue-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
+                        <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-book"></i></div>
+                        BNF
+                    </a>
+                    <a href="https://www.toxbase.org/" target="_blank" class="p-3 bg-white hover:bg-yellow-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
+                        <div class="bg-yellow-100 text-yellow-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-skull-crossbones"></i></div>
+                        Toxbase
+                    </a>
+                    <a href="https://www.resus.org.uk/library/publications/iresus-app" target="_blank" class="p-3 bg-white hover:bg-red-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
+                        <div class="bg-red-100 text-red-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-heartbeat"></i></div>
+                        iResus
+                    </a>
+                    <a href="https://bestpractice.bmj.com/" target="_blank" class="p-3 bg-white hover:bg-indigo-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
+                        <div class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-stethoscope"></i></div>
+                        BMJ Best Practice
+                    </a>
+                    <a href="https://www.fractureeducation.info/" target="_blank" class="p-3 bg-white hover:bg-gray-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
+                        <div class="bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-bone"></i></div>
+                        Fracture App
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-6 text-center text-sm">
+        <p>University Hospitals Birmingham NHS Foundation Trust</p>
+        <p class="mt-1">Designed for internal reference. Ensure clinical judgment is always applied.</p>
+        <p class="mt-2 text-xs text-gray-600">Last updated: Oct 2025</p>
+    </footer>
+
+    <script>
+        // Data for Search
+        const directoryData = [
+            { name: "Resus Access", number: "40894", type: "Code" },
+            { name: "Staff Lounge", number: "C2679X", type: "Code" },
+            { name: "Middle Grade Room", number: "C4590Z", type: "Code" },
+            { name: "Minors Staff Room", number: "C6235Y", type: "Code" },
+            { name: "Minors Clinical", number: "C1267Y", type: "Code" },
+            { name: "Majors C Kitchen", number: "C2675X", type: "Code" },
+            { name: "Majors A Nurse Station", number: "42274", type: "Ext" },
+            { name: "Majors B Nurse Station", number: "40274", type: "Ext" },
+            { name: "Majors C Nurse Station", number: "41266", type: "Ext" },
+            { name: "Majors A Reception", number: "42265", type: "Ext" },
+            { name: "CT Room", number: "41289", type: "Ext" },
+            { name: "Duty Radiologist", number: "40345", type: "Ext" },
+            { name: "RMO", number: "1085", type: "Bleep" },
+            { name: "RSO (Surgery)", number: "3123", type: "Bleep" },
+            { name: "Surgical SpR", number: "3125", type: "Bleep" },
+            { name: "ENT SHO", number: "3124", type: "Bleep" },
+            { name: "T&O SpR", number: "3010", type: "Bleep" },
+            { name: "Gynae SpR", number: "3193", type: "Bleep" },
+            { name: "Cardiac Triage", number: "2331", type: "Bleep" },
+            { name: "Psych Liaison (PLT)", number: "3344", type: "Bleep" },
+            { name: "OPAL Consultant", number: "2060", type: "Bleep" },
+            { name: "IT Support", number: "41130", type: "Ext" },
+            { name: "EDAA Reception", number: "40130", type: "Ext" },
+            { name: "Paeds Reception", number: "40481", type: "Ext" },
+            { name: "Admin (Undercroft)", number: "42257", type: "Ext" },
+             { name: "Admin (Minors)", number: "43091", type: "Ext" },
+            { name: "Switchboard", number: "0", type: "Ext" }
+        ];
+
+        // Section Navigation Logic
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('fade-in');
+            });
+
+            // Show selected section
+            const selected = document.getElementById(sectionId);
+            selected.classList.remove('hidden');
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Accordion Logic
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Directory Search Logic
+        function filterDirectory() {
+            const input = document.getElementById('directorySearch').value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+
+            if (input.length < 1) {
+                resultsContainer.innerHTML = '<div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>';
+                return;
+            }
+
+            const filtered = directoryData.filter(item => 
+                item.name.toLowerCase().includes(input) || 
+                item.number.includes(input)
+            );
+
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = '<div class="text-sm text-gray-500">No results found.</div>';
+                return;
+            }
+
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center p-2 hover:bg-blue-50 rounded border border-gray-100';
+                div.innerHTML = `
+                    <span class="text-sm font-medium text-gray-700">${item.name}</span>
+                    <span class="text-xs font-mono font-bold ${getBadgeColor(item.type)} px-2 py-1 rounded">${item.number} <span class="opacity-50 ml-1 text-[10px] uppercase">${item.type}</span></span>
+                `;
+                resultsContainer.appendChild(div);
+            });
+        }
+
+        function getBadgeColor(type) {
+            if (type === 'Code') return 'bg-red-100 text-red-800';
+            if (type === 'Bleep') return 'bg-blue-100 text-blue-800';
+            return 'bg-gray-100 text-gray-800';
+        }
+    </script>
+</body>
+</html>
