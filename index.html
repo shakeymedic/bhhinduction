@@ -6,6 +6,8 @@
     <title>BHH & GHH ED Induction Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Lucide Icons for Who Sees Who -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         
@@ -54,6 +56,55 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* --- Styles for Who Sees Who Tab --- */
+        .poster-container {
+            width: 100%;
+        }
+
+        .card {
+            break-inside: avoid;
+            transition: all 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Masonry-like column layout for standard screens */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .masonry-grid {
+                column-count: 3;
+            }
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.35rem;
+            line-height: 1.4;
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: currentColor;
+            opacity: 0.7;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
@@ -66,17 +117,18 @@
                     <div class="bg-white text-blue-700 font-bold px-2 py-1 text-sm rounded">NHS</div>
                     <span class="font-bold text-lg tracking-tight">Heartlands & Good Hope ED</span>
                 </div>
-                <div class="hidden md:block">
+                <div class="hidden lg:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <button onclick="showSection('dashboard')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Dashboard</button>
                         <button onclick="showSection('contacts')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Contacts</button>
+                        <button onclick="showSection('who-sees-who')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition bg-blue-800 shadow-inner">Who Sees Who</button>
                         <button onclick="showSection('clinical')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Clinical</button>
                         <button onclick="showSection('admin')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Rota & HR</button>
                         <button onclick="showSection('education')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Education</button>
                     </div>
                 </div>
                 <!-- Mobile menu button -->
-                <div class="-mr-2 flex md:hidden">
+                <div class="-mr-2 flex lg:hidden">
                     <button onclick="toggleMobileMenu()" type="button" class="bg-blue-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -85,10 +137,11 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-blue-800" id="mobile-menu">
+        <div class="lg:hidden hidden bg-blue-800" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <button onclick="showSection('dashboard')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Dashboard</button>
                 <button onclick="showSection('contacts')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Contacts</button>
+                <button onclick="showSection('who-sees-who')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 bg-blue-900">Who Sees Who</button>
                 <button onclick="showSection('clinical')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Clinical</button>
                 <button onclick="showSection('admin')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Rota & HR</button>
                 <button onclick="showSection('education')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Education</button>
@@ -100,7 +153,7 @@
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
 
         <!-- DASHBOARD SECTION -->
-        <div id="dashboard" class="section-content space-y-6">
+        <div id="dashboard" class="section-content space-y-6 hidden">
             
             <!-- Welcome Header -->
             <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-6 text-white shadow-lg">
@@ -192,6 +245,276 @@
                     <div class="mt-4 p-3 bg-blue-50 rounded text-xs text-blue-800">
                         <i class="fas fa-info-circle mr-1"></i> <strong>Location:</strong> Seminar Room (Near EDAA Entrance at BHH, First Floor above AMU at GHH).
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WHO SEES WHO SECTION -->
+        <div id="who-sees-who" class="section-content hidden space-y-6">
+            <!-- Header & Search -->
+            <div class="poster-container mb-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6 border-b-4 border-slate-800 pb-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-slate-800 text-white px-2 py-1 text-xs font-bold uppercase tracking-wider rounded">Official Site Guide</span>
+                            <span class="text-slate-500 text-xs font-semibold">BHH Emergency Department</span>
+                        </div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                            Which Specialty? <br class="hidden md:block">
+                            <span class="text-slate-600 font-normal text-2xl md:text-3xl">Adult Admissions (>16 years)</span>
+                        </h1>
+                    </div>
+                    
+                    <div class="w-full md:w-auto no-print">
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"></i>
+                            <input type="text" id="guidelineSearch" placeholder="Search condition..." 
+                                class="w-full md:w-80 pl-10 pr-4 py-3 rounded-lg border border-slate-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2 text-right">Type to filter conditions instantly</p>
+                    </div>
+                </div>
+
+                <!-- Principles Banner -->
+                <div class="bg-slate-100 border-l-4 border-slate-500 p-4 rounded-r-lg mb-8 text-sm md:text-base shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <i data-lucide="scale" class="w-4 h-4"></i> General Principles
+                            </h3>
+                            <ul class="text-slate-600 space-y-1 text-sm list-none ml-1">
+                                <li>• <strong>Face to Face:</strong> All referrals require face-to-face review by the specialty.</li>
+                                <li>• <strong>Admitting Specialty:</strong> Defined by the acute pathology requiring admission.</li>
+                                <li>• <strong>Disputes:</strong> ED Consultant makes the final decision on admission.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <i data-lucide="arrow-right-left" class="w-4 h-4"></i> Conflict Resolution
+                            </h3>
+                            <p class="text-slate-600 text-sm">
+                                Advice on medical management can be sought from RMO1 or Acute Med Consultant. Once referred, onward referral is the specialty's responsibility.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="masonry-grid" id="contentGrid">
+
+                    <!-- MEDICINE -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-blue-500 overflow-hidden" data-category="medicine">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-blue-50 rounded-lg text-blue-600">
+                                <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">Medicine</h2>
+                        </div>
+                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                            <li>Chest Pain</li>
+                            <li>Cardiac Arrhythmia / Palpitations</li>
+                            <li>Shortness of Breath</li>
+                            <li>Haemoptysis</li>
+                            <li>Haematemesis / Melaena</li>
+                            <li>Seizures</li>
+                            <li>Headache</li>
+                            <li>Dysphagia</li>
+                            <li>Lower & Upper Limb DVT</li>
+                            <li>DKA / Hypoglycaemia</li>
+                            <li>Non-Specific Deterioration / Frailty Syndrome</li>
+                            <li>Overdose requiring admission</li>
+                            <li>Renal Failure <span class="text-xs font-normal text-slate-500">(NOT obstructive/outflow)</span></li>
+                            <li>Painless Jaundice</li>
+                            <li>Chronic Pancreatitis</li>
+                            <li>Lower Limb Cellulitis</li>
+                            <li>Loin Pain <span class="text-xs font-normal text-slate-500">(UTI / Uncomplicated Pyelonephritis)</span></li>
+                            <li>Pubic Rami Uncomplicated</li>
+                            <li>Anaemia <span class="text-xs font-normal text-slate-500">(no active bleeding)</span></li>
+                            <li>Dialysis patients with medical conditions</li>
+                            <li>SOL / Spontaneous SAH <span class="text-xs font-normal text-slate-500">(awaiting NORSE)</span></li>
+                            <li>Infection of unclear origin</li>
+                            <li>Haem/Onc complications <span class="text-xs font-normal text-slate-500">(unless surgical e.g. obstruction)</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- GENERAL SURGERY -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-amber-500 overflow-hidden" data-category="surgery">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-amber-50 rounded-lg text-amber-600">
+                                <i data-lucide="scalpel" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">General Surgery</h2>
+                        </div>
+                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                            <li>Acute Abdominal Pain</li>
+                            <li>Acute Pancreatitis / Cholecystitis</li>
+                            <li>Abdominal Trauma</li>
+                            <li>Loin Pain <span class="text-xs font-normal text-slate-500">(Urine clear, no stones/AAA)</span></li>
+                            <li>Abscess <span class="text-xs font-normal text-slate-500">(Trunk, Perineum, Groin)</span></li>
+                            <li>Fresh PR Bleeding</li>
+                            <li>Painful Jaundice</li>
+                            <li>Suspected Necrotising Fasciitis <span class="text-xs font-normal text-slate-500">(Follow pathway)</span></li>
+                            <li>Isolated Chest Injury / Rib # / Pneumothorax</li>
+                            <li>Polytrauma <span class="text-xs font-normal text-slate-500">(Chest/Abdo primary)</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- UROLOGY -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-yellow-500 overflow-hidden" data-category="urology">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-yellow-50 rounded-lg text-yellow-600">
+                                <i data-lucide="droplet" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">Urology</h2>
+                        </div>
+                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                            <li>Loin pain <span class="text-xs font-normal text-slate-500">(Proven/recent stone)</span></li>
+                            <li>Urinary Retention</li>
+                            <li>Visible Haematuria</li>
+                            <li>Fournier's Gangrene <span class="text-xs font-normal text-slate-500">(Nec Fasc genitalia)</span></li>
+                            <li>Complicated Pyelonephritis <span class="text-xs font-normal text-slate-500">(Collections/emphysema)</span></li>
+                            <li>Obstructive Uropathy / Bladder Outflow Obstruction</li>
+                        </ul>
+                    </div>
+
+                    <!-- VASCULAR -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-red-600 overflow-hidden" data-category="vascular">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-red-50 rounded-lg text-red-600">
+                                <i data-lucide="activity" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">Vascular</h2>
+                        </div>
+                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                            <li>Acute Ischaemic Limb</li>
+                            <li>Chronic Limb Ischaemia</li>
+                            <li>AAA <span class="text-xs font-normal text-slate-500">(Bleeding, Ruptured, Dissecting)</span></li>
+                            <li>Diabetic Foot leading to sepsis</li>
+                        </ul>
+                    </div>
+
+                    <!-- TRAUMA & ORTHOPAEDICS -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-emerald-500 overflow-hidden" data-category="ortho">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600">
+                                <i data-lucide="bone" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">Trauma & Orthopaedics</h2>
+                        </div>
+                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                            <li>Limb / Pelvic / Spinal Injuries <span class="text-xs font-normal text-slate-500">(Primary reason)</span></li>
+                            <li>Suspected Cauda Equina <span class="text-xs font-normal text-slate-500">(NOT MSCC)</span></li>
+                            <li>Acute Limb Pain</li>
+                            <li>Abscess <span class="text-xs font-normal text-slate-500">(Upper & Lower Limbs)</span></li>
+                            <li>Upper Limb Cellulitis <span class="text-xs font-normal text-slate-500">(inc. Hand Infections)</span></li>
+                            <li>Osteomyelitis <span class="text-xs font-normal text-slate-500">(Upper or Lower limb)</span></li>
+                            <li>Polytrauma <span class="text-xs font-normal text-slate-500">(Limb/Pelvic primary)</span></li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-emerald-50 rounded text-xs text-emerald-800 border border-emerald-100">
+                            <strong>Exceptions (Admit to Medicine):</strong><br>
+                            Uncomplicated pubic rami fractures.<br>
+                            Isolated vertebral fragility fractures.
+                        </div>
+                    </div>
+
+                    <!-- HEAD INJURIES -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-teal-600 overflow-hidden" data-category="head">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-teal-50 rounded-lg text-teal-600">
+                                <i data-lucide="brain" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">Head Injuries</h2>
+                        </div>
+                        <div class="text-sm text-slate-700 space-y-3 search-content">
+                            <p>Manage according to <strong class="text-teal-700">NICE Guidelines</strong>.</p>
+                            <div class="space-y-1">
+                                <p class="font-semibold">Primary Head Injury:</p>
+                                <p class="text-xs">Make <strong class="text-teal-700">NORSE Referral</strong> for acute advice (transfer or local management).</p>
+                            </div>
+                            <div class="p-3 bg-teal-50 rounded border border-teal-100">
+                                <p class="font-bold text-xs text-teal-800">Exception (Admit to Medicine):</p>
+                                <p class="text-xs text-teal-700">Frail adult, decision NOT for neurosurgical intervention (futility).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GYNAECOLOGY -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-pink-500 overflow-hidden" data-category="gynae">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-pink-50 rounded-lg text-pink-600">
+                                <i data-lucide="flower-2" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">Gynaecology</h2>
+                        </div>
+                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                            <li>Suspected Ectopic <span class="text-xs font-normal text-slate-500">(Haemodynamic compromise)</span></li>
+                            <li>Suspected Miscarriage <span class="text-xs font-normal text-slate-500">(Heavy bleed + compromise)</span></li>
+                            <li>Suspected Ovarian Torsion</li>
+                            <li>Heavy Vaginal Bleeding</li>
+                            <li>PID <span class="text-xs font-normal text-slate-500">(Severe or suspected abscess)</span></li>
+                            <li>Bartholin's Abscess</li>
+                            <li>Complications of Gynae Surgery</li>
+                        </ul>
+                        <div class="mt-4 space-y-2">
+                            <div class="p-2 bg-pink-50 rounded text-xs text-pink-800 border border-pink-100">
+                                <strong>Direct to Gynae CNS (via GAU):</strong><br>
+                                Early pregnancy (<16wks) who are <u>clinically stable</u> (Ectopic/Miscarriage/Hyperemesis).
+                            </div>
+                            <div class="p-2 bg-pink-50 rounded text-xs text-pink-800 border border-pink-100">
+                                <strong>GP Urgent Reviews:</strong><br>
+                                Direct to GAU if stable.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MATERNITY -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-purple-600 overflow-hidden" data-category="maternity">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-purple-50 rounded-lg text-purple-600">
+                                <i data-lucide="baby" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">Maternity (>16 wks)</h2>
+                        </div>
+                        <div class="text-sm text-slate-700 space-y-3 search-content">
+                            <ul class="bullet-list">
+                                <li>Obstetric Emergency <span class="text-xs font-normal text-slate-500">(Bleeding, Pain, Pre-eclampsia)</span></li>
+                            </ul>
+                            <div class="p-2 bg-purple-100 rounded text-purple-900 text-xs font-medium">
+                                Patient stable? → <strong>Direct to MUAU</strong>
+                            </div>
+                            <div class="p-2 bg-red-100 rounded text-red-900 text-xs border border-red-200">
+                                <strong>CRITICAL (Imminent birth, Eclampsia, Arrest):</strong><br>
+                                Treat in ED + Call "Obstetric Emergency" (2222).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ENT -->
+                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-indigo-500 overflow-hidden" data-category="ent">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="p-2 bg-indigo-50 rounded-lg text-indigo-600">
+                                <i data-lucide="ear" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-800">ENT</h2>
+                        </div>
+                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                            <li>Epistaxis</li>
+                            <li>Stridor</li>
+                            <li>Tonsillitis / Quinsy</li>
+                            <li>ENT Malignancy</li>
+                            <li>Head & Neck Soft Tissue Infection</li>
+                            <li>Alimentary Foreign Body <span class="text-xs font-normal text-slate-500">(Above sternal notch)</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="mt-8 text-center text-slate-500 text-xs pb-8 no-print border-t border-slate-200 pt-4">
+                    <p class="mb-2"><strong>Heartlands Site Guide</strong> • Approved by Clinical Service Leads & Hospital Medical Director • For immediate use</p>
+                    <a href="https://drive.google.com/file/d/1YMD-7pSb8MIK4DTwXMP5uZbhiz8_G850/view?usp=sharing" target="_blank" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                        <i data-lucide="file-text" class="w-3 h-3"></i> View Full "Who to Who" Document (PDF)
+                    </a>
+                    <p class="mt-2 opacity-70">Always use clinical judgement. Head injury pathway under review; follow current NORSE/NICE guidance.</p>
                 </div>
             </div>
         </div>
@@ -1029,6 +1352,21 @@
             { name: "Switchboard", number: "0", type: "Ext" }
         ];
 
+        // --- Lucide Icons Logic ---
+        function initLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                console.warn('Lucide icons library not found, icons may be missing.');
+                setTimeout(() => {
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                }, 1000);
+            }
+        }
+
+        // Initialize icons on load
+        window.addEventListener('DOMContentLoaded', initLucideIcons);
+
         // Section Navigation Logic
         function showSection(sectionId) {
             // Hide all sections
@@ -1041,6 +1379,11 @@
             const selected = document.getElementById(sectionId);
             selected.classList.remove('hidden');
             
+            // Re-initialize icons if switching to 'who-sees-who' to ensure they render if added dynamically
+            if (sectionId === 'who-sees-who') {
+                initLucideIcons();
+            }
+
             // Close mobile menu if open
             document.getElementById('mobile-menu').classList.add('hidden');
         }
@@ -1078,7 +1421,7 @@
             }
         }
 
-        // Directory Search Logic
+        // Directory Search Logic (Main Contacts)
         function filterDirectory() {
             const input = document.getElementById('directorySearch').value.toLowerCase();
             const resultsContainer = document.getElementById('searchResults');
@@ -1107,6 +1450,35 @@
                     <span class="text-xs font-mono font-bold ${getBadgeColor(item.type)} px-2 py-1 rounded">${item.number} <span class="opacity-50 ml-1 text-[10px] uppercase">${item.type}</span></span>
                 `;
                 resultsContainer.appendChild(div);
+            });
+        }
+
+        // Guideline Search Logic (Who Sees Who)
+        const guidelineSearchInput = document.getElementById('guidelineSearch');
+        if (guidelineSearchInput) {
+            guidelineSearchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('#who-sees-who .card'); // Scope to the tab
+
+                cards.forEach(card => {
+                    const content = card.querySelector('.search-content').innerText.toLowerCase();
+                    const title = card.querySelector('h2').innerText.toLowerCase();
+                    
+                    if (content.includes(term) || title.includes(term)) {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // If input is empty, ensure all are visible
+                if (term === '') {
+                    cards.forEach(card => {
+                        card.style.display = 'block'; 
+                        card.style.opacity = '1';
+                    });
+                }
             });
         }
 
