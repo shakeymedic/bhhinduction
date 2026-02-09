@@ -98,6 +98,48 @@ const directoryData = [
     { name: "Staff Toilets", number: "C457XY", type: "Code" }
 ];
 
+// --- Dark Mode Logic ---
+function toggleDarkMode() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        document.getElementById('darkModeIcon').classList.remove('fa-sun');
+        document.getElementById('darkModeIcon').classList.add('fa-moon');
+        document.getElementById('darkModeIconMobile').classList.remove('fa-sun');
+        document.getElementById('darkModeIconMobile').classList.add('fa-moon');
+    } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        document.getElementById('darkModeIcon').classList.remove('fa-moon');
+        document.getElementById('darkModeIcon').classList.add('fa-sun');
+        document.getElementById('darkModeIconMobile').classList.remove('fa-moon');
+        document.getElementById('darkModeIconMobile').classList.add('fa-sun');
+    }
+}
+
+// Check preference on load
+function initDarkMode() {
+    const theme = localStorage.getItem('theme');
+    const html = document.documentElement;
+    
+    // Check if user has saved preference OR has system dark mode preference
+    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+        const icon = document.getElementById('darkModeIcon');
+        if(icon) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+        const mobileIcon = document.getElementById('darkModeIconMobile');
+        if(mobileIcon) {
+            mobileIcon.classList.remove('fa-moon');
+            mobileIcon.classList.add('fa-sun');
+        }
+    }
+}
+
+
 // --- Lucide Icons Logic ---
 function initLucideIcons() {
     if (typeof lucide !== 'undefined') {
@@ -110,11 +152,10 @@ function initLucideIcons() {
     }
 }
 
-// Initialize icons on load and start on Dashboard
+// Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
     initLucideIcons();
-    // Ensure dashboard is visible and other sections hidden on fresh load
-    // Although HTML has it visible by default now, this ensures state consistency
+    initDarkMode();
     showSection('dashboard');
 });
 
@@ -135,14 +176,16 @@ function showSection(sectionId) {
     // Update Active Button State
     updateNavButtons(sectionId);
     
-    // Re-initialize icons if switching to 'who-sees-who' to ensure they render if added dynamically
+    // Re-initialize icons if switching to 'who-sees-who'
     if (sectionId === 'who-sees-who') {
         initLucideIcons();
     }
 
     // Close mobile menu if open
     const mobileMenu = document.getElementById('mobile-menu');
-    if(mobileMenu) mobileMenu.classList.add('hidden');
+    if(mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+    }
 }
 
 function updateNavButtons(activeId) {
@@ -153,9 +196,9 @@ function updateNavButtons(activeId) {
         const btn = document.getElementById(`nav-${id}`);
         if(btn) {
             if(id === activeId) {
-                btn.classList.add('bg-blue-800', 'shadow-inner');
+                btn.classList.add('bg-blue-900', 'dark:bg-slate-800', 'shadow-inner');
             } else {
-                btn.classList.remove('bg-blue-800', 'shadow-inner');
+                btn.classList.remove('bg-blue-900', 'dark:bg-slate-800', 'shadow-inner');
             }
         }
     });
@@ -180,21 +223,7 @@ function toggleAccordion(id) {
     }
 }
 
-// Sub-Accordion Logic
-function toggleSubAccordion(id) {
-    const content = document.getElementById(`content-${id}`);
-    const icon = document.getElementById(`icon-${id}`);
-    
-    if (content.classList.contains('hidden')) {
-        content.classList.remove('hidden');
-        icon.classList.add('rotate-180');
-    } else {
-        content.classList.add('hidden');
-        icon.classList.remove('rotate-180');
-    }
-}
-
-// Directory Search Logic (Main Contacts)
+// Directory Search Logic
 function filterDirectory() {
     const input = document.getElementById('directorySearch').value.toLowerCase();
     const resultsContainer = document.getElementById('searchResults');
@@ -211,15 +240,15 @@ function filterDirectory() {
     );
 
     if (filtered.length === 0) {
-        resultsContainer.innerHTML = '<div class="text-sm text-gray-500">No results found.</div>';
+        resultsContainer.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">No results found.</div>';
         return;
     }
 
     filtered.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'flex justify-between items-center p-2 hover:bg-blue-50 rounded border border-gray-100';
+        div.className = 'flex justify-between items-center p-2 hover:bg-blue-50 dark:hover:bg-slate-700 rounded border border-gray-100 dark:border-slate-600 transition-colors';
         div.innerHTML = `
-            <span class="text-sm font-medium text-gray-700">${item.name}</span>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-200">${item.name}</span>
             <span class="text-xs font-mono font-bold ${getBadgeColor(item.type)} px-2 py-1 rounded">${item.number} <span class="opacity-50 ml-1 text-[10px] uppercase">${item.type}</span></span>
         `;
         resultsContainer.appendChild(div);
@@ -239,24 +268,22 @@ if (guidelineSearchInput) {
             
             if (content.includes(term) || title.includes(term)) {
                 card.style.display = 'block';
-                card.style.opacity = '1';
+                // Reset standard grid/masonry display if needed, block usually works
             } else {
                 card.style.display = 'none';
             }
         });
 
-        // If input is empty, ensure all are visible
         if (term === '') {
             cards.forEach(card => {
                 card.style.display = 'block'; 
-                card.style.opacity = '1';
             });
         }
     });
 }
 
 function getBadgeColor(type) {
-    if (type === 'Code') return 'bg-red-100 text-red-800';
-    if (type === 'Bleep') return 'bg-blue-100 text-blue-800';
-    return 'bg-gray-100 text-gray-800';
+    if (type === 'Code') return 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300';
+    if (type === 'Bleep') return 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300';
+    return 'bg-gray-100 dark:bg-slate-600 text-gray-800 dark:text-gray-200';
 }
