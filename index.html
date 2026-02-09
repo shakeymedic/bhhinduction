@@ -5,45 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BHH & GHH ED Induction Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 antialiased min-h-screen flex flex-col transition-colors duration-200">
 
-    <nav class="nhs-blue text-white sticky top-0 z-50 shadow-lg">
+    <nav class="bg-blue-800 dark:bg-slate-900 text-white sticky top-0 z-50 shadow-lg border-b border-blue-900 dark:border-slate-800 transition-colors duration-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
-                    <div class="bg-white text-blue-700 font-bold px-2 py-1 text-sm rounded">NHS</div>
+                    <div class="bg-white text-blue-800 font-bold px-2 py-1 text-sm rounded">NHS</div>
                     <span class="font-bold text-lg tracking-tight">Heartlands & Good Hope ED</span>
                 </div>
-                <div class="hidden lg:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <button onclick="showSection('dashboard')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition bg-blue-800 shadow-inner" id="nav-dashboard">Dashboard</button>
-                        <button onclick="showSection('contacts')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-contacts">Contacts</button>
-                        <button onclick="showSection('who-sees-who')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-who-sees-who">Who Sees Who</button>
-                        <button onclick="showSection('clinical')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-clinical">Clinical</button>
-                        <button onclick="showSection('admin')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-admin">Rota & HR</button>
-                        <button onclick="showSection('education')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-education">Education</button>
+                
+                <div class="hidden lg:flex items-center gap-4">
+                    <div class="flex items-baseline space-x-2">
+                        <button onclick="showSection('dashboard')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 dark:hover:bg-slate-800 transition bg-blue-900 dark:bg-slate-800 shadow-inner" id="nav-dashboard">Dashboard</button>
+                        <button onclick="showSection('contacts')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 dark:hover:bg-slate-800 transition" id="nav-contacts">Contacts</button>
+                        <button onclick="showSection('who-sees-who')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 dark:hover:bg-slate-800 transition" id="nav-who-sees-who">Who Sees Who</button>
+                        <button onclick="showSection('clinical')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 dark:hover:bg-slate-800 transition" id="nav-clinical">Clinical</button>
+                        <button onclick="showSection('admin')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 dark:hover:bg-slate-800 transition" id="nav-admin">Rota & HR</button>
+                        <button onclick="showSection('education')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 dark:hover:bg-slate-800 transition" id="nav-education">Education</button>
                     </div>
+                    
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-blue-700 dark:hover:bg-slate-700 transition text-yellow-300 hover:text-white" title="Toggle Dark Mode">
+                        <i id="darkModeIcon" class="fas fa-moon text-lg"></i>
+                    </button>
                 </div>
-                <div class="-mr-2 flex lg:hidden">
-                    <button onclick="toggleMobileMenu()" type="button" class="bg-blue-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
+
+                <div class="-mr-2 flex lg:hidden items-center gap-4">
+                     <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-blue-700 text-yellow-300 hover:text-white">
+                        <i id="darkModeIconMobile" class="fas fa-moon"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" type="button" class="bg-blue-700 dark:bg-slate-800 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="lg:hidden hidden bg-blue-800" id="mobile-menu">
+        <div class="lg:hidden hidden bg-blue-900 dark:bg-slate-900 border-t border-blue-800 dark:border-slate-800" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <button onclick="showSection('dashboard')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 bg-blue-900">Dashboard</button>
-                <button onclick="showSection('contacts')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Contacts</button>
-                <button onclick="showSection('who-sees-who')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Who Sees Who</button>
-                <button onclick="showSection('clinical')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Clinical</button>
-                <button onclick="showSection('admin')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Rota & HR</button>
-                <button onclick="showSection('education')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Education</button>
+                <button onclick="showSection('dashboard')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 dark:hover:bg-slate-800 bg-blue-950 dark:bg-slate-800">Dashboard</button>
+                <button onclick="showSection('contacts')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 dark:hover:bg-slate-800">Contacts</button>
+                <button onclick="showSection('who-sees-who')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 dark:hover:bg-slate-800">Who Sees Who</button>
+                <button onclick="showSection('clinical')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 dark:hover:bg-slate-800">Clinical</button>
+                <button onclick="showSection('admin')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 dark:hover:bg-slate-800">Rota & HR</button>
+                <button onclick="showSection('education')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 dark:hover:bg-slate-800">Education</button>
             </div>
         </div>
     </nav>
@@ -52,127 +77,151 @@
 
         <div id="dashboard" class="section-content space-y-6">
             
-            <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-6 text-white shadow-lg">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-slate-900 rounded-2xl p-6 text-white shadow-lg border border-blue-500/20">
                 <h1 class="text-3xl font-bold mb-2">Welcome to the Team</h1>
                 <p class="opacity-90">"Experience is simply the name we give our mistakes. Smart people learn from their mistakes – but the real sharp ones learn from the mistakes of others."</p>
                 <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="bg-blue-900 bg-opacity-50 px-3 py-1 rounded-full text-xs font-semibold border border-blue-400">Heartlands (BHH)</span>
-                    <span class="bg-blue-900 bg-opacity-50 px-3 py-1 rounded-full text-xs font-semibold border border-blue-400">Good Hope (GHH)</span>
+                    <span class="bg-blue-900/50 px-3 py-1 rounded-full text-xs font-semibold border border-blue-400/50">Heartlands (BHH)</span>
+                    <span class="bg-blue-900/50 px-3 py-1 rounded-full text-xs font-semibold border border-blue-400/50">Good Hope (GHH)</span>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500 relative group overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border-l-4 border-red-500 relative group overflow-hidden transition-colors">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-door-open text-4xl text-red-500"></i>
                     </div>
-                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Resus Access</p>
-                    <p class="text-3xl font-bold text-slate-800 mt-1">40894</p>
-                    <p class="text-xs text-gray-400 mt-2">Emergency Access</p>
+                    <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Resus Access</p>
+                    <p class="text-3xl font-bold text-slate-800 dark:text-white mt-1">40894</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Emergency Access</p>
                 </div>
 
-                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-500 relative group overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border-l-4 border-blue-500 relative group overflow-hidden transition-colors">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-user-md text-4xl text-blue-500"></i>
                     </div>
-                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Staff Lounge/Lockers</p>
-                    <p class="text-3xl font-bold text-slate-800 mt-1">C2679X</p>
-                    <p class="text-xs text-gray-400 mt-2">BHH Site</p>
+                    <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Staff Lounge/Lockers</p>
+                    <p class="text-3xl font-bold text-slate-800 dark:text-white mt-1">C2679X</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">BHH Site</p>
                 </div>
 
-                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 relative group overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 relative group overflow-hidden transition-colors">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-coffee text-4xl text-emerald-500"></i>
                     </div>
-                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Middle Grade Room</p>
-                    <p class="text-3xl font-bold text-slate-800 mt-1">C4590Z</p>
-                    <p class="text-xs text-gray-400 mt-2">Break / Handover</p>
+                    <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Middle Grade Room</p>
+                    <p class="text-3xl font-bold text-slate-800 dark:text-white mt-1">C4590Z</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Break / Handover</p>
                 </div>
 
-                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-purple-500 relative group overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border-l-4 border-purple-500 relative group overflow-hidden transition-colors">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-clinic-medical text-4xl text-purple-500"></i>
                     </div>
-                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wide">Minors Clinical</p>
-                    <p class="text-3xl font-bold text-slate-800 mt-1">C1267Y</p>
-                    <p class="text-xs text-gray-400 mt-2">Treatment Rooms</p>
+                    <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Minors Clinical</p>
+                    <p class="text-3xl font-bold text-slate-800 dark:text-white mt-1">C1267Y</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Treatment Rooms</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6">
-                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-                        <i class="fas fa-search text-blue-600"></i> Rapid Directory Search
+                <div class="md:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 transition-colors">
+                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800 dark:text-white">
+                        <i class="fas fa-search text-blue-600 dark:text-blue-400"></i> Rapid Directory Search
                     </h2>
-                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search for 'Urology', 'Admin', '41266'..." class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3">
+                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search for 'Urology', 'Admin', '41266'..." class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-400 dark:placeholder-gray-500">
                     
                     <div id="searchResults" class="mt-4 max-h-60 overflow-y-auto hide-scrollbar space-y-2">
                          <div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-                        <i class="fas fa-clock text-blue-600"></i> Handover Times
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 transition-colors">
+                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800 dark:text-white">
+                        <i class="fas fa-clock text-blue-600 dark:text-blue-400"></i> Handover Times
                     </h2>
                     <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b pb-2">
-                            <span class="font-medium text-gray-700">Morning</span>
-                            <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">08:00</span>
+                        <div class="flex justify-between items-center border-b dark:border-slate-700 pb-2">
+                            <span class="font-medium text-gray-700 dark:text-gray-300">Morning</span>
+                            <span class="bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 text-xs font-bold px-2 py-1 rounded">08:00</span>
                         </div>
-                        <div class="flex justify-between items-center border-b pb-2">
-                            <span class="font-medium text-gray-700">Afternoon</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">13:30</span>
+                        <div class="flex justify-between items-center border-b dark:border-slate-700 pb-2">
+                            <span class="font-medium text-gray-700 dark:text-gray-300">Afternoon</span>
+                            <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 text-xs font-bold px-2 py-1 rounded">13:30</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="font-medium text-gray-700">Night</span>
-                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2 py-1 rounded">22:00</span>
+                            <span class="font-medium text-gray-700 dark:text-gray-300">Night</span>
+                            <span class="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 text-xs font-bold px-2 py-1 rounded">22:00</span>
                         </div>
                     </div>
-                    <div class="mt-4 p-3 bg-blue-50 rounded text-xs text-blue-800">
+                    <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded text-xs text-blue-800 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
                         <i class="fas fa-info-circle mr-1"></i> <strong>Location:</strong> Seminar Room (Near EDAA Entrance at BHH, First Floor above AMU at GHH).
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-600">
-                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-                        <i class="fas fa-ambulance text-green-600"></i> WMAS EPR Access
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border-l-4 border-green-600 transition-colors">
+                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800 dark:text-white">
+                        <i class="fas fa-ambulance text-green-600 dark:text-green-400"></i> WMAS EPR Access
                     </h2>
                     <div class="space-y-3">
-                        <div class="p-3 bg-green-50 rounded-lg border border-green-100">
-                            <p class="text-xs text-green-800 font-bold uppercase mb-1">Web Address</p>
-                            <a href="https://onlineepr2.ext.wmas.nhs.uk" target="_blank" class="text-blue-600 font-medium hover:underline break-all flex items-center gap-2">
+                        <div class="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
+                            <p class="text-xs text-green-800 dark:text-green-300 font-bold uppercase mb-1">Web Address</p>
+                            <a href="https://onlineepr2.ext.wmas.nhs.uk" target="_blank" class="text-blue-600 dark:text-blue-400 font-medium hover:underline break-all flex items-center gap-2">
                                 onlineepr2.ext.wmas.nhs.uk <i class="fas fa-external-link-alt text-xs"></i>
                             </a>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="p-2 bg-gray-50 rounded border border-gray-100">
-                                <p class="text-xs text-gray-500 mb-1">Username</p>
-                                <p class="font-mono font-bold text-slate-700 select-all cursor-pointer hover:text-blue-600 transition" title="Double click to select">HARTED1</p>
+                            <div class="p-2 bg-gray-50 dark:bg-slate-700 rounded border border-gray-100 dark:border-slate-600">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Username</p>
+                                <p class="font-mono font-bold text-slate-700 dark:text-slate-200 select-all cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition" title="Double click to select">HARTED1</p>
                             </div>
-                            <div class="p-2 bg-gray-50 rounded border border-gray-100">
-                                <p class="text-xs text-gray-500 mb-1">Password</p>
-                                <p class="font-mono font-bold text-slate-700 select-all cursor-pointer hover:text-blue-600 transition" title="Double click to select">Hart329?</p>
+                            <div class="p-2 bg-gray-50 dark:bg-slate-700 rounded border border-gray-100 dark:border-slate-600">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Password</p>
+                                <p class="font-mono font-bold text-slate-700 dark:text-slate-200 select-all cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition" title="Double click to select">Hart329?</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border-l-4 border-cyan-500 transition-colors">
+                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800 dark:text-white">
+                        <i class="fas fa-globe text-cyan-500 dark:text-cyan-400"></i> Remote Systems & Logins
+                    </h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        <a href="https://email.nhs.net" target="_blank" class="p-3 bg-gray-50 dark:bg-slate-700 hover:bg-cyan-50 dark:hover:bg-cyan-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center text-center transition">
+                            <i class="fas fa-envelope text-cyan-600 dark:text-cyan-400 mb-2 text-lg"></i>
+                            NHS Mail (OWA)
+                        </a>
+                        <a href="https://web.loop.allocate-cloud.co.uk/external-login?enterprise-connection=UHBHG" target="_blank" class="p-3 bg-gray-50 dark:bg-slate-700 hover:bg-green-50 dark:hover:bg-green-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center text-center transition">
+                            <i class="fas fa-calendar-alt text-green-600 dark:text-green-400 mb-2 text-lg"></i>
+                            Allocate Loop
+                        </a>
+                        <a href="https://my.esr.nhs.uk/dashboard/web/esrweb" target="_blank" class="p-3 bg-gray-50 dark:bg-slate-700 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center text-center transition">
+                            <i class="fas fa-file-invoice-dollar text-purple-600 dark:text-purple-400 mb-2 text-lg"></i>
+                            ESR (Payslips)
+                        </a>
+                         <a href="https://ul.moodle.bham.ac.uk/" target="_blank" class="p-3 bg-gray-50 dark:bg-slate-700 hover:bg-orange-50 dark:hover:bg-orange-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center text-center transition">
+                            <i class="fas fa-laptop-medical text-orange-600 dark:text-orange-400 mb-2 text-lg"></i>
+                            Moodle (UHB)
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <div id="who-sees-who" class="section-content hidden space-y-6">
             <div class="poster-container mb-6">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6 border-b-4 border-slate-800 pb-4">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6 border-b-4 border-slate-800 dark:border-slate-600 pb-4">
                     <div class="flex-1">
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-slate-800 text-white px-2 py-1 text-xs font-bold uppercase tracking-wider rounded">Official Site Guide</span>
-                            <span class="text-slate-500 text-xs font-semibold">BHH Emergency Department</span>
+                            <span class="bg-slate-800 dark:bg-slate-700 text-white px-2 py-1 text-xs font-bold uppercase tracking-wider rounded">Official Site Guide</span>
+                            <span class="text-slate-500 dark:text-slate-400 text-xs font-semibold">BHH Emergency Department</span>
                         </div>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                             Which Specialty? <br class="hidden md:block">
-                            <span class="text-slate-600 font-normal text-2xl md:text-3xl">Adult Admissions (>16 years)</span>
+                            <span class="text-slate-600 dark:text-slate-400 font-normal text-2xl md:text-3xl">Adult Admissions (>16 years)</span>
                         </h1>
                     </div>
                     
@@ -180,29 +229,29 @@
                         <div class="relative">
                             <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"></i>
                             <input type="text" id="guidelineSearch" placeholder="Search condition..." 
-                                class="w-full md:w-80 pl-10 pr-4 py-3 rounded-lg border border-slate-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                                class="w-full md:w-80 pl-10 pr-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white dark:bg-slate-800 dark:text-white dark:placeholder-gray-500">
                         </div>
                         <p class="text-xs text-slate-400 mt-2 text-right">Type to filter conditions instantly</p>
                     </div>
                 </div>
 
-                <div class="bg-slate-100 border-l-4 border-slate-500 p-4 rounded-r-lg mb-8 text-sm md:text-base shadow-sm">
+                <div class="bg-slate-100 dark:bg-slate-800 border-l-4 border-slate-500 dark:border-slate-400 p-4 rounded-r-lg mb-8 text-sm md:text-base shadow-sm">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <h3 class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-2">
                                 <i data-lucide="scale" class="w-4 h-4"></i> General Principles
                             </h3>
-                            <ul class="text-slate-600 space-y-1 text-sm list-none ml-1">
+                            <ul class="text-slate-600 dark:text-slate-400 space-y-1 text-sm list-none ml-1">
                                 <li>• <strong>Face to Face:</strong> All referrals require face-to-face review by the specialty.</li>
                                 <li>• <strong>Admitting Specialty:</strong> Defined by the acute pathology requiring admission.</li>
                                 <li>• <strong>Disputes:</strong> ED Consultant makes the final decision on admission.</li>
                             </ul>
                         </div>
                         <div>
-                            <h3 class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-2">
                                 <i data-lucide="arrow-right-left" class="w-4 h-4"></i> Conflict Resolution
                             </h3>
-                            <p class="text-slate-600 text-sm">
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
                                 Advice on medical management can be sought from RMO1 or Acute Med Consultant. Once referred, onward referral is the specialty's responsibility.
                             </p>
                         </div>
@@ -211,14 +260,14 @@
 
                 <div class="masonry-grid" id="contentGrid">
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-blue-500 overflow-hidden" data-category="medicine">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-blue-500 overflow-hidden" data-category="medicine">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-blue-50 rounded-lg text-blue-600">
+                            <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
                                 <i data-lucide="stethoscope" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">Medicine</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">Medicine</h2>
                         </div>
-                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                        <ul class="bullet-list text-slate-700 dark:text-slate-300 text-sm font-medium search-content">
                             <li>Chest Pain</li>
                             <li>Cardiac Arrhythmia / Palpitations</li>
                             <li>Shortness of Breath</li>
@@ -231,196 +280,192 @@
                             <li>DKA / Hypoglycaemia</li>
                             <li>Non-Specific Deterioration / Frailty Syndrome</li>
                             <li>Overdose requiring admission</li>
-                            <li>Renal Failure <span class="text-xs font-normal text-slate-500">(NOT obstructive/outflow)</span></li>
+                            <li>Renal Failure <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(NOT obstructive/outflow)</span></li>
                             <li>Painless Jaundice</li>
                             <li>Chronic Pancreatitis</li>
                             <li>Lower Limb Cellulitis</li>
-                            <li>Loin Pain <span class="text-xs font-normal text-slate-500">(UTI / Uncomplicated Pyelonephritis)</span></li>
+                            <li>Loin Pain <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(UTI / Uncomplicated Pyelonephritis)</span></li>
                             <li>Pubic Rami Uncomplicated</li>
-                            <li>Anaemia <span class="text-xs font-normal text-slate-500">(no active bleeding)</span></li>
+                            <li>Anaemia <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(no active bleeding)</span></li>
                             <li>Dialysis patients with medical conditions</li>
-                            <li>SOL / Spontaneous SAH <span class="text-xs font-normal text-slate-500">(awaiting NORSE)</span></li>
+                            <li>SOL / Spontaneous SAH <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(awaiting NORSE)</span></li>
                             <li>Infection of unclear origin</li>
-                            <li>Haem/Onc complications <span class="text-xs font-normal text-slate-500">(unless surgical e.g. obstruction)</span></li>
+                            <li>Haem/Onc complications <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(unless surgical e.g. obstruction)</span></li>
                         </ul>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-amber-500 overflow-hidden" data-category="surgery">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-amber-500 overflow-hidden" data-category="surgery">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-amber-50 rounded-lg text-amber-600">
+                            <div class="p-2 bg-amber-50 dark:bg-amber-900/30 rounded-lg text-amber-600 dark:text-amber-400">
                                 <i data-lucide="scalpel" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">General Surgery</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">General Surgery</h2>
                         </div>
-                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                        <ul class="bullet-list text-slate-700 dark:text-slate-300 text-sm font-medium search-content">
                             <li>Acute Abdominal Pain</li>
                             <li>Acute Pancreatitis / Cholecystitis</li>
                             <li>Abdominal Trauma</li>
-                            <li>Loin Pain <span class="text-xs font-normal text-slate-500">(Urine clear, no stones/AAA)</span></li>
-                            <li>Abscess <span class="text-xs font-normal text-slate-500">(Trunk, Perineum, Groin)</span></li>
+                            <li>Loin Pain <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Urine clear, no stones/AAA)</span></li>
+                            <li>Abscess <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Trunk, Perineum, Groin)</span></li>
                             <li>Fresh PR Bleeding</li>
                             <li>Painful Jaundice</li>
-                            <li>Suspected Necrotising Fasciitis <span class="text-xs font-normal text-slate-500">(Follow pathway)</span></li>
+                            <li>Suspected Necrotising Fasciitis <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Follow pathway)</span></li>
                             <li>Isolated Chest Injury / Rib # / Pneumothorax</li>
-                            <li>Polytrauma <span class="text-xs font-normal text-slate-500">(Chest/Abdo primary)</span></li>
+                            <li>Polytrauma <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Chest/Abdo primary)</span></li>
                         </ul>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-yellow-500 overflow-hidden" data-category="urology">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-yellow-500 overflow-hidden" data-category="urology">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-yellow-50 rounded-lg text-yellow-600">
+                            <div class="p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg text-yellow-600 dark:text-yellow-400">
                                 <i data-lucide="droplet" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">Urology</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">Urology</h2>
                         </div>
-                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
-                            <li>Loin pain <span class="text-xs font-normal text-slate-500">(Proven/recent stone)</span></li>
+                        <ul class="bullet-list text-slate-700 dark:text-slate-300 text-sm font-medium search-content">
+                            <li>Loin pain <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Proven/recent stone)</span></li>
                             <li>Urinary Retention</li>
                             <li>Visible Haematuria</li>
-                            <li>Fournier's Gangrene <span class="text-xs font-normal text-slate-500">(Nec Fasc genitalia)</span></li>
-                            <li>Complicated Pyelonephritis <span class="text-xs font-normal text-slate-500">(Collections/emphysema)</span></li>
+                            <li>Fournier's Gangrene <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Nec Fasc genitalia)</span></li>
+                            <li>Complicated Pyelonephritis <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Collections/emphysema)</span></li>
                             <li>Obstructive Uropathy / Bladder Outflow Obstruction</li>
                         </ul>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-red-600 overflow-hidden" data-category="vascular">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-red-600 overflow-hidden" data-category="vascular">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-red-50 rounded-lg text-red-600">
+                            <div class="p-2 bg-red-50 dark:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400">
                                 <i data-lucide="activity" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">Vascular</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">Vascular</h2>
                         </div>
-                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                        <ul class="bullet-list text-slate-700 dark:text-slate-300 text-sm font-medium search-content">
                             <li>Acute Ischaemic Limb</li>
                             <li>Chronic Limb Ischaemia</li>
-                            <li>AAA <span class="text-xs font-normal text-slate-500">(Bleeding, Ruptured, Dissecting)</span></li>
+                            <li>AAA <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Bleeding, Ruptured, Dissecting)</span></li>
                             <li>Diabetic Foot leading to sepsis</li>
                         </ul>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-emerald-500 overflow-hidden" data-category="ortho">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-emerald-500 overflow-hidden" data-category="ortho">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600">
+                            <div class="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg text-emerald-600 dark:text-emerald-400">
                                 <i data-lucide="bone" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">Trauma & Orthopaedics</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">Trauma & Orthopaedics</h2>
                         </div>
-                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
-                            <li>Limb / Pelvic / Spinal Injuries <span class="text-xs font-normal text-slate-500">(Primary reason)</span></li>
-                            <li>Suspected Cauda Equina <span class="text-xs font-normal text-slate-500">(NOT MSCC)</span></li>
+                        <ul class="bullet-list text-slate-700 dark:text-slate-300 text-sm font-medium search-content">
+                            <li>Limb / Pelvic / Spinal Injuries <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Primary reason)</span></li>
+                            <li>Suspected Cauda Equina <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(NOT MSCC)</span></li>
                             <li>Acute Limb Pain</li>
-                            <li>Abscess <span class="text-xs font-normal text-slate-500">(Upper & Lower Limbs)</span></li>
-                            <li>Upper Limb Cellulitis <span class="text-xs font-normal text-slate-500">(inc. Hand Infections)</span></li>
-                            <li>Osteomyelitis <span class="text-xs font-normal text-slate-500">(Upper or Lower limb)</span></li>
-                            <li>Polytrauma <span class="text-xs font-normal text-slate-500">(Limb/Pelvic primary)</span></li>
+                            <li>Abscess <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Upper & Lower Limbs)</span></li>
+                            <li>Upper Limb Cellulitis <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(inc. Hand Infections)</span></li>
+                            <li>Osteomyelitis <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Upper or Lower limb)</span></li>
+                            <li>Polytrauma <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Limb/Pelvic primary)</span></li>
                         </ul>
-                        <div class="mt-4 p-3 bg-emerald-50 rounded text-xs text-emerald-800 border border-emerald-100">
+                        <div class="mt-4 p-3 bg-emerald-50 dark:bg-emerald-900/30 rounded text-xs text-emerald-800 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-800">
                             <strong>Exceptions (Admit to Medicine):</strong><br>
                             Uncomplicated pubic rami fractures.<br>
                             Isolated vertebral fragility fractures.
                         </div>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-teal-600 overflow-hidden" data-category="head">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-teal-600 overflow-hidden" data-category="head">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-teal-50 rounded-lg text-teal-600">
+                            <div class="p-2 bg-teal-50 dark:bg-teal-900/30 rounded-lg text-teal-600 dark:text-teal-400">
                                 <i data-lucide="brain" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">Head Injuries</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">Head Injuries</h2>
                         </div>
-                        <div class="text-sm text-slate-700 space-y-3 search-content">
-                            <p>Manage according to <strong class="text-teal-700">NICE Guidelines</strong>.</p>
+                        <div class="text-sm text-slate-700 dark:text-slate-300 space-y-3 search-content">
+                            <p>Manage according to <strong class="text-teal-700 dark:text-teal-400">NICE Guidelines</strong>.</p>
                             <div class="space-y-1">
                                 <p class="font-semibold">Primary Head Injury:</p>
-                                <p class="text-xs">Make <strong class="text-teal-700">NORSE Referral</strong> for acute advice (transfer or local management).</p>
+                                <p class="text-xs">Make <strong class="text-teal-700 dark:text-teal-400">NORSE Referral</strong> for acute advice (transfer or local management).</p>
                             </div>
-                            <div class="p-3 bg-teal-50 rounded border border-teal-100">
-                                <p class="font-bold text-xs text-teal-800">Exception (Admit to Medicine):</p>
-                                <p class="text-xs text-teal-700">Frail adult, decision NOT for neurosurgical intervention (futility).</p>
+                            <div class="p-3 bg-teal-50 dark:bg-teal-900/30 rounded border border-teal-100 dark:border-teal-800">
+                                <p class="font-bold text-xs text-teal-800 dark:text-teal-300">Exception (Admit to Medicine):</p>
+                                <p class="text-xs text-teal-700 dark:text-teal-400">Frail adult, decision NOT for neurosurgical intervention (futility).</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-pink-500 overflow-hidden" data-category="gynae">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-pink-500 overflow-hidden" data-category="gynae">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-pink-50 rounded-lg text-pink-600">
+                            <div class="p-2 bg-pink-50 dark:bg-pink-900/30 rounded-lg text-pink-600 dark:text-pink-400">
                                 <i data-lucide="flower-2" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">Gynaecology</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">Gynaecology</h2>
                         </div>
-                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
-                            <li>Suspected Ectopic <span class="text-xs font-normal text-slate-500">(Haemodynamic compromise)</span></li>
-                            <li>Suspected Miscarriage <span class="text-xs font-normal text-slate-500">(Heavy bleed + compromise)</span></li>
+                        <ul class="bullet-list text-slate-700 dark:text-slate-300 text-sm font-medium search-content">
+                            <li>Suspected Ectopic <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Haemodynamic compromise)</span></li>
+                            <li>Suspected Miscarriage <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Heavy bleed + compromise)</span></li>
                             <li>Suspected Ovarian Torsion</li>
                             <li>Heavy Vaginal Bleeding</li>
-                            <li>PID <span class="text-xs font-normal text-slate-500">(Severe or suspected abscess)</span></li>
+                            <li>PID <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Severe or suspected abscess)</span></li>
                             <li>Bartholin's Abscess</li>
                             <li>Complications of Gynae Surgery</li>
                         </ul>
                         <div class="mt-4 space-y-2">
-                            <div class="p-2 bg-pink-50 rounded text-xs text-pink-800 border border-pink-100">
+                            <div class="p-2 bg-pink-50 dark:bg-pink-900/30 rounded text-xs text-pink-800 dark:text-pink-300 border border-pink-100 dark:border-pink-800">
                                 <strong>Direct to Gynae CNS (via GAU):</strong><br>
                                 Early pregnancy (<16wks) who are <u>clinically stable</u> (Ectopic/Miscarriage/Hyperemesis).
-                            </div>
-                            <div class="p-2 bg-pink-50 rounded text-xs text-pink-800 border border-pink-100">
-                                <strong>GP Urgent Reviews:</strong><br>
-                                Direct to GAU if stable.
                             </div>
                         </div>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-purple-600 overflow-hidden" data-category="maternity">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-purple-600 overflow-hidden" data-category="maternity">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-purple-50 rounded-lg text-purple-600">
+                            <div class="p-2 bg-purple-50 dark:bg-purple-900/30 rounded-lg text-purple-600 dark:text-purple-400">
                                 <i data-lucide="baby" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">Maternity (>16 wks)</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">Maternity (>16 wks)</h2>
                         </div>
-                        <div class="text-sm text-slate-700 space-y-3 search-content">
+                        <div class="text-sm text-slate-700 dark:text-slate-300 space-y-3 search-content">
                             <ul class="bullet-list">
-                                <li>Obstetric Emergency <span class="text-xs font-normal text-slate-500">(Bleeding, Pain, Pre-eclampsia)</span></li>
+                                <li>Obstetric Emergency <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Bleeding, Pain, Pre-eclampsia)</span></li>
                             </ul>
-                            <div class="p-2 bg-purple-100 rounded text-purple-900 text-xs font-medium">
+                            <div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded text-purple-900 dark:text-purple-300 text-xs font-medium">
                                 Patient stable? → <strong>Direct to MUAU</strong>
                             </div>
-                            <div class="p-2 bg-red-100 rounded text-red-900 text-xs border border-red-200">
+                            <div class="p-2 bg-red-100 dark:bg-red-900/30 rounded text-red-900 dark:text-red-300 text-xs border border-red-200 dark:border-red-800">
                                 <strong>CRITICAL (Imminent birth, Eclampsia, Arrest):</strong><br>
                                 Treat in ED + Call "Obstetric Emergency" (2222).
                             </div>
                         </div>
                     </div>
 
-                    <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-indigo-500 overflow-hidden" data-category="ent">
+                    <div class="card bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 mb-6 border-t-4 border-indigo-500 overflow-hidden" data-category="ent">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="p-2 bg-indigo-50 rounded-lg text-indigo-600">
+                            <div class="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
                                 <i data-lucide="ear" class="w-6 h-6"></i>
                             </div>
-                            <h2 class="text-xl font-bold text-slate-800">ENT</h2>
+                            <h2 class="text-xl font-bold text-slate-800 dark:text-white">ENT</h2>
                         </div>
-                        <ul class="bullet-list text-slate-700 text-sm font-medium search-content">
+                        <ul class="bullet-list text-slate-700 dark:text-slate-300 text-sm font-medium search-content">
                             <li>Epistaxis</li>
                             <li>Stridor</li>
                             <li>Tonsillitis / Quinsy</li>
                             <li>ENT Malignancy</li>
                             <li>Head & Neck Soft Tissue Infection</li>
-                            <li>Alimentary Foreign Body <span class="text-xs font-normal text-slate-500">(Above sternal notch)</span></li>
+                            <li>Alimentary Foreign Body <span class="text-xs font-normal text-slate-500 dark:text-slate-500">(Above sternal notch)</span></li>
                         </ul>
                     </div>
 
                 </div>
                 
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden mt-6">
-                    <div class="px-6 py-4 bg-gray-800 text-white font-bold">Referral Matrix (BHH vs GHH)</div>
+                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden mt-6">
+                    <div class="px-6 py-4 bg-gray-800 dark:bg-slate-700 text-white font-bold">Referral Matrix (BHH vs GHH)</div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
-                            <thead class="bg-gray-100 text-gray-600 uppercase">
+                            <thead class="bg-gray-100 dark:bg-slate-900 text-gray-600 dark:text-gray-400 uppercase">
                                 <tr>
                                     <th class="px-6 py-3">Specialty</th>
                                     <th class="px-6 py-3">Heartlands (BHH)</th>
                                     <th class="px-6 py-3">Good Hope (GHH)</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-200 dark:divide-slate-700 text-gray-700 dark:text-gray-300">
                                 <tr>
                                     <td class="px-6 py-3 font-medium">Stroke</td>
                                     <td class="px-6 py-3">Discuss w/ Stroke Nurse QE. HASU is at QE.</td>
@@ -450,9 +495,9 @@
                     </div>
                  </div>
 
-                <div class="mt-8 text-center text-slate-500 text-xs pb-8 no-print border-t border-slate-200 pt-4">
+                <div class="mt-8 text-center text-slate-500 dark:text-slate-400 text-xs pb-8 no-print border-t border-slate-200 dark:border-slate-700 pt-4">
                     <p class="mb-2"><strong>Heartlands Site Guide</strong> • Approved by Clinical Service Leads & Hospital Medical Director • For immediate use</p>
-                    <a href="https://drive.google.com/file/d/1YMD-7pSb8MIK4DTwXMP5uZbhiz8_G850/view?usp=sharing" target="_blank" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                    <a href="https://drive.google.com/file/d/1YMD-7pSb8MIK4DTwXMP5uZbhiz8_G850/view?usp=sharing" target="_blank" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors">
                         <i data-lucide="file-text" class="w-3 h-3"></i> View Full "Who to Who" Document (PDF)
                     </a>
                     <p class="mt-2 opacity-70">Always use clinical judgement. Head injury pathway under review; follow current NORSE/NICE guidance.</p>
@@ -461,127 +506,73 @@
         </div>
 
         <div id="contacts" class="section-content hidden space-y-6">
-            <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Full Directory</h2>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white border-b dark:border-slate-700 pb-2">Full Directory</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Key Internal Extensions</div>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm overflow-hidden transition-colors">
+                    <div class="bg-gray-50 dark:bg-slate-700 px-4 py-3 border-b dark:border-slate-600 font-bold text-gray-700 dark:text-gray-200">Key Internal Extensions</div>
                     <div class="p-4 space-y-2 text-sm max-h-80 overflow-y-auto">
-                        <div class="flex justify-between"><span>Majors A Nurse Station</span><span class="font-mono bg-gray-100 px-2 rounded">42274 / 42263</span></div>
-                        <div class="flex justify-between"><span>Majors B Nurse Station</span><span class="font-mono bg-gray-100 px-2 rounded">40274</span></div>
-                        <div class="flex justify-between"><span>Majors C Nurse Station</span><span class="font-mono bg-gray-100 px-2 rounded">41266 / 40273</span></div>
-                        <div class="flex justify-between"><span>EDAA Reception</span><span class="font-mono bg-gray-100 px-2 rounded">40130</span></div>
-                        <div class="flex justify-between"><span>Paeds Reception</span><span class="font-mono bg-gray-100 px-2 rounded">40481 / 52274</span></div>
-                        <div class="flex justify-between"><span>Resus</span><span class="font-mono bg-gray-100 px-2 rounded">40894</span></div>
-                        <div class="flex justify-between"><span>CT Room</span><span class="font-mono bg-gray-100 px-2 rounded">41289</span></div>
-                        <div class="flex justify-between"><span>Duty Radiologist</span><span class="font-mono bg-gray-100 px-2 rounded">42374 / 40345</span></div>
-                        <div class="flex justify-between"><span>IT Support (24/7)</span><span class="font-mono bg-gray-100 px-2 rounded">41130</span></div>
-                        <div class="flex justify-between"><span>ED IT (Office Hours)</span><span class="font-mono bg-gray-100 px-2 rounded">42277</span></div>
-                         <div class="flex justify-between"><span>Admin Office (Undercroft)</span><span class="font-mono bg-gray-100 px-2 rounded">42257</span></div>
-                         <div class="flex justify-between"><span>Admin Office (Minors)</span><span class="font-mono bg-gray-100 px-2 rounded">43091</span></div>
-                        <div class="flex justify-between"><span>Switchboard</span><span class="font-mono bg-gray-100 px-2 rounded">0</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Majors A Nurse Station</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">42274 / 42263</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Majors B Nurse Station</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">40274</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Majors C Nurse Station</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">41266 / 40273</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>EDAA Reception</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">40130</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Paeds Reception</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">40481 / 52274</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Resus</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">40894</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>CT Room</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">41289</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Duty Radiologist</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">42374 / 40345</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>IT Support (24/7)</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">41130</span></div>
+                         <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Switchboard</span><span class="font-mono bg-gray-100 dark:bg-slate-600 px-2 rounded text-gray-800 dark:text-gray-200">0</span></div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Specialty Bleeps</div>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm overflow-hidden transition-colors">
+                    <div class="bg-gray-50 dark:bg-slate-700 px-4 py-3 border-b dark:border-slate-600 font-bold text-gray-700 dark:text-gray-200">Specialty Bleeps</div>
                     <div class="p-4 space-y-2 text-sm max-h-80 overflow-y-auto">
-                        <div class="flex justify-between"><span>RMO</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">1085</span></div>
-                        <div class="flex justify-between"><span>RSO (Surgery)</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3123</span></div>
-                        <div class="flex justify-between"><span>Surgical SpR</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3125</span></div>
-                        <div class="flex justify-between"><span>ENT SHO</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3124</span></div>
-                        <div class="flex justify-between"><span>T&O SpR</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3010</span></div>
-                        <div class="flex justify-between"><span>Gynae SpR</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3193</span></div>
-                        <div class="flex justify-between"><span>Cardiac Triage</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">2331</span></div>
-                        <div class="flex justify-between"><span>Psych Liaison (PLT)</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">3344</span></div>
-                        <div class="flex justify-between"><span>OPAL Consultant</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">2060</span></div>
-                        <div class="flex justify-between"><span>OPAL Therapist</span><span class="font-mono bg-blue-50 px-2 rounded text-blue-700">0213</span></div>
-                        <div class="mt-4 pt-2 border-t text-xs text-gray-500">
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>RMO</span><span class="font-mono bg-blue-50 dark:bg-blue-900/40 px-2 rounded text-blue-700 dark:text-blue-300">1085</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>RSO (Surgery)</span><span class="font-mono bg-blue-50 dark:bg-blue-900/40 px-2 rounded text-blue-700 dark:text-blue-300">3123</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Surgical SpR</span><span class="font-mono bg-blue-50 dark:bg-blue-900/40 px-2 rounded text-blue-700 dark:text-blue-300">3125</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>ENT SHO</span><span class="font-mono bg-blue-50 dark:bg-blue-900/40 px-2 rounded text-blue-700 dark:text-blue-300">3124</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>T&O SpR</span><span class="font-mono bg-blue-50 dark:bg-blue-900/40 px-2 rounded text-blue-700 dark:text-blue-300">3010</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Gynae SpR</span><span class="font-mono bg-blue-50 dark:bg-blue-900/40 px-2 rounded text-blue-700 dark:text-blue-300">3193</span></div>
+                        <div class="mt-4 pt-2 border-t dark:border-slate-700 text-xs text-gray-500 dark:text-gray-400">
                             <strong>Note:</strong> Vascular SpR & Urology SpR (In-hours) via Switch (Dial 0).
                         </div>
                     </div>
                 </div>
 
-                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Access Codes (Full List)</div>
+                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm overflow-hidden transition-colors">
+                    <div class="bg-gray-50 dark:bg-slate-700 px-4 py-3 border-b dark:border-slate-600 font-bold text-gray-700 dark:text-gray-200">Access Codes (Full List)</div>
                     <div class="p-4 space-y-2 text-sm">
-                        <div class="flex justify-between"><span>All Staff Lounge</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C2679X</span></div>
-                        <div class="flex justify-between"><span>Majors C Kitchen</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C2675X</span></div>
-                        <div class="flex justify-between"><span>Middle Grade Room</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C4590Z</span></div>
-                        <div class="flex justify-between"><span>Minors Staff Room</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C6235Y</span></div>
-                        <div class="flex justify-between"><span>Minors Clinical Rooms</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C1267Y</span></div>
-                        <div class="flex justify-between"><span>Staff Toilets</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">C457XY</span></div>
-                        <div class="flex justify-between"><span>Majors A Reception</span><span class="font-mono bg-yellow-50 px-2 rounded text-yellow-800">42265 / 42257</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>All Staff Lounge</span><span class="font-mono bg-yellow-50 dark:bg-yellow-900/40 px-2 rounded text-yellow-800 dark:text-yellow-300">C2679X</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Majors C Kitchen</span><span class="font-mono bg-yellow-50 dark:bg-yellow-900/40 px-2 rounded text-yellow-800 dark:text-yellow-300">C2675X</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Middle Grade Room</span><span class="font-mono bg-yellow-50 dark:bg-yellow-900/40 px-2 rounded text-yellow-800 dark:text-yellow-300">C4590Z</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Minors Staff Room</span><span class="font-mono bg-yellow-50 dark:bg-yellow-900/40 px-2 rounded text-yellow-800 dark:text-yellow-300">C6235Y</span></div>
+                        <div class="flex justify-between text-gray-800 dark:text-gray-300"><span>Minors Clinical Rooms</span><span class="font-mono bg-yellow-50 dark:bg-yellow-900/40 px-2 rounded text-yellow-800 dark:text-yellow-300">C1267Y</span></div>
                     </div>
                 </div>
                 
-                 <div class="bg-white rounded-xl shadow-sm overflow-hidden md:col-span-2 lg:col-span-3">
-                    <div class="bg-blue-50 px-4 py-3 border-b border-blue-100 font-bold text-blue-900 flex justify-between items-center cursor-pointer" onclick="toggleAccordion('senior-team')">
+                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm overflow-hidden md:col-span-2 lg:col-span-3 transition-colors">
+                    <div class="bg-blue-50 dark:bg-blue-900/30 px-4 py-3 border-b border-blue-100 dark:border-blue-800 font-bold text-blue-900 dark:text-blue-200 flex justify-between items-center cursor-pointer" onclick="toggleAccordion('senior-team')">
                         <span><i class="fas fa-users-cog mr-2"></i> Senior Leadership Team & Leads</span>
                         <i class="fas fa-chevron-down transform transition-transform" id="icon-senior-team"></i>
                     </div>
                     <div id="content-senior-team" class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm hidden">
-                        <div class="p-3 border border-gray-200 rounded bg-white">
-                            <p class="font-bold text-gray-800 mb-1">Dr Su Dorrian</p>
-                            <p class="text-xs text-gray-600 mb-1">Consultant, BHH</p>
-                            <ul class="text-xs list-disc list-inside text-gray-500">
+                        <div class="p-3 border border-gray-200 dark:border-slate-600 rounded bg-white dark:bg-slate-700">
+                            <p class="font-bold text-gray-800 dark:text-white mb-1">Dr Su Dorrian</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mb-1">Consultant, BHH</p>
+                            <ul class="text-xs list-disc list-inside text-gray-500 dark:text-gray-400">
                                 <li>Lead for QIP Co-ordination</li>
                                 <li>Solihull Urgent Care Clinical Lead</li>
-                                <li>Guidelines & NICE Compliance</li>
-                                <li>O&G / Women's Health Liaison</li>
                             </ul>
-                            <p class="text-xs text-gray-400 mt-1 italic">Sec: Sean Shortt</p>
                         </div>
-
-                        <div class="p-3 border border-gray-200 rounded bg-white">
-                            <p class="font-bold text-gray-800 mb-1">Dr Amin Albahari</p>
-                            <p class="text-xs text-gray-600">Consultant</p>
-                            <p class="text-xs text-gray-500">EDI Lead</p>
+                        <div class="p-3 border border-gray-200 dark:border-slate-600 rounded bg-white dark:bg-slate-700">
+                            <p class="font-bold text-gray-800 dark:text-white mb-1">Dr Amin Albahari</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-300">Consultant</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">EDI Lead</p>
                         </div>
-
-                        <div class="p-3 border border-gray-200 rounded bg-white">
-                            <p class="font-bold text-gray-800 mb-1">Dr Shruti Mehra</p>
-                            <p class="text-xs text-gray-600">Consultant</p>
-                            <p class="text-xs text-gray-500">Induction Lead</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-200 rounded bg-white">
-                            <p class="font-bold text-gray-800 mb-1">Dr Selina Ball</p>
-                            <p class="text-xs text-gray-600">Consultant</p>
-                            <p class="text-xs text-gray-500">Specialty Tutor</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-200 rounded bg-white">
-                            <p class="font-bold text-gray-800 mb-1">Dr Viorica Samoila</p>
-                            <p class="text-xs text-gray-600">Consultant</p>
-                            <p class="text-xs text-gray-500">Rota Lead (BHH)</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-200 rounded bg-white">
-                            <p class="font-bold text-gray-800 mb-1">Dr Rangaraju Ragunathan</p>
-                            <p class="text-xs text-gray-600">Consultant</p>
-                            <p class="text-xs text-gray-500">Rota Lead (GHH)</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-200 rounded bg-blue-50">
-                            <p class="font-bold text-gray-800 mb-1">Max Ngamsha</p>
-                            <p class="text-xs text-gray-600">Lead ENP</p>
-                            <p class="text-xs text-gray-500">BHH / GHH</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-200 rounded bg-blue-50">
-                            <p class="font-bold text-gray-800 mb-1">Zoe Lane</p>
-                            <p class="text-xs text-gray-600">Reception Service Manager</p>
-                        </div>
-                        
-                        <div class="p-3 border border-gray-200 rounded bg-blue-50">
-                            <p class="font-bold text-gray-800 mb-1">Lead ACP (Paeds)</p>
-                            <p class="text-xs text-gray-600">BHH / GHH</p>
-                        </div>
-                        
-                        <div class="p-3 border border-purple-200 rounded bg-purple-50 md:col-span-2 lg:col-span-3">
-                            <p class="font-bold text-purple-900 mb-1">Chief Registrars</p>
-                            <div class="flex gap-4 text-xs text-gray-700">
+                        <div class="p-3 border border-purple-200 dark:border-purple-800 rounded bg-purple-50 dark:bg-purple-900/30 md:col-span-2 lg:col-span-3">
+                            <p class="font-bold text-purple-900 dark:text-purple-200 mb-1">Chief Registrars</p>
+                            <div class="flex gap-4 text-xs text-gray-700 dark:text-gray-300">
                                 <span><strong>Adele & Bushra</strong> (BHH)</span>
                                 <span><strong>Mo</strong> (GHH)</span>
                             </div>
@@ -592,83 +583,194 @@
         </div>
 
         <div id="clinical" class="section-content hidden space-y-6">
-            <h2 class="text-2xl font-bold text-slate-800">Critical Clinical Guidelines</h2>
-            <p class="text-gray-600">Red flags and referral pathways for high-risk presentations.</p>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white">Critical Clinical Guidelines</h2>
+            <p class="text-gray-600 dark:text-gray-400">Red flags and referral pathways for high-risk presentations.</p>
 
-            <div class="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-4 shadow-sm mb-4">
-                <h3 class="text-lg font-bold text-orange-800 flex items-center mb-2">
+            <div class="bg-orange-50 dark:bg-orange-900/30 border-l-4 border-orange-500 rounded-lg p-4 shadow-sm mb-4">
+                <h3 class="text-lg font-bold text-orange-800 dark:text-orange-200 flex items-center mb-2">
                     <i class="fas fa-user-check mr-2"></i> Mandatory Senior Review (ST4+)
                 </h3>
-                <p class="text-sm text-gray-700 mb-2">The following patients <strong>MUST</strong> be reviewed/discharged by an ST4 or above:</p>
-                <ul class="list-disc list-inside text-sm text-gray-800 font-medium space-y-1">
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">The following patients <strong>MUST</strong> be reviewed/discharged by an ST4 or above:</p>
+                <ul class="list-disc list-inside text-sm text-gray-800 dark:text-gray-200 font-medium space-y-1">
                     <li>Atraumatic Chest Pain (Age > 30)</li>
                     <li>Abdominal Pain (Age > 70)</li>
                     <li>Fever in children (Age < 1 year)</li>
                     <li>All Re-attenders (Unscheduled return within 72 hrs)</li>
                 </ul>
-                 <p class="text-xs text-gray-500 mt-2"><em>*ECGs can be signed by FY2+, but escalate if unsure.</em></p>
             </div>
             
-            <div class="bg-purple-50 border-l-4 border-purple-600 rounded-lg p-4 shadow-sm mb-4">
-                <h3 class="text-lg font-bold text-purple-800 flex items-center mb-2">
+            <div class="bg-purple-50 dark:bg-purple-900/30 border-l-4 border-purple-600 rounded-lg p-4 shadow-sm mb-4">
+                <h3 class="text-lg font-bold text-purple-800 dark:text-purple-200 flex items-center mb-2">
                     <i class="fas fa-hands-helping mr-2"></i> SPUR (Palliative Urgent Response)
                 </h3>
-                <p class="text-sm text-gray-700 mb-2">
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">
                     <strong>Avoid admission for palliative patients.</strong> SPUR provides 24/7 urgent specialist nursing at home (2hr response).
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                    <div class="bg-white p-2 rounded border border-purple-200">
-                        <span class="block font-bold text-purple-900">08:00 - 22:00</span>
-                        <span class="text-gray-600">Call HOBS</span>
+                    <div class="bg-white dark:bg-slate-700 p-2 rounded border border-purple-200 dark:border-purple-800">
+                        <span class="block font-bold text-purple-900 dark:text-purple-200">08:00 - 22:00</span>
+                        <span class="text-gray-600 dark:text-gray-300">Call HOBS</span>
                         <br>
-                        <a href="tel:01218091900" class="font-bold text-blue-600">0121 809 1900</a>
+                        <a href="tel:01218091900" class="font-bold text-blue-600 dark:text-blue-400">0121 809 1900</a>
                     </div>
-                    <div class="bg-white p-2 rounded border border-purple-200">
-                        <span class="block font-bold text-purple-900">22:00 - 08:00 (Overnight)</span>
-                        <span class="text-gray-600">Dedicated Hotline</span>
+                    <div class="bg-white dark:bg-slate-700 p-2 rounded border border-purple-200 dark:border-purple-800">
+                        <span class="block font-bold text-purple-900 dark:text-purple-200">22:00 - 08:00 (Overnight)</span>
+                        <span class="text-gray-600 dark:text-gray-300">Dedicated Hotline</span>
                         <br>
-                        <a href="tel:03005551919" class="font-bold text-blue-600">0300 555 1919</a> (Option 2)
+                        <a href="tel:03005551919" class="font-bold text-blue-600 dark:text-blue-400">0300 555 1919</a> (Option 2)
                     </div>
                 </div>
             </div>
 
-            <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm mb-4">
-                <h3 class="text-lg font-bold text-blue-800 flex items-center mb-2">
+            <div class="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm mb-4">
+                <h3 class="text-lg font-bold text-blue-800 dark:text-blue-200 flex items-center mb-2">
                     <i class="fas fa-radiation mr-2"></i> Radiology Vetting Rules
                 </h3>
-                <p class="text-sm text-gray-700"><strong>General Rule:</strong> All CT/MRI requests require vetting by the Duty Radiologist (Ext 42374 / 40345).</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>General Rule:</strong> All CT/MRI requests require vetting by the Duty Radiologist (Ext 42374 / 40345).</p>
                 <div class="mt-2 text-sm">
-                    <span class="font-bold text-blue-900">EXCEPTIONS (No call needed):</span>
-                    <ul class="list-disc list-inside mt-1 text-gray-800">
+                    <span class="font-bold text-blue-900 dark:text-blue-200">EXCEPTIONS (No call needed):</span>
+                    <ul class="list-disc list-inside mt-1 text-gray-800 dark:text-gray-200">
                         <li><strong>CT Head:</strong> Trauma / Stroke (As per NICE) - <em>Any time.</em></li>
                         <li><strong>CT KUB:</strong> Renal Colic - <em>In hours only.</em></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4 shadow-sm mb-6">
-                <h3 class="text-lg font-bold text-yellow-800 flex items-center mb-2">
+            <div class="bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg p-4 shadow-sm mb-6">
+                <h3 class="text-lg font-bold text-yellow-800 dark:text-yellow-200 flex items-center mb-2">
                     <i class="fas fa-file-contract mr-2"></i> Documentation Golden Rules
                 </h3>
-                <ul class="list-disc list-inside text-sm text-gray-800 font-medium space-y-1">
+                <ul class="list-disc list-inside text-sm text-gray-800 dark:text-gray-200 font-medium space-y-1">
                     <li><strong>Who:</strong> Always document the <strong>NAME</strong> of the senior/specialty doctor you discussed with (not just "SpR").</li>
                     <li><strong>Plan:</strong> Clearly state disposal plan (To whom? Where? For what?).</li>
-                    <li><strong>Results:</strong> You must check results of investigations you ordered. If handing over, state the specific results pending.</li>
                 </ul>
             </div>
-            
+
             <div class="space-y-4">
                 
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 bg-red-50 hover:bg-red-100 flex justify-between items-center" onclick="toggleAccordion('ces')">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden transition-colors border border-rose-100 dark:border-rose-900">
+                    <button class="w-full px-6 py-4 text-left font-bold text-rose-800 dark:text-rose-200 bg-rose-50 dark:bg-rose-900/30 hover:bg-rose-100 dark:hover:bg-rose-900/50 flex justify-between items-center" onclick="toggleAccordion('cardio')">
+                        <span><i class="fas fa-heartbeat text-rose-600 mr-2"></i> Cardiology Pathway & Referral</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-cardio"></i>
+                    </button>
+                    <div id="content-cardio" class="hidden px-6 py-4 border-t border-rose-100 dark:border-rose-800">
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-red-50 dark:bg-red-900/20 p-3 rounded border border-red-100 dark:border-red-800">
+                                <h4 class="font-bold text-red-800 dark:text-red-300 mb-2">Emergency (Bleep 2331)</h4>
+                                <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                                    <li>Suspected STEMI or New LBBB</li>
+                                    <li>NSTE-ACS with ongoing pain/ST changes</li>
+                                    <li>Cardiac Arrest (ROSC) -> Cardiac cause</li>
+                                    <li>Unstable Arrhythmia</li>
+                                    <li>Acute Heart Failure (Treatment failure)</li>
+                                </ul>
+                                <p class="text-xs mt-2 text-red-600 dark:text-red-400 italic">If no answer: Fast bleep or call switchboard.</p>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded border border-yellow-100 dark:border-yellow-800">
+                                    <h4 class="font-bold text-yellow-800 dark:text-yellow-300 mb-1">Urgent (Bleep 2331)</h4>
+                                    <ul class="list-disc list-inside text-xs text-gray-700 dark:text-gray-300">
+                                        <li>NSTE-ACS (No pain/ST changes)</li>
+                                        <li>Stable high-grade arrhythmia</li>
+                                        <li>New Heart Failure suspicion</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 dark:bg-slate-700 p-3 rounded border border-gray-100 dark:border-slate-600">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-1">Routine (Refer PICS)</h4>
+                                    <ul class="list-disc list-inside text-xs text-gray-700 dark:text-gray-300">
+                                        <li>Stable ACS / Review requests</li>
+                                        <li>Stable arrhythmia</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t dark:border-slate-700 text-xs flex justify-between text-gray-500 dark:text-gray-400">
+                            <span><strong>Cardiac Pathway Bleep:</strong> 2331</span>
+                            <span><strong>Cardiac ACP:</strong> 8212</span>
+                            <span><strong>Heart Failure ACP:</strong> 3719</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden transition-colors border border-green-100 dark:border-green-900">
+                    <button class="w-full px-6 py-4 text-left font-bold text-green-800 dark:text-green-200 bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/50 flex justify-between items-center" onclick="toggleAccordion('sdec')">
+                        <span><i class="fas fa-walking text-green-600 mr-2"></i> SDEC & Ambulatory Pathways</span>
+                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-sdec"></i>
+                    </button>
+                    <div id="content-sdec" class="hidden px-0 border-t border-green-100 dark:border-green-800">
+                        
+                        <div class="p-4 border-b dark:border-slate-700">
+                            <h4 class="font-bold text-green-700 dark:text-green-400 mb-2 flex justify-between">
+                                <span>Medical SDEC (Heartlands)</span>
+                                <span class="text-xs bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 px-2 py-1 rounded">08:00 - 22:00 (7 Days)</span>
+                            </h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Location: Next to Ward 19. Contact: Bleep 2933 / Ext 41752</p>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="font-bold text-green-600 dark:text-green-400 text-xs uppercase">Green (Accepted)</span>
+                                    <ul class="text-xs list-disc list-inside text-gray-700 dark:text-gray-300 mt-1 space-y-0.5">
+                                        <li>Anaemia (Req IV iron/transfusion)</li>
+                                        <li>Chest Pain (?ACS/?PE) - <em>(HEART score &le;4)</em></li>
+                                        <li>Headache (Alert, GCS 15)</li>
+                                        <li>?DVT / ?UTI / Cellulitis / Palpitations</li>
+                                        <li>Diabetes / Hypertension / Asthma / COPD</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-red-600 dark:text-red-400 text-xs uppercase">Red (Excluded)</span>
+                                    <ul class="text-xs list-disc list-inside text-gray-700 dark:text-gray-300 mt-1 space-y-0.5">
+                                        <li>NEWS &gt; 4 or Confusion</li>
+                                        <li>Trauma / Back Pain (ED/Ortho)</li>
+                                        <li>Neutropenic Sepsis / D&V (Infection risk)</li>
+                                        <li>PV Bleed / Acute MH / Overdose</li>
+                                        <li>Abdominal Pain (Surgical)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <h4 class="font-bold text-purple-700 dark:text-purple-400 mb-2 flex justify-between">
+                                <span>Frailty SDEC</span>
+                                <span class="text-xs bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 px-2 py-1 rounded">Mon-Fri 07:00 - 16:00</span>
+                            </h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Criteria: Age &gt;65. Contact: Ext 43777</p>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="font-bold text-green-600 dark:text-green-400 text-xs uppercase">Inclusion</span>
+                                    <ul class="text-xs list-disc list-inside text-gray-700 dark:text-gray-300 mt-1 space-y-0.5">
+                                        <li>Increased Confusion / Worse Dementia</li>
+                                        <li>Parkinson's / Falls / Reduced Mobility</li>
+                                        <li>Care Home Resident / Polypharmacy</li>
+                                        <li>UTI / Chest Infection / Cellulitis</li>
+                                        <li>NEWS &le; 4</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-red-600 dark:text-red-400 text-xs uppercase">Exclusion</span>
+                                    <ul class="text-xs list-disc list-inside text-gray-700 dark:text-gray-300 mt-1 space-y-0.5">
+                                        <li>Infection Control Risk (D&V, Covid)</li>
+                                        <li>Stroke / TIA / #NOF / Spinal #</li>
+                                        <li>Bed bound / Unstable (NEWS &gt; 5)</li>
+                                        <li>Acute Agitation / Surgical / Pain score &gt; 6</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden transition-colors">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 dark:text-white bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 flex justify-between items-center" onclick="toggleAccordion('ces')">
                         <span><i class="fas fa-exclamation-triangle text-red-500 mr-2"></i> Cauda Equina Syndrome (CES)</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ces"></i>
                     </button>
-                    <div id="content-ces" class="hidden px-6 py-4 border-t border-red-100">
+                    <div id="content-ces" class="hidden px-6 py-4 border-t border-red-100 dark:border-red-800">
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <h4 class="font-bold text-red-700 mb-2">Red Flags (NICE)</h4>
-                                <ul class="list-disc list-inside text-sm space-y-1 text-gray-700">
+                                <h4 class="font-bold text-red-700 dark:text-red-300 mb-2">Red Flags (NICE)</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1 text-gray-700 dark:text-gray-300">
                                     <li>Bilateral sciatica</li>
                                     <li>Severe/Progressive bilateral leg weakness</li>
                                     <li>Difficulty initiating micturition</li>
@@ -678,207 +780,111 @@
                                 </ul>
                             </div>
                             <div>
-                                <h4 class="font-bold text-blue-700 mb-2">Management</h4>
-                                <p class="text-sm text-gray-700 mb-2"><strong>Emergency MRI is MANDATORY.</strong></p>
-                                <p class="text-sm text-gray-700">Discussion with local spinal services is NOT required to request the MRI, but request form must contain detailed clinical info.</p>
-                                <p class="text-sm text-gray-700 mt-2">If scan positive: Refer to Neurosurgery immediately.</p>
+                                <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2">Management</h4>
+                                <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>Emergency MRI is MANDATORY.</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('aaa')">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden transition-colors">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-slate-700 flex justify-between items-center" onclick="toggleAccordion('aaa')">
                         <span><i class="fas fa-heartbeat text-red-500 mr-2"></i> Abdominal Aortic Aneurysm (AAA)</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-aaa"></i>
                     </button>
-                    <div id="content-aaa" class="hidden px-6 py-4 border-t">
-                        <p class="text-sm text-gray-700 mb-2"><strong>Symptoms:</strong> Sudden severe pain (abdo/back/pelvis), Clammy/sweaty, Increased HR, Low BP, Syncope.</p>
-                        <div class="bg-blue-50 p-3 rounded-lg text-sm border-l-4 border-blue-500">
-                            <strong>Action:</strong> 
-                            <ul class="list-decimal list-inside mt-1">
+                    <div id="content-aaa" class="hidden px-6 py-4 border-t dark:border-slate-700">
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>Symptoms:</strong> Sudden severe pain (abdo/back/pelvis), Clammy/sweaty, Increased HR, Low BP, Syncope.</p>
+                        <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg text-sm border-l-4 border-blue-500 dark:border-blue-400">
+                            <strong class="dark:text-white">Action:</strong> 
+                            <ul class="list-decimal list-inside mt-1 dark:text-gray-300">
                                 <li>Request CT Aortogram (Arterial Phase).</li>
                                 <li>Discuss with Vascular Team at BHH (via Switch).</li>
-                                <li>Confirm imaging modality with vascular clinician if unsure.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ad')">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden transition-colors">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-slate-700 flex justify-between items-center" onclick="toggleAccordion('ad')">
                         <span><i class="fas fa-random text-red-500 mr-2"></i> Aortic Dissection</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ad"></i>
                     </button>
-                    <div id="content-ad" class="hidden px-6 py-4 border-t">
-                         <p class="text-sm text-gray-700 mb-2"><strong>Presentation:</strong> Tearing chest pain radiating to back/neck/jaw. Pulse deficit. Systolic BP difference in arms.</p>
-                         <p class="text-sm text-gray-700 mb-2"><strong>Investigation:</strong> CT Angiogram / MRI is the ONLY definitive diagnostic investigation. (CXR/ECG/USS often normal).</p>
-                         <p class="text-sm text-gray-700"><strong>Referral:</strong> Cardiothoracic team at QE (via Switch). Control BP and HR.</p>
-                    </div>
-                </div>
-                
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('nf')">
-                        <span><i class="fas fa-bacteria text-red-500 mr-2"></i> Necrotising Fasciitis</span>
-                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-nf"></i>
-                    </button>
-                    <div id="content-nf" class="hidden px-6 py-4 border-t">
-                         <p class="text-sm text-gray-700 mb-2"><strong>Presentation:</strong> Intense pain disproportionate to skin injury. High fever. Swelling/redness. Later: Dark blotches/blisters.</p>
-                         <div class="bg-red-50 p-3 rounded-lg text-sm border-l-4 border-red-500">
-                             <strong>Action (Category 1 Emergency):</strong>
-                             <ul class="list-disc list-inside mt-1">
-                                 <li>Sepsis 6 Bundle immediately (IV Abx, Fluids, Lactate).</li>
-                                 <li>Urgent Senior Review to exclude Necrotising Fasciitis.</li>
-                                 <li>Refer Urgent General Surgery (Body) or ENT (Neck) or Vascular (Leg Gangrene).</li>
-                             </ul>
-                         </div>
-                    </div>
-                </div>
-                
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ep')">
-                        <span><i class="fas fa-baby text-red-500 mr-2"></i> Ruptured Ectopic Pregnancy</span>
-                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ep"></i>
-                    </button>
-                    <div id="content-ep" class="hidden px-6 py-4 border-t">
-                         <p class="text-sm text-gray-700 mb-2"><strong>Rule:</strong> All women of childbearing age with abdominal pain MUST have a pregnancy test.</p>
-                         <p class="text-sm text-gray-700 mb-2"><strong>Red Flags:</strong> Severe pain, peritonism, shoulder tip pain, syncope.</p>
-                         <p class="text-sm text-gray-700"><strong>Action:</strong> TV Ultrasound is diagnostic. Refer Gynae urgently if positive/unstable.</p>
+                    <div id="content-ad" class="hidden px-6 py-4 border-t dark:border-slate-700">
+                         <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>Presentation:</strong> Tearing chest pain radiating to back/neck/jaw. Pulse deficit. Systolic BP difference in arms.</p>
+                         <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>Investigation:</strong> CT Angiogram / MRI is the ONLY definitive diagnostic investigation.</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('tt')">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden transition-colors">
+                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-slate-700 flex justify-between items-center" onclick="toggleAccordion('tt')">
                         <span><i class="fas fa-mars text-red-500 mr-2"></i> Testicular Torsion</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-tt"></i>
                     </button>
-                    <div id="content-tt" class="hidden px-6 py-4 border-t">
-                        <div class="bg-red-50 p-3 rounded text-sm text-red-800 mb-2"><strong>"If in doubt, explore."</strong> Time is testis.</div>
-                        <p class="text-sm text-gray-700"><strong>Action:</strong></p>
-                        <ul class="list-disc list-inside text-sm text-gray-700">
+                    <div id="content-tt" class="hidden px-6 py-4 border-t dark:border-slate-700">
+                        <div class="bg-red-50 dark:bg-red-900/30 p-3 rounded text-sm text-red-800 dark:text-red-300 mb-2"><strong>"If in doubt, explore."</strong> Time is testis.</div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Action:</strong></p>
+                        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300">
                             <li><strong>>16 Years (BHH & QE):</strong> Stream direct to SAU. Urology on-call.</li>
                             <li><strong>>16 Years (GHH):</strong> ED review < 60 mins. Blue light transfer to BHH Urology.</li>
-                            <li><strong><16 Years:</strong> Senior Paediatric Surgical Review.</li>
                         </ul>
                     </div>
                 </div>
-                
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ao')">
-                        <span><i class="fas fa-wind text-red-500 mr-2"></i> Airway Obstruction (Tracheostomy)</span>
-                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ao"></i>
-                    </button>
-                    <div id="content-ao" class="hidden px-6 py-4 border-t">
-                         <p class="text-sm text-gray-700 mb-2"><strong>Red Flags:</strong> Stridor, vocal changes, unable to swallow, trismus.</p>
-                         <p class="text-sm text-gray-700"><strong>Action:</strong> Assess for airway signs. Escalate immediately if clinical concern. High risk of hypoxic cardiac arrest.</p>
-                    </div>
-                </div>
-                
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('nai')">
-                        <span><i class="fas fa-child text-red-500 mr-2"></i> Non-Accidental Injury (NAI)</span>
-                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-nai"></i>
-                    </button>
-                    <div id="content-nai" class="hidden px-6 py-4 border-t">
-                         <div class="bg-red-50 p-3 rounded text-sm text-red-800 mb-2"><strong>"Don't Cruise, Don't Bruise."</strong></div>
-                         <p class="text-sm text-gray-700"><strong>Rule:</strong> All injuries in children < 1 year who do not mobilise need F2F review with a Consultant. Overnight they are admitted to PAU.</p>
-                    </div>
-                </div>
-
             </div>
         </div>
 
         <div id="admin" class="section-content hidden space-y-6">
-            <h2 class="text-2xl font-bold text-slate-800">Rota & HR Procedures</h2>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white">Rota & HR Procedures</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-orange-500">
-                    <h3 class="text-lg font-bold text-orange-600 mb-3"><i class="fas fa-file-medical-alt mr-2"></i> Sickness Reporting</h3>
-                    <p class="text-sm text-gray-600 mb-4">You must notify the department if you are unable to attend.</p>
-                    
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border-l-4 border-orange-500 transition-colors">
+                    <h3 class="text-lg font-bold text-orange-600 dark:text-orange-400 mb-3"><i class="fas fa-file-medical-alt mr-2"></i> Sickness Reporting</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">You must notify the department if you are unable to attend.</p>
                     <div class="space-y-3">
                         <div class="flex items-start">
-                            <div class="bg-orange-100 text-orange-800 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">1</div>
-                            <div class="text-sm"><strong>Email:</strong> juniordoctorsickness@uhb.nhs.uk <br> <span class="text-xs text-gray-500">Include: Name, Number, Grade, Shift, Site, Reason, Return Date.</span></div>
+                            <div class="bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">1</div>
+                            <div class="text-sm text-gray-700 dark:text-gray-300"><strong>Email:</strong> juniordoctorsickness@uhb.nhs.uk</div>
                         </div>
-                        <div class="flex items-start">
-                            <div class="bg-orange-100 text-orange-800 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">2</div>
-                            <div class="text-sm"><strong>Call:</strong> Consultant via Switchboard (08:00-22:30). Overnight, call ED and ask for Reg/Consultant.</div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-orange-100 text-orange-800 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">3</div>
-                            <div class="text-sm"><strong>Return:</strong> Complete 'Return to Work' form with Supervisor upon return.</div>
+                         <div class="flex items-start">
+                            <div class="bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300 font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">2</div>
+                            <div class="text-sm text-gray-700 dark:text-gray-300"><strong>Call:</strong> Consultant via Switchboard (08:00-22:30).</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
-                    <h3 class="text-lg font-bold text-green-600 mb-3"><i class="fas fa-calendar-check mr-2"></i> Leave & Swaps</h3>
-                    <div class="bg-green-50 p-3 rounded mb-3 text-sm text-green-900 border border-green-200">
-                        <strong><i class="fas fa-sync-alt mr-1"></i> System Update:</strong> Employee Online (EOL) has been replaced by <strong>Allocate Loop</strong>.
-                    </div>
-                    <ul class="text-sm space-y-2 text-gray-700">
-                        <li><strong>System:</strong> Submit via <a href="https://web.loop.allocate-cloud.co.uk/external-login?enterprise-connection=UHBHG" target="_blank" class="font-semibold text-blue-600 hover:underline">Allocate Loop Web</a> or Mobile App.</li>
-                        <li><strong>Login:</strong> Use Trust email & password. Requires Multi-Factor Authentication (MFA) off-site.</li>
-                        <li><strong>Notice:</strong> At least 6 weeks in advance.</li>
-                        <li><strong>Restrictions:</strong> No annual leave on nights/weekends (must swap).</li>
-                        <li><strong>Swaps:</strong> Must use swap form. Email to <a href="mailto:a&erotateam@uhb.nhs.uk" class="text-blue-600 hover:underline">a&erotateam@uhb.nhs.uk</a>.</li>
-                        <li><strong>Support:</strong> <a href="mailto:eRosteringSupport@uhb.nhs.uk" class="text-blue-600">eRosteringSupport@uhb.nhs.uk</a></li>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border-l-4 border-green-500 transition-colors">
+                    <h3 class="text-lg font-bold text-green-600 dark:text-green-400 mb-3"><i class="fas fa-calendar-check mr-2"></i> Leave & Swaps</h3>
+                    <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
+                        <li><strong>System:</strong> Submit via <a href="https://web.loop.allocate-cloud.co.uk/external-login?enterprise-connection=UHBHG" target="_blank" class="font-semibold text-blue-600 dark:text-blue-400 hover:underline">Allocate Loop Web</a>.</li>
+                        <li><strong>Swaps:</strong> Must use swap form. Email to <a href="mailto:a&erotateam@uhb.nhs.uk" class="text-blue-600 dark:text-blue-400 hover:underline">a&erotateam@uhb.nhs.uk</a>.</li>
                     </ul>
-                    <div class="mt-3 flex gap-2">
-                         <a href="https://web.loop.allocate-cloud.co.uk/external-login?enterprise-connection=UHBHG" target="_blank" class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-bold hover:bg-green-200">Loop Login</a>
-                         <a href="https://qehb.sharepoint.com/sites/eRostering/SitePages/Loop-Mobile-Guides.aspx" target="_blank" class="px-3 py-1 bg-gray-100 text-gray-700 rounded text-xs font-bold hover:bg-gray-200">Mobile Guides</a>
-                    </div>
                 </div>
-                
-                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-500">
-                    <h3 class="text-lg font-bold text-indigo-600 mb-3"><i class="fas fa-book-reader mr-2"></i> Study Leave & Benefits</h3>
-                    
+
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border-l-4 border-indigo-500 transition-colors">
+                    <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-3"><i class="fas fa-book-reader mr-2"></i> Study Leave & Benefits</h3>
                     <div class="space-y-4">
                         <div>
-                            <h4 class="font-bold text-gray-800 text-sm mb-2">1. Applying for Study Leave</h4>
-                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-                                <li><strong>Dual Application:</strong> Apply on <strong>BOTH</strong> Allocate Loop (was EOL) and Accent systems.</li>
-                                <li><strong>Access:</strong> EOL via the 'E' on HGS intranet page.</li>
+                            <h4 class="font-bold text-gray-800 dark:text-white text-sm mb-2">1. Applying for Study Leave</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                <li><strong>Dual Application:</strong> Apply on <strong>BOTH</strong> Allocate Loop and Accent systems.</li>
                                 <li><strong>Service:</strong> Centralised at Heartlands.</li>
                             </ul>
                         </div>
-
                         <div>
-                            <h4 class="font-bold text-gray-800 text-sm mb-2">2. Expenses & Tax Relief</h4>
-                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-                                <li><strong>Claiming:</strong> Use Finance Tools (<a href="http://nww.fintools.uhb.nhs.uk/UHBFT" class="text-blue-600">nww.fintools.uhb.nhs.uk/UHBFT</a>). Must have prior approval.</li>
-                                <li><strong>Tax Relief:</strong> You can claim tax back (up to 4 years) on GMC fees, Royal College exams/subs, and uniform laundry. Contact HMRC or use online form.</li>
+                            <h4 class="font-bold text-gray-800 dark:text-white text-sm mb-2">2. Expenses</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                <li><strong>Claiming:</strong> Use Finance Tools (<a href="http://nww.fintools.uhb.nhs.uk/UHBFT" class="text-blue-600 dark:text-blue-400">nww.fintools.uhb.nhs.uk/UHBFT</a>).</li>
                             </ul>
-                        </div>
-
-                        <div>
-                            <h4 class="font-bold text-gray-800 text-sm mb-2">Key Contacts</h4>
-                            <div class="text-sm text-gray-700 grid grid-cols-1 gap-2">
-                                <p><strong>General Queries:</strong> <a href="mailto:hgsstudy.leave@uhb.nhs.uk" class="text-blue-600">hgsstudy.leave@uhb.nhs.uk</a></p>
-                                <p><strong>Advisor:</strong> Angela Bird (<a href="mailto:Angela.Bird@uhb.nhs.uk" class="text-blue-600">Angela.Bird@uhb.nhs.uk</a>)</p>
-                                <p><strong>Expenses Team Leader:</strong> Asha Ellerton (<a href="mailto:Asha.Ellerton@uhb.nhs.uk" class="text-blue-600">Asha.Ellerton@uhb.nhs.uk</a>)</p>
-                                <p><strong>Payroll:</strong> 0121 371 7518</p>
-                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-gray-600">
-                    <h3 class="text-lg font-bold text-gray-700 mb-3"><i class="fas fa-balance-scale mr-2"></i> Medico-Legal</h3>
-                    <ul class="text-sm space-y-2 text-gray-700">
-                        <li><strong>Deaths:</strong> Discuss all deaths with the Consultant. Refer to Coroner if cause unknown/unnatural.</li>
-                        <li><strong>Police:</strong> Do NOT give statements without Consultant approval. Direct police to the Shift Leader. Data is only shared with consent or if public interest threshold met.</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
-                    <h3 class="text-lg font-bold text-purple-600 mb-3"><i class="fas fa-pound-sign mr-2"></i> Locum Bank</h3>
-                    <ul class="text-sm space-y-2 text-gray-700">
-                        <li><strong>System:</strong> TempRE (<a href="http://www.tempreupgrade.co.uk" target="_blank" class="text-blue-600">www.tempreupgrade.co.uk</a>)</li>
-                        <li><strong>Register:</strong> Email <a href="mailto:UHBLocumregister@uhb.nhs.uk" class="text-blue-600">UHBLocumregister@uhb.nhs.uk</a></li>
+
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border-l-4 border-purple-500 transition-colors">
+                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-3"><i class="fas fa-pound-sign mr-2"></i> Locum Bank</h3>
+                    <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
+                        <li><strong>System:</strong> TempRE (<a href="http://www.tempreupgrade.co.uk" target="_blank" class="text-blue-600 dark:text-blue-400">www.tempreupgrade.co.uk</a>)</li>
+                        <li><strong>Register:</strong> Email <a href="mailto:UHBLocumregister@uhb.nhs.uk" class="text-blue-600 dark:text-blue-400">UHBLocumregister@uhb.nhs.uk</a></li>
                         <li><strong>Rates (Core/Unsocial):</strong>
-                            <ul class="list-disc list-inside ml-2 text-xs text-gray-600">
+                            <ul class="list-disc list-inside ml-2 text-xs text-gray-600 dark:text-gray-400">
                                 <li>SHO: £50.00 / £55.00</li>
                                 <li>SpR: £70.00 / £80.00</li>
                             </ul>
@@ -886,62 +892,43 @@
                     </ul>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-rose-500">
-                    <h3 class="text-lg font-bold text-rose-600 mb-3"><i class="fas fa-clock mr-2"></i> Exception Reporting</h3>
-                    <p class="text-sm text-gray-700 mb-3"><strong>Important Update (Feb 2026):</strong> Reforms have been implemented to simplify reporting.</p>
-                    
-                    <ul class="text-sm space-y-2 text-gray-700">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border-l-4 border-rose-500 transition-colors">
+                    <h3 class="text-lg font-bold text-rose-600 dark:text-rose-400 mb-3"><i class="fas fa-clock mr-2"></i> Exception Reporting</h3>
+                    <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
                         <li><strong>Mechanism:</strong> Continue to use the ER system for safe working hours, patient safety, and educational issues.</li>
-                        <li><strong>Routing:</strong>
-                            <ul class="list-disc list-inside ml-2 text-xs text-gray-600">
-                                <li><strong>Educational:</strong> Sent to Director of Medical Education (DME).</li>
-                                <li><strong>Hours/Rest:</strong> Sent to HR/Medical Workforce.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Compensation:</strong> You may choose <strong>Payment</strong> or <strong>TOIL</strong>.
-                            <br><span class="text-xs text-gray-500">Note: TOIL is mandatory if safe working hours limits are breached.</span>
-                        </li>
-                        <li><strong>Confidentiality:</strong> Data is protected and only shared with consent (unless exceptional).</li>
+                        <li><strong>Compensation:</strong> You may choose <strong>Payment</strong> or <strong>TOIL</strong>.</li>
                     </ul>
-                    
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <p class="text-sm font-bold text-gray-700">Support & Login Issues:</p>
-                        <a href="mailto:exceptionreportsjdloginsupport@uhb.nhs.uk" class="text-blue-600 text-sm break-all">exceptionreportsjdloginsupport@uhb.nhs.uk</a>
-                    </div>
-                    <div class="mt-2">
-                         <a href="https://www.nhsemployers.org/articles/exception-reporting-reform-background-information" target="_blank" class="text-xs text-blue-500 hover:underline"><i class="fas fa-external-link-alt mr-1"></i> NHS Employers Guidance</a>
+                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-slate-700">
+                        <p class="text-sm font-bold text-gray-700 dark:text-gray-300">Support & Login Issues:</p>
+                        <a href="mailto:exceptionreportsjdloginsupport@uhb.nhs.uk" class="text-blue-600 dark:text-blue-400 text-sm break-all">exceptionreportsjdloginsupport@uhb.nhs.uk</a>
                     </div>
                 </div>
 
-                <div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="text-lg font-bold text-gray-800 mb-3">Workforce Contacts</h3>
+                <div class="md:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 transition-colors">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3">Workforce Contacts</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-                        <div class="p-3 bg-gray-50 rounded">
-                            <p class="font-bold text-gray-700">Sabia Tuohey</p>
-                            <p class="text-xs text-gray-500">ED Workforce Lead</p>
-                            <p class="text-blue-600">0777 6606 362</p>
+                        <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded">
+                            <p class="font-bold text-gray-700 dark:text-gray-200">Sabia Tuohey</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">ED Workforce Lead</p>
+                            <p class="text-blue-600 dark:text-blue-400">0777 6606 362</p>
                         </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <p class="font-bold text-gray-700">Zoya Nazir</p>
-                            <p class="text-xs text-gray-500">Medical Rota Coord</p>
-                            <p class="text-blue-600">0788 0137 419</p>
+                        <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded">
+                            <p class="font-bold text-gray-700 dark:text-gray-200">Zoya Nazir</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Medical Rota Coord</p>
+                            <p class="text-blue-600 dark:text-blue-400">0788 0137 419</p>
                         </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <p class="font-bold text-gray-700">Catherine Aagaard</p>
-                            <p class="text-xs text-gray-500">Locum Booking</p>
-                            <p class="text-blue-600">0782 5196 892</p>
+                        <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded">
+                            <p class="font-bold text-gray-700 dark:text-gray-200">Catherine Aagaard</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Locum Booking</p>
+                            <p class="text-blue-600 dark:text-blue-400">0782 5196 892</p>
                         </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <p class="font-bold text-gray-700">Rota Team Email</p>
-                            <p class="text-blue-600 break-words">AandErotateam@uhb.nhs.uk</p>
+                        <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded">
+                            <p class="font-bold text-gray-700 dark:text-gray-200">Rota Team Email</p>
+                            <p class="text-blue-600 dark:text-blue-400 break-words">AandErotateam@uhb.nhs.uk</p>
                         </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <p class="font-bold text-gray-700">Payroll</p>
-                            <p class="text-blue-600">heftpayroll@uhb.nhs.uk</p>
-                        </div>
-                         <div class="p-3 bg-gray-50 rounded">
-                            <p class="font-bold text-gray-700">Parking</p>
-                            <p class="text-blue-600">car.parking-staff@uhb.nhs.uk</p>
+                        <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded">
+                            <p class="font-bold text-gray-700 dark:text-gray-200">Payroll</p>
+                            <p class="text-blue-600 dark:text-blue-400">heftpayroll@uhb.nhs.uk</p>
                         </div>
                     </div>
                 </div>
@@ -949,136 +936,76 @@
         </div>
 
         <div id="education" class="section-content hidden space-y-6">
-            <h2 class="text-2xl font-bold text-slate-800">Education & Wellbeing</h2>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white">Education & Wellbeing</h2>
             
-            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4 rounded shadow-sm">
-                 <p class="font-bold text-blue-800"><i class="fas fa-info-circle mr-2"></i>IMG Extended Induction</p>
-                 <p class="text-sm text-blue-700">All International Medical Graduates (IMGs) / JSDs undergo an extended induction (min. 4 weeks). <strong>You are not required to undertake nights until this is completed.</strong></p>
-                 <div class="mt-3 bg-white p-3 rounded border border-blue-200">
-                     <p class="font-bold text-xs text-blue-900 mb-1">MANDATORY FACE-TO-FACE SESSIONS (First 2 Days):</p>
-                     <ul class="text-xs list-disc list-inside text-blue-800">
-                         <li>PICS Training</li>
-                         <li>Blood Transfusion (F2F)</li>
-                         <li>Point of Care Testing (POCT)</li>
-                         <li>Resus Training</li>
-                     </ul>
-                 </div>
+            <div class="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-600 rounded-lg p-4 mb-4 shadow-sm">
+                 <p class="font-bold text-blue-800 dark:text-blue-300"><i class="fas fa-info-circle mr-2"></i>IMG Extended Induction</p>
+                 <p class="text-sm text-blue-700 dark:text-blue-200">All International Medical Graduates (IMGs) / JSDs undergo an extended induction (min. 4 weeks).</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="text-lg font-bold text-blue-700 mb-3"><i class="fas fa-graduation-cap mr-2"></i> Resident Doctor Teaching (April/May 2026)</h3>
-                    
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 transition-colors">
+                    <h3 class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-3"><i class="fas fa-graduation-cap mr-2"></i> Resident Doctor Teaching</h3>
                     <div class="space-y-4">
-                        <div class="border-b pb-2">
-                            <div class="flex justify-between items-center mb-1">
-                                <h4 class="font-bold text-gray-800 text-sm">Day 1: Medical Emergencies</h4>
-                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">14/04 or 22/04</span>
-                            </div>
-                            <ul class="text-xs text-gray-600 space-y-1 ml-2">
-                                <li>• Chest Pain / SOB / DKA (09:30)</li>
-                                <li>• Elderly Care & Stroke (11:20)</li>
-                                <li>• SIM: Cardiac Arrest / Sepsis / Asthma (PM)</li>
-                                <li>• Back Pain & CES (16:15)</li>
-                            </ul>
+                        <div class="border-b dark:border-slate-700 pb-2">
+                            <h4 class="font-bold text-gray-800 dark:text-white text-sm">Day 1: Medical Emergencies</h4>
+                            <span class="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 px-2 py-1 rounded">14/04 or 22/04</span>
                         </div>
-
-                        <div class="border-b pb-2">
-                            <div class="flex justify-between items-center mb-1">
-                                <h4 class="font-bold text-gray-800 text-sm">Day 2: Paediatrics & Surgical</h4>
-                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">15/04 or 23/04</span>
-                            </div>
-                            <ul class="text-xs text-gray-600 space-y-1 ml-2">
-                                <li>• Paeds Common Presentations (09:30)</li>
-                                <li>• Head/Face/Spinal Clearance (11:40)</li>
-                                <li>• Surgical Presentations (12:40)</li>
-                                <li>• SIM: Paeds SOB / Fever / NAI (PM)</li>
-                                <li>• Wellbeing & EDI (16:30)</li>
-                            </ul>
-                        </div>
-
-                        <div class="border-b pb-2">
-                            <div class="flex justify-between items-center mb-1">
-                                <h4 class="font-bold text-gray-800 text-sm">Day 3: Trauma & Tox</h4>
-                                <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">13/04 or 19/05</span>
-                            </div>
-                            <ul class="text-xs text-gray-600 space-y-1 ml-2">
-                                <li>• Major Trauma Approach (09:30)</li>
-                                <li>• Pain Mgmt / FIB / LA Safety (11:00)</li>
-                                <li>• Poisoning & Self Harm (12:15)</li>
-                                <li>• Trauma Scenarios: Adult/Silver/Paeds (PM)</li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <h4 class="font-bold text-gray-800 text-sm">Day 4: Specialties & Skills</h4>
-                                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">14/04 or 20/05</span>
-                            </div>
-                            <ul class="text-xs text-gray-600 space-y-1 ml-2">
-                                <li>• Acute Gynae & GUM (09:30)</li>
-                                <li>• Acute Mental Health (10:30)</li>
-                                <li>• Ophthalmology / ENT / Nasal Packing (11:40)</li>
-                                <li>• Minor Injuries / Burns / Suturing (PM)</li>
-                            </ul>
+                         <div class="border-b dark:border-slate-700 pb-2">
+                            <h4 class="font-bold text-gray-800 dark:text-white text-sm">Day 2: Paediatrics & Surgical</h4>
+                            <span class="text-xs bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-2 py-1 rounded">15/04 or 23/04</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="text-lg font-bold text-teal-700 mb-3"><i class="fas fa-heart mr-2"></i> Wellbeing & EDI</h3>
-                    <div class="bg-teal-50 p-4 rounded-lg mb-4">
-                        <p class="font-bold text-teal-900 text-sm">Wellbeing Support</p>
-                        <p class="text-sm text-gray-700">Contact: <strong>Darren Taylor</strong></p>
-                        <p class="text-sm text-blue-600">Darren.Taylor@uhb.nhs.uk | 07917 599 396</p>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 transition-colors">
+                    <h3 class="text-lg font-bold text-teal-700 dark:text-teal-400 mb-3"><i class="fas fa-heart mr-2"></i> Wellbeing & EDI</h3>
+                    <div class="bg-teal-50 dark:bg-teal-900/30 p-4 rounded-lg mb-4">
+                        <p class="font-bold text-teal-900 dark:text-teal-200 text-sm">Wellbeing Support</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Contact: <strong>Darren Taylor</strong></p>
+                        <p class="text-sm text-blue-600 dark:text-blue-400">Darren.Taylor@uhb.nhs.uk | 07917 599 396</p>
                     </div>
-                     <div class="bg-purple-50 p-4 rounded-lg mb-4">
-                        <p class="font-bold text-purple-900 text-sm">EDI & Sexual Safety</p>
-                        <p class="text-sm text-gray-700">EDI Lead: <strong>Dr Amin Albahari</strong> (<a href="mailto:amin.albahari@uhb.nhs.uk" class="text-blue-600">amin.albahari@uhb.nhs.uk</a>)</p>
-                        <p class="text-xs text-gray-600 mt-1">We support the "Sexual Safety" campaign. Report concerns to consultants or HR.</p>
+                     <div class="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg mb-4">
+                        <p class="font-bold text-purple-900 dark:text-purple-200 text-sm">EDI & Sexual Safety</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">EDI Lead: <strong>Dr Amin Albahari</strong></p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 transition-colors md:col-span-2">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3">Useful Learning Links</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <a href="https://www.rcemlearning.co.uk/foamed/" target="_blank" class="p-3 bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-blue-700 dark:text-blue-400 flex items-center"><i class="fas fa-external-link-alt mr-2 text-xs"></i> RCEM Learning</a>
+                        <a href="https://www.mdcalc.com/" target="_blank" class="p-3 bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-blue-700 dark:text-blue-400 flex items-center"><i class="fas fa-calculator mr-2 text-xs"></i> MDCalc</a>
+                        <a href="https://www.toxbase.org/" target="_blank" class="p-3 bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-blue-700 dark:text-blue-400 flex items-center"><i class="fas fa-skull-crossbones mr-2 text-xs"></i> Toxbase</a>
                     </div>
                 </div>
             </div>
-            
-            <div class="bg-white rounded-xl shadow-sm p-6 mt-6">
-                <h3 class="text-lg font-bold text-gray-800 mb-3">Useful Learning Links</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                    <a href="https://www.rcemlearning.co.uk/foamed/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-external-link-alt mr-2 text-xs"></i> RCEM Learning</a>
-                    <a href="https://www.rcemlearning.co.uk/rcem-induction/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-external-link-alt mr-2 text-xs"></i> RCEM Induction Modules</a>
-                    <a href="https://www.openevidence.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-robot mr-2 text-xs"></i> OpenEvidence (AI)</a>
-                    <a href="https://www.mdcalc.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-calculator mr-2 text-xs"></i> MDCalc</a>
-                    <a href="https://www.uhb.nhs.uk/major-trauma" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-ambulance mr-2 text-xs"></i> Midlands Major Trauma</a>
-                    <a href="https://dontforgetthebubbles.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-comment-medical mr-2 text-xs"></i> Don't Forget The Bubbles</a>
-                    <a href="https://litfl.com/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-book-medical mr-2 text-xs"></i> LITFL</a>
-                    <a href="https://theresusroom.co.uk/" target="_blank" class="p-3 bg-gray-50 hover:bg-gray-100 rounded border border-gray-200 text-sm font-medium text-blue-700 flex items-center"><i class="fas fa-podcast mr-2 text-xs"></i> The Resus Room</a>
-                </div>
-            </div>
 
-            <div class="bg-white rounded-xl shadow-sm p-6 mt-6">
-                <h3 class="text-lg font-bold text-gray-800 mb-3">Essential Mobile Apps</h3>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 mt-6 transition-colors">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3">Essential Mobile Apps (Google Play)</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                    <a href="https://www.accurx.com/" target="_blank" class="p-3 bg-white hover:bg-green-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
-                        <div class="bg-green-100 text-green-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-comment-dots"></i></div>
+                    <a href="https://play.google.com/store/apps/dev?id=8972570814859199802" target="_blank" class="p-3 bg-white dark:bg-slate-700 hover:bg-green-50 dark:hover:bg-green-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center transition">
+                        <div class="bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-comment-dots"></i></div>
                         Accurx
                     </a>
-                    <a href="https://bnf.nice.org.uk/" target="_blank" class="p-3 bg-white hover:bg-blue-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
-                        <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-book"></i></div>
+                    <a href="https://play.google.com/store/apps/details?id=com.pharmpress.bnf&hl=en_GB" target="_blank" class="p-3 bg-white dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center transition">
+                        <div class="bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-book"></i></div>
                         BNF
                     </a>
-                    <a href="https://www.toxbase.org/" target="_blank" class="p-3 bg-white hover:bg-yellow-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
-                        <div class="bg-yellow-100 text-yellow-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-skull-crossbones"></i></div>
+                    <a href="https://play.google.com/store/apps/details?id=uk.co.issolutions.toxbasemobileandroid.activity&hl=en_GB" target="_blank" class="p-3 bg-white dark:bg-slate-700 hover:bg-yellow-50 dark:hover:bg-yellow-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center transition">
+                        <div class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-skull-crossbones"></i></div>
                         Toxbase
                     </a>
-                    <a href="https://www.resus.org.uk/library/publications/iresus-app" target="_blank" class="p-3 bg-white hover:bg-red-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
-                        <div class="bg-red-100 text-red-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-heartbeat"></i></div>
+                    <a href="https://play.google.com/store/apps/details?id=cranworth.com.iresus&hl=en_GB" target="_blank" class="p-3 bg-white dark:bg-slate-700 hover:bg-red-50 dark:hover:bg-red-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center transition">
+                        <div class="bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-heartbeat"></i></div>
                         iResus
                     </a>
-                    <a href="https://bestpractice.bmj.com/" target="_blank" class="p-3 bg-white hover:bg-indigo-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
-                        <div class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-stethoscope"></i></div>
+                    <a href="https://play.google.com/store/apps/details?id=com.bmj.bestpractice" target="_blank" class="p-3 bg-white dark:bg-slate-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center transition">
+                        <div class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-stethoscope"></i></div>
                         BMJ Best Practice
                     </a>
-                    <a href="https://www.fractureeducation.info/" target="_blank" class="p-3 bg-white hover:bg-gray-50 rounded border border-gray-200 text-sm font-medium text-gray-800 flex items-center">
-                        <div class="bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-bone"></i></div>
+                    <a href="https://play.google.com/store/apps/details?id=com.medpresso.Lonestar.hbfrac" target="_blank" class="p-3 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-gray-900/30 rounded border border-gray-200 dark:border-slate-600 text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center transition">
+                        <div class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fas fa-bone"></i></div>
                         Fracture App
                     </a>
                 </div>
@@ -1087,7 +1014,7 @@
 
     </main>
 
-    <footer class="bg-gray-800 text-gray-400 py-6 text-center text-sm">
+    <footer class="bg-gray-800 dark:bg-slate-900 text-gray-400 py-6 text-center text-sm border-t border-gray-700 dark:border-slate-800">
         <p>University Hospitals Birmingham NHS Foundation Trust</p>
         <p class="mt-1">Designed for internal reference. Ensure clinical judgment is always applied.</p>
         <p class="mt-2 text-xs text-gray-600">Last updated: Oct 2025</p>
