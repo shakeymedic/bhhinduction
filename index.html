@@ -6,110 +6,11 @@
     <title>BHH & GHH ED Induction Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Lucide Icons for Who Sees Who -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
-
-        .nhs-blue {
-            background-color: #005EB8;
-        }
-
-        .nhs-blue-text {
-            color: #005EB8;
-        }
-
-        .nhs-dark-blue {
-            background-color: #003087;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* --- Styles for Who Sees Who Tab --- */
-        .poster-container {
-            width: 100%;
-        }
-
-        .card {
-            break-inside: avoid;
-            transition: all 0.2s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Masonry-like column layout for standard screens */
-        .masonry-grid {
-            column-count: 1;
-            column-gap: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .masonry-grid {
-                column-count: 2;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .masonry-grid {
-                column-count: 3;
-            }
-        }
-
-        .bullet-list li {
-            position: relative;
-            padding-left: 1.25rem;
-            margin-bottom: 0.35rem;
-            line-height: 1.4;
-        }
-
-        .bullet-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: currentColor;
-            opacity: 0.7;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <!-- Navigation -->
     <nav class="nhs-blue text-white sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -119,15 +20,14 @@
                 </div>
                 <div class="hidden lg:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <button onclick="showSection('dashboard')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Dashboard</button>
-                        <button onclick="showSection('contacts')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Contacts</button>
-                        <button onclick="showSection('who-sees-who')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition bg-blue-800 shadow-inner">Who Sees Who</button>
-                        <button onclick="showSection('clinical')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Clinical</button>
-                        <button onclick="showSection('admin')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Rota & HR</button>
-                        <button onclick="showSection('education')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">Education</button>
+                        <button onclick="showSection('dashboard')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition bg-blue-800 shadow-inner" id="nav-dashboard">Dashboard</button>
+                        <button onclick="showSection('contacts')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-contacts">Contacts</button>
+                        <button onclick="showSection('who-sees-who')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-who-sees-who">Who Sees Who</button>
+                        <button onclick="showSection('clinical')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-clinical">Clinical</button>
+                        <button onclick="showSection('admin')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-admin">Rota & HR</button>
+                        <button onclick="showSection('education')" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition" id="nav-education">Education</button>
                     </div>
                 </div>
-                <!-- Mobile menu button -->
                 <div class="-mr-2 flex lg:hidden">
                     <button onclick="toggleMobileMenu()" type="button" class="bg-blue-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
                         <i class="fas fa-bars"></i>
@@ -136,12 +36,11 @@
             </div>
         </div>
 
-        <!-- Mobile Menu -->
         <div class="lg:hidden hidden bg-blue-800" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <button onclick="showSection('dashboard')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Dashboard</button>
+                <button onclick="showSection('dashboard')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 bg-blue-900">Dashboard</button>
                 <button onclick="showSection('contacts')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Contacts</button>
-                <button onclick="showSection('who-sees-who')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 bg-blue-900">Who Sees Who</button>
+                <button onclick="showSection('who-sees-who')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Who Sees Who</button>
                 <button onclick="showSection('clinical')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Clinical</button>
                 <button onclick="showSection('admin')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Rota & HR</button>
                 <button onclick="showSection('education')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">Education</button>
@@ -149,13 +48,10 @@
         </div>
     </nav>
 
-    <!-- Main Content Area -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
 
-        <!-- DASHBOARD SECTION -->
-        <div id="dashboard" class="section-content space-y-6 hidden">
+        <div id="dashboard" class="section-content space-y-6">
             
-            <!-- Welcome Header -->
             <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-6 text-white shadow-lg">
                 <h1 class="text-3xl font-bold mb-2">Welcome to the Team</h1>
                 <p class="opacity-90">"Experience is simply the name we give our mistakes. Smart people learn from their mistakes – but the real sharp ones learn from the mistakes of others."</p>
@@ -165,9 +61,7 @@
                 </div>
             </div>
 
-            <!-- Urgent Codes Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Code Card 1 -->
                 <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500 relative group overflow-hidden">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-door-open text-4xl text-red-500"></i>
@@ -177,7 +71,6 @@
                     <p class="text-xs text-gray-400 mt-2">Emergency Access</p>
                 </div>
 
-                <!-- Code Card 2 -->
                 <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-500 relative group overflow-hidden">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-user-md text-4xl text-blue-500"></i>
@@ -187,7 +80,6 @@
                     <p class="text-xs text-gray-400 mt-2">BHH Site</p>
                 </div>
 
-                <!-- Code Card 3 -->
                 <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 relative group overflow-hidden">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-coffee text-4xl text-emerald-500"></i>
@@ -197,7 +89,6 @@
                     <p class="text-xs text-gray-400 mt-2">Break / Handover</p>
                 </div>
 
-                <!-- Code Card 4 -->
                 <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-purple-500 relative group overflow-hidden">
                     <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition">
                         <i class="fas fa-clinic-medical text-4xl text-purple-500"></i>
@@ -208,9 +99,7 @@
                 </div>
             </div>
 
-            <!-- Quick Actions -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Search Box -->
                 <div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6">
                     <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
                         <i class="fas fa-search text-blue-600"></i> Rapid Directory Search
@@ -218,12 +107,10 @@
                     <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search for 'Urology', 'Admin', '41266'..." class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3">
                     
                     <div id="searchResults" class="mt-4 max-h-60 overflow-y-auto hide-scrollbar space-y-2">
-                        <!-- Dynamic Results will appear here -->
-                         <div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>
+                        <div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>
                     </div>
                 </div>
 
-                <!-- Handover Times -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
                         <i class="fas fa-clock text-blue-600"></i> Handover Times
@@ -249,9 +136,7 @@
             </div>
         </div>
 
-        <!-- WHO SEES WHO SECTION -->
         <div id="who-sees-who" class="section-content hidden space-y-6">
-            <!-- Header & Search -->
             <div class="poster-container mb-6">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6 border-b-4 border-slate-800 pb-4">
                     <div class="flex-1">
@@ -275,7 +160,6 @@
                     </div>
                 </div>
 
-                <!-- Principles Banner -->
                 <div class="bg-slate-100 border-l-4 border-slate-500 p-4 rounded-r-lg mb-8 text-sm md:text-base shadow-sm">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
@@ -299,10 +183,8 @@
                     </div>
                 </div>
 
-                <!-- Content Grid -->
                 <div class="masonry-grid" id="contentGrid">
 
-                    <!-- MEDICINE -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-blue-500 overflow-hidden" data-category="medicine">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-blue-50 rounded-lg text-blue-600">
@@ -337,7 +219,6 @@
                         </ul>
                     </div>
 
-                    <!-- GENERAL SURGERY -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-amber-500 overflow-hidden" data-category="surgery">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-amber-50 rounded-lg text-amber-600">
@@ -359,7 +240,6 @@
                         </ul>
                     </div>
 
-                    <!-- UROLOGY -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-yellow-500 overflow-hidden" data-category="urology">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-yellow-50 rounded-lg text-yellow-600">
@@ -377,7 +257,6 @@
                         </ul>
                     </div>
 
-                    <!-- VASCULAR -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-red-600 overflow-hidden" data-category="vascular">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-red-50 rounded-lg text-red-600">
@@ -393,7 +272,6 @@
                         </ul>
                     </div>
 
-                    <!-- TRAUMA & ORTHOPAEDICS -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-emerald-500 overflow-hidden" data-category="ortho">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600">
@@ -417,7 +295,6 @@
                         </div>
                     </div>
 
-                    <!-- HEAD INJURIES -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-teal-600 overflow-hidden" data-category="head">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-teal-50 rounded-lg text-teal-600">
@@ -438,7 +315,6 @@
                         </div>
                     </div>
 
-                    <!-- GYNAECOLOGY -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-pink-500 overflow-hidden" data-category="gynae">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-pink-50 rounded-lg text-pink-600">
@@ -467,7 +343,6 @@
                         </div>
                     </div>
 
-                    <!-- MATERNITY -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-purple-600 overflow-hidden" data-category="maternity">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-purple-50 rounded-lg text-purple-600">
@@ -489,7 +364,6 @@
                         </div>
                     </div>
 
-                    <!-- ENT -->
                     <div class="card bg-white rounded-xl shadow-md p-5 mb-6 border-t-4 border-indigo-500 overflow-hidden" data-category="ent">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="p-2 bg-indigo-50 rounded-lg text-indigo-600">
@@ -519,12 +393,10 @@
             </div>
         </div>
 
-        <!-- CONTACTS SECTION -->
         <div id="contacts" class="section-content hidden space-y-6">
             <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Full Directory</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card: Internal Numbers -->
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Key Internal Extensions</div>
                     <div class="p-4 space-y-2 text-sm max-h-80 overflow-y-auto">
@@ -544,7 +416,6 @@
                     </div>
                 </div>
 
-                <!-- Card: Specialty Bleeps -->
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Specialty Bleeps</div>
                     <div class="p-4 space-y-2 text-sm max-h-80 overflow-y-auto">
@@ -564,7 +435,6 @@
                     </div>
                 </div>
 
-                 <!-- Card: More Codes -->
                  <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div class="bg-gray-50 px-4 py-3 border-b font-bold text-gray-700">Access Codes (Full List)</div>
                     <div class="p-4 space-y-2 text-sm">
@@ -578,14 +448,12 @@
                     </div>
                 </div>
                 
-                 <!-- Card: Senior Leadership Team (New) -->
                  <div class="bg-white rounded-xl shadow-sm overflow-hidden md:col-span-2 lg:col-span-3">
                     <div class="bg-blue-50 px-4 py-3 border-b border-blue-100 font-bold text-blue-900 flex justify-between items-center cursor-pointer" onclick="toggleAccordion('senior-team')">
                         <span><i class="fas fa-users-cog mr-2"></i> Senior Leadership Team & Leads</span>
                         <i class="fas fa-chevron-down transform transition-transform" id="icon-senior-team"></i>
                     </div>
                     <div id="content-senior-team" class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm hidden">
-                        <!-- Consultants -->
                         <div class="p-3 border border-gray-200 rounded bg-white">
                             <p class="font-bold text-gray-800 mb-1">Dr Su Dorrian</p>
                             <p class="text-xs text-gray-600 mb-1">Consultant, BHH</p>
@@ -628,7 +496,6 @@
                             <p class="text-xs text-gray-500">Rota Lead (GHH)</p>
                         </div>
 
-                        <!-- Nursing & Admin Leads -->
                         <div class="p-3 border border-gray-200 rounded bg-blue-50">
                             <p class="font-bold text-gray-800 mb-1">Max Ngamsha</p>
                             <p class="text-xs text-gray-600">Lead ENP</p>
@@ -645,7 +512,6 @@
                             <p class="text-xs text-gray-600">BHH / GHH</p>
                         </div>
                         
-                        <!-- Registrars -->
                         <div class="p-3 border border-purple-200 rounded bg-purple-50 md:col-span-2 lg:col-span-3">
                             <p class="font-bold text-purple-900 mb-1">Chief Registrars</p>
                             <div class="flex gap-4 text-xs text-gray-700">
@@ -658,12 +524,10 @@
             </div>
         </div>
 
-        <!-- CLINICAL SECTION -->
         <div id="clinical" class="section-content hidden space-y-6">
             <h2 class="text-2xl font-bold text-slate-800">Critical Clinical Guidelines</h2>
             <p class="text-gray-600">Red flags and referral pathways for high-risk presentations.</p>
 
-            <!-- New Mandatory Review Card -->
             <div class="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-4 shadow-sm mb-4">
                 <h3 class="text-lg font-bold text-orange-800 flex items-center mb-2">
                     <i class="fas fa-user-check mr-2"></i> Mandatory Senior Review (ST4+)
@@ -678,7 +542,6 @@
                  <p class="text-xs text-gray-500 mt-2"><em>*ECGs can be signed by FY2+, but escalate if unsure.</em></p>
             </div>
             
-            <!-- SPUR Palliative Care Card -->
             <div class="bg-purple-50 border-l-4 border-purple-600 rounded-lg p-4 shadow-sm mb-4">
                 <h3 class="text-lg font-bold text-purple-800 flex items-center mb-2">
                     <i class="fas fa-hands-helping mr-2"></i> SPUR (Palliative Urgent Response)
@@ -702,7 +565,6 @@
                 </div>
             </div>
 
-            <!-- New Radiology Vetting Card -->
             <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm mb-4">
                 <h3 class="text-lg font-bold text-blue-800 flex items-center mb-2">
                     <i class="fas fa-radiation mr-2"></i> Radiology Vetting Rules
@@ -717,7 +579,6 @@
                 </div>
             </div>
             
-            <!-- Documentation Rules -->
             <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4 shadow-sm mb-6">
                 <h3 class="text-lg font-bold text-yellow-800 flex items-center mb-2">
                     <i class="fas fa-file-contract mr-2"></i> Documentation Golden Rules
@@ -729,14 +590,12 @@
                 </ul>
             </div>
             
-            <!-- WHO TO WHO Referral Guide -->
             <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 border border-gray-200">
                 <div class="px-6 py-4 bg-gray-800 text-white font-bold flex justify-between items-center cursor-pointer" onclick="toggleAccordion('who-to-who')">
                     <span><i class="fas fa-random mr-2"></i> Specialty Referral Guide (Who to Who)</span>
                     <i class="fas fa-chevron-down transform transition-transform" id="icon-who-to-who"></i>
                 </div>
                 <div id="content-who-to-who" class="hidden border-t border-gray-200">
-                    <!-- Medicine -->
                     <div class="border-b border-gray-100">
                         <button class="w-full px-6 py-3 text-left font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 flex justify-between items-center" onclick="toggleSubAccordion('med')">
                             <span>Medicine (Admit via RMO)</span>
@@ -749,7 +608,6 @@
                         </div>
                     </div>
 
-                    <!-- General Surgery -->
                     <div class="border-b border-gray-100">
                         <button class="w-full px-6 py-3 text-left font-semibold text-green-700 bg-green-50 hover:bg-green-100 flex justify-between items-center" onclick="toggleSubAccordion('surg')">
                             <span>General Surgery (Admit via RSO)</span>
@@ -762,7 +620,6 @@
                         </div>
                     </div>
 
-                    <!-- Urology -->
                     <div class="border-b border-gray-100">
                         <button class="w-full px-6 py-3 text-left font-semibold text-yellow-700 bg-yellow-50 hover:bg-yellow-100 flex justify-between items-center" onclick="toggleSubAccordion('uro')">
                             <span>Urology (SpR in-hours / RSO OOH)</span>
@@ -774,7 +631,6 @@
                         </div>
                     </div>
 
-                    <!-- T&O -->
                     <div class="border-b border-gray-100">
                         <button class="w-full px-6 py-3 text-left font-semibold text-purple-700 bg-purple-50 hover:bg-purple-100 flex justify-between items-center" onclick="toggleSubAccordion('ortho')">
                             <span>Trauma & Orthopaedics (Admit via SHO)</span>
@@ -787,8 +643,7 @@
                         </div>
                     </div>
                     
-                     <!-- Head Injury -->
-                    <div class="border-b border-gray-100">
+                     <div class="border-b border-gray-100">
                         <button class="w-full px-6 py-3 text-left font-semibold text-red-700 bg-red-50 hover:bg-red-100 flex justify-between items-center" onclick="toggleSubAccordion('head')">
                             <span>Head Injury Rules</span>
                             <i class="fas fa-chevron-down text-red-400 transform transition-transform" id="icon-head"></i>
@@ -799,8 +654,7 @@
                         </div>
                     </div>
                     
-                     <!-- Womens -->
-                    <div>
+                     <div>
                         <button class="w-full px-6 py-3 text-left font-semibold text-pink-700 bg-pink-50 hover:bg-pink-100 flex justify-between items-center" onclick="toggleSubAccordion('women')">
                             <span>Gynae & Maternity</span>
                             <i class="fas fa-chevron-down text-pink-400 transform transition-transform" id="icon-women"></i>
@@ -815,10 +669,8 @@
                 </div>
             </div>
 
-            <!-- Accordion Container -->
             <div class="space-y-4">
                 
-                <!-- Cauda Equina -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 bg-red-50 hover:bg-red-100 flex justify-between items-center" onclick="toggleAccordion('ces')">
                         <span><i class="fas fa-exclamation-triangle text-red-500 mr-2"></i> Cauda Equina Syndrome (CES)</span>
@@ -847,7 +699,6 @@
                     </div>
                 </div>
 
-                <!-- AAA -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('aaa')">
                         <span><i class="fas fa-heartbeat text-red-500 mr-2"></i> Abdominal Aortic Aneurysm (AAA)</span>
@@ -866,7 +717,6 @@
                     </div>
                 </div>
 
-                <!-- Aortic Dissection -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ad')">
                         <span><i class="fas fa-random text-red-500 mr-2"></i> Aortic Dissection</span>
@@ -879,8 +729,7 @@
                     </div>
                 </div>
                 
-                 <!-- Necrotising Fasciitis -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('nf')">
                         <span><i class="fas fa-bacteria text-red-500 mr-2"></i> Necrotising Fasciitis</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-nf"></i>
@@ -898,8 +747,7 @@
                     </div>
                 </div>
                 
-                 <!-- Ectopic Pregnancy -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ep')">
                         <span><i class="fas fa-baby text-red-500 mr-2"></i> Ruptured Ectopic Pregnancy</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ep"></i>
@@ -911,7 +759,6 @@
                     </div>
                 </div>
 
-                <!-- Testicular Torsion -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('tt')">
                         <span><i class="fas fa-mars text-red-500 mr-2"></i> Testicular Torsion</span>
@@ -928,8 +775,7 @@
                     </div>
                 </div>
                 
-                 <!-- Airway Obstruction -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('ao')">
                         <span><i class="fas fa-wind text-red-500 mr-2"></i> Airway Obstruction (Tracheostomy)</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-ao"></i>
@@ -940,8 +786,7 @@
                     </div>
                 </div>
                 
-                 <!-- NAI -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <button class="w-full px-6 py-4 text-left font-bold text-slate-800 hover:bg-gray-50 flex justify-between items-center" onclick="toggleAccordion('nai')">
                         <span><i class="fas fa-child text-red-500 mr-2"></i> Non-Accidental Injury (NAI)</span>
                         <i class="fas fa-chevron-down text-gray-400 transform transition-transform" id="icon-nai"></i>
@@ -952,8 +797,7 @@
                     </div>
                 </div>
 
-                <!-- Specialty Referral Table -->
-                 <div class="bg-white rounded-lg shadow-sm overflow-hidden mt-6">
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden mt-6">
                     <div class="px-6 py-4 bg-gray-800 text-white font-bold">Referral Matrix (BHH vs GHH)</div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
@@ -997,12 +841,10 @@
             </div>
         </div>
 
-        <!-- ROTA & HR SECTION -->
         <div id="admin" class="section-content hidden space-y-6">
             <h2 class="text-2xl font-bold text-slate-800">Rota & HR Procedures</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Sickness Reporting -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-orange-500">
                     <h3 class="text-lg font-bold text-orange-600 mb-3"><i class="fas fa-file-medical-alt mr-2"></i> Sickness Reporting</h3>
                     <p class="text-sm text-gray-600 mb-4">You must notify the department if you are unable to attend.</p>
@@ -1023,7 +865,6 @@
                     </div>
                 </div>
 
-                <!-- Leave & Swaps -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
                     <h3 class="text-lg font-bold text-green-600 mb-3"><i class="fas fa-calendar-check mr-2"></i> Leave & Swaps</h3>
                     <div class="bg-green-50 p-3 rounded mb-3 text-sm text-green-900 border border-green-200">
@@ -1043,8 +884,7 @@
                     </div>
                 </div>
                 
-                 <!-- Study Leave & Expenses & Pay -->
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-500">
+                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-500">
                     <h3 class="text-lg font-bold text-indigo-600 mb-3"><i class="fas fa-book-reader mr-2"></i> Study Leave & Benefits</h3>
                     
                     <div class="space-y-4">
@@ -1077,7 +917,6 @@
                     </div>
                 </div>
                 
-                <!-- Coroners & Police -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-gray-600">
                     <h3 class="text-lg font-bold text-gray-700 mb-3"><i class="fas fa-balance-scale mr-2"></i> Medico-Legal</h3>
                     <ul class="text-sm space-y-2 text-gray-700">
@@ -1086,8 +925,7 @@
                     </ul>
                 </div>
                 
-                <!-- Locum Bank -->
-                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
                     <h3 class="text-lg font-bold text-purple-600 mb-3"><i class="fas fa-pound-sign mr-2"></i> Locum Bank</h3>
                     <ul class="text-sm space-y-2 text-gray-700">
                         <li><strong>System:</strong> TempRE (<a href="http://www.tempreupgrade.co.uk" target="_blank" class="text-blue-600">www.tempreupgrade.co.uk</a>)</li>
@@ -1101,8 +939,7 @@
                     </ul>
                 </div>
 
-                <!-- Exception Reporting -->
-                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-rose-500">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-rose-500">
                     <h3 class="text-lg font-bold text-rose-600 mb-3"><i class="fas fa-clock mr-2"></i> Exception Reporting</h3>
                     <p class="text-sm text-gray-700 mb-3"><strong>Important Update (Feb 2026):</strong> Reforms have been implemented to simplify reporting.</p>
                     
@@ -1129,7 +966,6 @@
                     </div>
                 </div>
 
-                <!-- Contacts -->
                 <div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6">
                     <h3 class="text-lg font-bold text-gray-800 mb-3">Workforce Contacts</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
@@ -1165,7 +1001,6 @@
             </div>
         </div>
 
-        <!-- EDUCATION & WELLBEING SECTION -->
         <div id="education" class="section-content hidden space-y-6">
             <h2 class="text-2xl font-bold text-slate-800">Education & Wellbeing</h2>
             
@@ -1184,12 +1019,10 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Teaching -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <h3 class="text-lg font-bold text-blue-700 mb-3"><i class="fas fa-graduation-cap mr-2"></i> Resident Doctor Teaching (April/May 2026)</h3>
                     
                     <div class="space-y-4">
-                        <!-- Day 1 -->
                         <div class="border-b pb-2">
                             <div class="flex justify-between items-center mb-1">
                                 <h4 class="font-bold text-gray-800 text-sm">Day 1: Medical Emergencies</h4>
@@ -1203,7 +1036,6 @@
                             </ul>
                         </div>
 
-                        <!-- Day 2 -->
                         <div class="border-b pb-2">
                             <div class="flex justify-between items-center mb-1">
                                 <h4 class="font-bold text-gray-800 text-sm">Day 2: Paediatrics & Surgical</h4>
@@ -1218,7 +1050,6 @@
                             </ul>
                         </div>
 
-                        <!-- Day 3 -->
                         <div class="border-b pb-2">
                             <div class="flex justify-between items-center mb-1">
                                 <h4 class="font-bold text-gray-800 text-sm">Day 3: Trauma & Tox</h4>
@@ -1232,7 +1063,6 @@
                             </ul>
                         </div>
 
-                        <!-- Day 4 -->
                         <div>
                             <div class="flex justify-between items-center mb-1">
                                 <h4 class="font-bold text-gray-800 text-sm">Day 4: Specialties & Skills</h4>
@@ -1248,7 +1078,6 @@
                     </div>
                 </div>
 
-                <!-- Wellbeing -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <h3 class="text-lg font-bold text-teal-700 mb-3"><i class="fas fa-heart mr-2"></i> Wellbeing & EDI</h3>
                     <div class="bg-teal-50 p-4 rounded-lg mb-4">
@@ -1264,7 +1093,6 @@
                 </div>
             </div>
             
-            <!-- Learning Links -->
             <div class="bg-white rounded-xl shadow-sm p-6 mt-6">
                 <h3 class="text-lg font-bold text-gray-800 mb-3">Useful Learning Links</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -1279,7 +1107,6 @@
                 </div>
             </div>
 
-            <!-- Essential Apps -->
             <div class="bg-white rounded-xl shadow-sm p-6 mt-6">
                 <h3 class="text-lg font-bold text-gray-800 mb-3">Essential Mobile Apps</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -1313,249 +1140,12 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 py-6 text-center text-sm">
         <p>University Hospitals Birmingham NHS Foundation Trust</p>
         <p class="mt-1">Designed for internal reference. Ensure clinical judgment is always applied.</p>
         <p class="mt-2 text-xs text-gray-600">Last updated: Oct 2025</p>
     </footer>
 
-    <script>
-        // Data for Search
-        const directoryData = [
-    { name: "Alcohol Care Team", number: "07778 932154", type: "Ext" },
-    { name: "Ambulance Assessment (BHH)", number: "40894", type: "Ext" },
-    { name: "Anticoagulation Team", number: "2456", type: "Bleep" },
-    { name: "Ask A&E (BHH)", number: "40300 / 43265", type: "Ext" },
-    { name: "Bed Managers (BHH)", number: "42033", type: "Ext" },
-    { name: "Bereavement Office (BHH)", number: "41349", type: "Ext" },
-    { name: "Blood Bank (BHH)", number: "40673", type: "Ext" },
-    { name: "Blood Bank (Issue) (BHH)", number: "40674", type: "Ext" },
-    { name: "Burns & Plastics (BHH)", number: "42477", type: "Ext" },
-    { name: "Cardiology SpR (BHH)", number: "2331", type: "Bleep" },
-    { name: "Cashiers (BHH)", number: "40621", type: "Ext" },
-    { name: "Chaplaincy (BHH)", number: "41369", type: "Ext" },
-    { name: "Children's ED (BHH) - Nurses Station", number: "42274", type: "Ext" },
-    { name: "Children's ED (BHH) - Reception", number: "40481", type: "Ext" },
-    { name: "Clinical Coding (BHH)", number: "43703", type: "Ext" },
-    { name: "Crisis Team (Mental Health) (BHH)", number: "0121 301 5500", type: "Ext" },
-    { name: "CT Scanner (BHH)", number: "41289", type: "Ext" },
-    { name: "Dermatology (BHH)", number: "40492", type: "Ext" },
-    { name: "Diabetes Team (BHH)", number: "42387", type: "Ext" },
-    { name: "Dietetics (BHH)", number: "42668", type: "Ext" },
-    { name: "Discharge Lounge (BHH)", number: "42323", type: "Ext" },
-    { name: "Discharge Team (BHH)", number: "42292", type: "Ext" },
-    { name: "District Nursing (BHH)", number: "0300 555 1919", type: "Ext" },
-    { name: "Drug & Alcohol Services (BHH)", number: "0121 301 4141", type: "Ext" },
-    { name: "Early Pregnancy Unit (EPU) (BHH)", number: "43508", type: "Ext" },
-    { name: "Eating Disorders (BHH)", number: "0121 301 2400", type: "Ext" },
-    { name: "ED Consultants (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "ED Secretaries (BHH)", number: "40679", type: "Ext" },
-    { name: "ENT SHO (BHH)", number: "3124", type: "Bleep" },
-    { name: "Equipment Library (BHH)", number: "40660", type: "Ext" },
-    { name: "Estates (BHH)", number: "40666", type: "Ext" },
-    { name: "Fracture Clinic (BHH)", number: "40490", type: "Ext" },
-    { name: "Gastroenterology SpR (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "General Surgery SpR (BHH)", number: "3125", type: "Bleep" },
-    { name: "Gynae SpR (BHH)", number: "3193", type: "Bleep" },
-    { name: "Haematology SpR (BHH)", number: "2456", type: "Bleep" },
-    { name: "Homeless Team (BHH)", number: "0121 303 7410", type: "Ext" },
-    { name: "Infectious Diseases (BHH)", number: "42595", type: "Ext" },
-    { name: "IT Service Desk (BHH)", number: "41130", type: "Ext" },
-    { name: "Labs (Biochemistry) (BHH)", number: "40652", type: "Ext" },
-    { name: "Labs (Haematology) (BHH)", number: "40656", type: "Ext" },
-    { name: "Labs (Microbiology) (BHH)", number: "40662", type: "Ext" },
-    { name: "Legal Services (BHH)", number: "40632", type: "Ext" },
-    { name: "Library (BHH)", number: "40637", type: "Ext" },
-    { name: "MaxFax (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Medical Illustrations (BHH)", number: "40640", type: "Ext" },
-    { name: "Medical Registrar (RMO) (BHH)", number: "1085", type: "Bleep" },
-    { name: "Microbiology Advice (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Mortuary (BHH)", number: "40644", type: "Ext" },
-    { name: "MRI Scanner (BHH)", number: "41290", type: "Ext" },
-    { name: "Neurology SpR (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Neurosurgery (QEHB) (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Obstetrics SpR (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Occupational Health (BHH)", number: "40648", type: "Ext" },
-    { name: "Oncology (BHH)", number: "42444", type: "Ext" },
-    { name: "Ophthalmology (BHH)", number: "40492", type: "Ext" },
-    { name: "Orthopaedics SpR (BHH)", number: "3010", type: "Bleep" },
-    { name: "Outpatients (BHH)", number: "40650", type: "Ext" },
-    { name: "Paediatrics SpR (BHH)", number: "2468", type: "Bleep" },
-    { name: "Pain Team (BHH)", number: "42329", type: "Ext" },
-    { name: "Palliative Care (BHH)", number: "42330", type: "Ext" },
-    { name: "Patient Transport (BHH)", number: "40664", type: "Ext" },
-    { name: "Pharmacy (BHH)", number: "40668", type: "Ext" },
-    { name: "Phlebotomy (BHH)", number: "40670", type: "Ext" },
-    { name: "Physiotherapy (BHH)", number: "40672", type: "Ext" },
-    { name: "Plastics (BHH)", number: "42477", type: "Ext" },
-    { name: "Police (BHH)", number: "101", type: "Ext" },
-    { name: "Porters (BHH)", number: "40676", type: "Ext" },
-    { name: "Psych Liaison (BHH)", number: "3344", type: "Bleep" },
-    { name: "Radiography (X-ray) (BHH)", number: "40680", type: "Ext" },
-    { name: "Rape Crisis (BHH)", number: "0121 643 4136", type: "Ext" },
-    { name: "Renal SpR (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Respiratory SpR (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Resus Training (BHH)", number: "40684", type: "Ext" },
-    { name: "Rheumatology (BHH)", number: "42385", type: "Ext" },
-    { name: "Safeguarding Adults (BHH)", number: "42388", type: "Ext" },
-    { name: "Safeguarding Children (BHH)", number: "42389", type: "Ext" },
-    { name: "Security (BHH)", number: "42999", type: "Ext" },
-    { name: "Sepsis Team (BHH)", number: "2777", type: "Bleep" },
-    { name: "Sexual Health (BHH)", number: "0121 371 5220", type: "Ext" },
-    { name: "Social Services (BHH)", number: "40688", type: "Ext" },
-    { name: "Solar (CAMHS) (BHH)", number: "0121 301 2750", type: "Ext" },
-    { name: "Solihull MIU / Minor Injuries Unit - Lead ENP", number: "07917 957287", type: "Ext" },
-    { name: "Specialist Palliative Urgent Response (SPUR) / Hospice / End of life", number: "0121 809 1900 / 0300 555 1919", type: "Ext" },
-    { name: "Stroke Team (BHH)", number: "42392", type: "Ext" },
-    { name: "Switchboard (BHH)", number: "0", type: "Ext" },
-    { name: "Theatres (BHH)", number: "40692", type: "Ext" },
-    { name: "Urology SpR (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Vascular SpR (BHH)", number: "via switchboard", type: "Ext" },
-    { name: "Resus Access", number: "40894", type: "Code" },
-    { name: "Staff Lounge", number: "C2679X", type: "Code" },
-    { name: "Middle Grade Room", number: "C4590Z", type: "Code" },
-    { name: "Minors Staff Room", number: "C6235Y", type: "Code" },
-    { name: "Minors Clinical", number: "C1267Y", type: "Code" },
-    { name: "Majors C Kitchen", number: "C2675X", type: "Code" },
-    { name: "Staff Toilets", number: "C457XY", type: "Code" }
-];
-
-        // --- Lucide Icons Logic ---
-        function initLucideIcons() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            } else {
-                console.warn('Lucide icons library not found, icons may be missing.');
-                setTimeout(() => {
-                    if (typeof lucide !== 'undefined') lucide.createIcons();
-                }, 1000);
-            }
-        }
-
-        // Initialize icons on load
-        window.addEventListener('DOMContentLoaded', initLucideIcons);
-
-        // Section Navigation Logic
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.section-content').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('fade-in');
-            });
-
-            // Show selected section
-            const selected = document.getElementById(sectionId);
-            selected.classList.remove('hidden');
-            
-            // Re-initialize icons if switching to 'who-sees-who' to ensure they render if added dynamically
-            if (sectionId === 'who-sees-who') {
-                initLucideIcons();
-            }
-
-            // Close mobile menu if open
-            document.getElementById('mobile-menu').classList.add('hidden');
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Accordion Logic
-        function toggleAccordion(id) {
-            const content = document.getElementById(`content-${id}`);
-            const icon = document.getElementById(`icon-${id}`);
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
-        }
-        
-        // Sub-Accordion Logic
-        function toggleSubAccordion(id) {
-            const content = document.getElementById(`content-${id}`);
-            const icon = document.getElementById(`icon-${id}`);
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
-        }
-
-        // Directory Search Logic (Main Contacts)
-        function filterDirectory() {
-            const input = document.getElementById('directorySearch').value.toLowerCase();
-            const resultsContainer = document.getElementById('searchResults');
-            resultsContainer.innerHTML = '';
-
-            if (input.length < 1) {
-                resultsContainer.innerHTML = '<div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>';
-                return;
-            }
-
-            const filtered = directoryData.filter(item => 
-                item.name.toLowerCase().includes(input) || 
-                item.number.includes(input)
-            );
-
-            if (filtered.length === 0) {
-                resultsContainer.innerHTML = '<div class="text-sm text-gray-500">No results found.</div>';
-                return;
-            }
-
-            filtered.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'flex justify-between items-center p-2 hover:bg-blue-50 rounded border border-gray-100';
-                div.innerHTML = `
-                    <span class="text-sm font-medium text-gray-700">${item.name}</span>
-                    <span class="text-xs font-mono font-bold ${getBadgeColor(item.type)} px-2 py-1 rounded">${item.number} <span class="opacity-50 ml-1 text-[10px] uppercase">${item.type}</span></span>
-                `;
-                resultsContainer.appendChild(div);
-            });
-        }
-
-        // Guideline Search Logic (Who Sees Who)
-        const guidelineSearchInput = document.getElementById('guidelineSearch');
-        if (guidelineSearchInput) {
-            guidelineSearchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
-                const cards = document.querySelectorAll('#who-sees-who .card'); // Scope to the tab
-
-                cards.forEach(card => {
-                    const content = card.querySelector('.search-content').innerText.toLowerCase();
-                    const title = card.querySelector('h2').innerText.toLowerCase();
-                    
-                    if (content.includes(term) || title.includes(term)) {
-                        card.style.display = 'block';
-                        card.style.opacity = '1';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                // If input is empty, ensure all are visible
-                if (term === '') {
-                    cards.forEach(card => {
-                        card.style.display = 'block'; 
-                        card.style.opacity = '1';
-                    });
-                }
-            });
-        }
-
-        function getBadgeColor(type) {
-            if (type === 'Code') return 'bg-red-100 text-red-800';
-            if (type === 'Bleep') return 'bg-blue-100 text-blue-800';
-            return 'bg-gray-100 text-gray-800';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
