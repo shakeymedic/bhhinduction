@@ -99,7 +99,8 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
                 <div class="md:col-span-2 bg-white rounded-xl shadow-sm p-6">
                     <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
                         <i class="fas fa-search text-blue-600"></i> Rapid Directory Search
@@ -107,7 +108,7 @@
                     <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search for 'Urology', 'Admin', '41266'..." class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3">
                     
                     <div id="searchResults" class="mt-4 max-h-60 overflow-y-auto hide-scrollbar space-y-2">
-                        <div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>
+                         <div class="text-sm text-gray-400 italic">Type above to search bleeps, extensions, and teams.</div>
                     </div>
                 </div>
 
@@ -133,6 +134,31 @@
                         <i class="fas fa-info-circle mr-1"></i> <strong>Location:</strong> Seminar Room (Near EDAA Entrance at BHH, First Floor above AMU at GHH).
                     </div>
                 </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-600">
+                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-ambulance text-green-600"></i> WMAS EPR Access
+                    </h2>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-100">
+                            <p class="text-xs text-green-800 font-bold uppercase mb-1">Web Address</p>
+                            <a href="https://onlineepr2.ext.wmas.nhs.uk" target="_blank" class="text-blue-600 font-medium hover:underline break-all flex items-center gap-2">
+                                onlineepr2.ext.wmas.nhs.uk <i class="fas fa-external-link-alt text-xs"></i>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="p-2 bg-gray-50 rounded border border-gray-100">
+                                <p class="text-xs text-gray-500 mb-1">Username</p>
+                                <p class="font-mono font-bold text-slate-700 select-all cursor-pointer hover:text-blue-600 transition" title="Double click to select">HARTED1</p>
+                            </div>
+                            <div class="p-2 bg-gray-50 rounded border border-gray-100">
+                                <p class="text-xs text-gray-500 mb-1">Password</p>
+                                <p class="font-mono font-bold text-slate-700 select-all cursor-pointer hover:text-blue-600 transition" title="Double click to select">Hart329?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
 
@@ -382,6 +408,47 @@
                     </div>
 
                 </div>
+                
+                 <div class="bg-white rounded-lg shadow-sm overflow-hidden mt-6">
+                    <div class="px-6 py-4 bg-gray-800 text-white font-bold">Referral Matrix (BHH vs GHH)</div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-100 text-gray-600 uppercase">
+                                <tr>
+                                    <th class="px-6 py-3">Specialty</th>
+                                    <th class="px-6 py-3">Heartlands (BHH)</th>
+                                    <th class="px-6 py-3">Good Hope (GHH)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Stroke</td>
+                                    <td class="px-6 py-3">Discuss w/ Stroke Nurse QE. HASU is at QE.</td>
+                                    <td class="px-6 py-3">Same as BHH.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Cardiology</td>
+                                    <td class="px-6 py-3">24hr PPCI service.</td>
+                                    <td class="px-6 py-3">Discuss w/ Cardio Reg or Consultant. Transfer to BHH if STEMI.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Urology</td>
+                                    <td class="px-6 py-3">24hr Reg/Consultant cover (offsite overnight).</td>
+                                    <td class="px-6 py-3">No cover. Refer to BHH Urology (Reg day, RSO night).</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">ENT</td>
+                                    <td class="px-6 py-3">24hr. Refer via ENT SHO bleep.</td>
+                                    <td class="px-6 py-3">No cover. Refer to BHH ENT.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-medium">Neurosurgery</td>
+                                    <td class="px-6 py-3" colspan="2">Located at QE. Use <strong>NORSE</strong> online referral. Urgent? Call SpR.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                 </div>
 
                 <div class="mt-8 text-center text-slate-500 text-xs pb-8 no-print border-t border-slate-200 pt-4">
                     <p class="mb-2"><strong>Heartlands Site Guide</strong> • Approved by Clinical Service Leads & Hospital Medical Director • For immediate use</p>
@@ -590,85 +657,6 @@
                 </ul>
             </div>
             
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 border border-gray-200">
-                <div class="px-6 py-4 bg-gray-800 text-white font-bold flex justify-between items-center cursor-pointer" onclick="toggleAccordion('who-to-who')">
-                    <span><i class="fas fa-random mr-2"></i> Specialty Referral Guide (Who to Who)</span>
-                    <i class="fas fa-chevron-down transform transition-transform" id="icon-who-to-who"></i>
-                </div>
-                <div id="content-who-to-who" class="hidden border-t border-gray-200">
-                    <div class="border-b border-gray-100">
-                        <button class="w-full px-6 py-3 text-left font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 flex justify-between items-center" onclick="toggleSubAccordion('med')">
-                            <span>Medicine (Admit via RMO)</span>
-                            <i class="fas fa-chevron-down text-blue-400 transform transition-transform" id="icon-med"></i>
-                        </button>
-                        <div id="content-med" class="hidden px-6 py-4 bg-white text-sm text-gray-700 space-y-2">
-                            <p><strong>Key Presentations:</strong> Chest Pain, Arrhythmia, SOB, Haemoptysis, Haematemesis/Melaena, Seizures, Headache, Dysphagia, DVT.</p>
-                            <p><strong>Others:</strong> DKA/Hypo, Overdose requiring admission, Renal Failure (NOT obstructive), Painless Jaundice, Cellulitis (Lower limb), UTI/Pyelonephritis (uncomplicated), Anaemia, Frailty/Confusion.</p>
-                            <p><strong>Neurology:</strong> New/Pre-existing SOL or SAH (while awaiting NORSE outcome).</p>
-                        </div>
-                    </div>
-
-                    <div class="border-b border-gray-100">
-                        <button class="w-full px-6 py-3 text-left font-semibold text-green-700 bg-green-50 hover:bg-green-100 flex justify-between items-center" onclick="toggleSubAccordion('surg')">
-                            <span>General Surgery (Admit via RSO)</span>
-                            <i class="fas fa-chevron-down text-green-400 transform transition-transform" id="icon-surg"></i>
-                        </button>
-                        <div id="content-surg" class="hidden px-6 py-4 bg-white text-sm text-gray-700 space-y-2">
-                            <p><strong>Key Presentations:</strong> Acute Abdo Pain, Pancreatitis/Cholecystitis, Abdo Trauma, PR Bleeding, Painful Jaundice.</p>
-                            <p><strong>Others:</strong> Abscess (Trunk/Groin/Perineum), Suspected Necrotising Fasciitis (Body), Loin pain (if not renal colic/AAA).</p>
-                            <p><strong>Trauma:</strong> Isolated chest injury (rib #, pneumothorax), Polytrauma (if chest/abdo primary issue).</p>
-                        </div>
-                    </div>
-
-                    <div class="border-b border-gray-100">
-                        <button class="w-full px-6 py-3 text-left font-semibold text-yellow-700 bg-yellow-50 hover:bg-yellow-100 flex justify-between items-center" onclick="toggleSubAccordion('uro')">
-                            <span>Urology (SpR in-hours / RSO OOH)</span>
-                            <i class="fas fa-chevron-down text-yellow-400 transform transition-transform" id="icon-uro"></i>
-                        </button>
-                        <div id="content-uro" class="hidden px-6 py-4 bg-white text-sm text-gray-700 space-y-2">
-                            <p><strong>Key Presentations:</strong> Renal Colic (proven/suspected), Urinary Retention, Visible Haematuria, Obstructive Uropathy.</p>
-                            <p><strong>Others:</strong> Fournier's Gangrene, Complicated Pyelonephritis.</p>
-                        </div>
-                    </div>
-
-                    <div class="border-b border-gray-100">
-                        <button class="w-full px-6 py-3 text-left font-semibold text-purple-700 bg-purple-50 hover:bg-purple-100 flex justify-between items-center" onclick="toggleSubAccordion('ortho')">
-                            <span>Trauma & Orthopaedics (Admit via SHO)</span>
-                            <i class="fas fa-chevron-down text-purple-400 transform transition-transform" id="icon-ortho"></i>
-                        </button>
-                        <div id="content-ortho" class="hidden px-6 py-4 bg-white text-sm text-gray-700 space-y-2">
-                            <p><strong>Key Presentations:</strong> Fractures/Limb injuries, Spinal Injuries (inc. pending NORSE), Cauda Equina (Suspected).</p>
-                            <p><strong>Infections:</strong> Septic Arthritis, Osteomyelitis, Upper limb cellulitis/abscess.</p>
-                            <p><strong>Exceptions:</strong> Uncomplicated Pubic Rami or Vertebral Fragility fractures (often Med/ COE).</p>
-                        </div>
-                    </div>
-                    
-                     <div class="border-b border-gray-100">
-                        <button class="w-full px-6 py-3 text-left font-semibold text-red-700 bg-red-50 hover:bg-red-100 flex justify-between items-center" onclick="toggleSubAccordion('head')">
-                            <span>Head Injury Rules</span>
-                            <i class="fas fa-chevron-down text-red-400 transform transition-transform" id="icon-head"></i>
-                        </button>
-                        <div id="content-head" class="hidden px-6 py-4 bg-white text-sm text-gray-700 space-y-2">
-                            <p><strong>Primary Reason for Admission:</strong> Complete <strong>NORSE</strong> referral for acute advice.</p>
-                            <p><strong>Admitting Specialty:</strong> Consultant-to-Consultant decision (or Reg-to-Reg OOH). If frail/futile for intervention -> Medicine.</p>
-                        </div>
-                    </div>
-                    
-                     <div>
-                        <button class="w-full px-6 py-3 text-left font-semibold text-pink-700 bg-pink-50 hover:bg-pink-100 flex justify-between items-center" onclick="toggleSubAccordion('women')">
-                            <span>Gynae & Maternity</span>
-                            <i class="fas fa-chevron-down text-pink-400 transform transition-transform" id="icon-women"></i>
-                        </button>
-                        <div id="content-women" class="hidden px-6 py-4 bg-white text-sm text-gray-700 space-y-2">
-                            <p><strong>Gynae (SpR):</strong> Ectopic, Miscarriage, Hyperemesis (< 16 weeks), PID, Ovarian Torsion.</p>
-                            <p><strong>Direct Access:</strong> Stable early pregnancy (< 16w) can often go direct to GAU (check pathway).</p>
-                            <p><strong>Maternity (> 16 weeks):</strong> Direct to MUAU if clinically stable (bleeding, pain, pre-eclampsia).</p>
-                            <p><strong>Obstetric Emergency:</strong> Treat in ED + Call 2222 "Obstetric Emergency" (e.g., imminent birth, seizing).</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="space-y-4">
                 
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -796,47 +784,6 @@
                          <p class="text-sm text-gray-700"><strong>Rule:</strong> All injuries in children < 1 year who do not mobilise need F2F review with a Consultant. Overnight they are admitted to PAU.</p>
                     </div>
                 </div>
-
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden mt-6">
-                    <div class="px-6 py-4 bg-gray-800 text-white font-bold">Referral Matrix (BHH vs GHH)</div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left">
-                            <thead class="bg-gray-100 text-gray-600 uppercase">
-                                <tr>
-                                    <th class="px-6 py-3">Specialty</th>
-                                    <th class="px-6 py-3">Heartlands (BHH)</th>
-                                    <th class="px-6 py-3">Good Hope (GHH)</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-3 font-medium">Stroke</td>
-                                    <td class="px-6 py-3">Discuss w/ Stroke Nurse QE. HASU is at QE.</td>
-                                    <td class="px-6 py-3">Same as BHH.</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-3 font-medium">Cardiology</td>
-                                    <td class="px-6 py-3">24hr PPCI service.</td>
-                                    <td class="px-6 py-3">Discuss w/ Cardio Reg or Consultant. Transfer to BHH if STEMI.</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-3 font-medium">Urology</td>
-                                    <td class="px-6 py-3">24hr Reg/Consultant cover (offsite overnight).</td>
-                                    <td class="px-6 py-3">No cover. Refer to BHH Urology (Reg day, RSO night).</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-3 font-medium">ENT</td>
-                                    <td class="px-6 py-3">24hr. Refer via ENT SHO bleep.</td>
-                                    <td class="px-6 py-3">No cover. Refer to BHH ENT.</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-3 font-medium">Neurosurgery</td>
-                                    <td class="px-6 py-3" colspan="2">Located at QE. Use <strong>NORSE</strong> online referral. Urgent? Call SpR.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                 </div>
 
             </div>
         </div>
