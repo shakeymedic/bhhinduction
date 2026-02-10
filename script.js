@@ -1,23 +1,27 @@
-// Data for Search (Merged from all source files)
+// Data for Search (Merged from all source files & 'Bleep Numbers BHH' Poster - February 2022)
+// Last updated: February 2026 based on poster review
 const directoryData = [
-    // --- Key Internal Numbers (Extensions) ---
+    // --- ED Areas (Verified from Poster Feb 2022) ---
     { name: "Majors A Nurse in Charge", number: "42274 / 42263", type: "Ext" },
-    { name: "Majors A Reception", number: "42265 / 42257", type: "Ext" },
     { name: "Majors B Nurse in Charge", number: "43166", type: "Ext" },
     { name: "Majors B Desk", number: "40903 / 40274", type: "Ext" },
     { name: "Majors C Nurse Station", number: "41266 / 40273", type: "Ext" },
-    { name: "Majors Reception (Main)", number: "43263 / 51636", type: "Ext" },
     { name: "Resus", number: "40894 / 42136", type: "Ext" },
-    { name: "Ambulance Assessment", number: "41251 / 40164", type: "Ext" },
+    { name: "Ambulance Assessment", number: "41251 / 40264", type: "Ext" },
     { name: "Main Waiting Assessment", number: "53962 / 53153", type: "Ext" },
-    { name: "Assessment Point", number: "41272", type: "Ext" },
+    { name: "Halo Office", number: "40741", type: "Ext" },
     { name: "EDAA Reception", number: "40130", type: "Ext" },
     { name: "Paeds Reception", number: "40481 / 52274", type: "Ext" },
-    { name: "Halo Office", number: "40741", type: "Ext" },
 
-    // --- Imaging ---
+    // --- Handwritten Additions from Poster ---
+    { name: "SAU Nurse Coordinator (Handover)", number: "40898", type: "Ext" },
+    { name: "Ward 24", number: "42537", type: "Ext" },
+    { name: "Endoscopy (Reception)", number: "40438", type: "Ext" },
+    { name: "Endoscopy (Nurses)", number: "43422", type: "Ext" },
+
+    // --- Imaging (Verified from Poster) ---
     { name: "ED Xray", number: "41274", type: "Ext" },
-    { name: "X-Ray Reception", number: "42288 / 41264", type: "Ext" },
+    { name: "X-Ray Reception", number: "41264", type: "Ext" },
     { name: "CT Room", number: "41289 / 51761", type: "Ext" },
     { name: "MRI", number: "42092 / 40872", type: "Ext" },
     { name: "Ultrasound (US)", number: "43290", type: "Ext" },
@@ -25,32 +29,79 @@ const directoryData = [
     { name: "X-Ray (Radiographer Bleep)", number: "2448", type: "Bleep" },
     { name: "Duty Radiologist (Bleep)", number: "3186", type: "Bleep" },
 
-    // --- Laboratory ---
+    // --- Laboratory (Verified from Poster) ---
     { name: "Biochemistry (Lab)", number: "43842", type: "Ext" },
     { name: "Pathology", number: "43242 / 41185", type: "Ext" },
     { name: "Blood Bank", number: "40706", type: "Ext" },
-    { name: "Blood Bank (Issue)", number: "40674", type: "Ext" },
     { name: "Microbiology", number: "41247", type: "Ext" },
     { name: "COVID Lab", number: "40330", type: "Ext" },
     { name: "Biochemistry (Bleep)", number: "2529", type: "Bleep" },
     { name: "Haem / Blood Bank (Bleep)", number: "2449", type: "Bleep" },
 
-    // --- Allied Teams & Departments ---
+    // --- Allied Teams (Verified from Poster) ---
     { name: "Psych Liaison (Ext)", number: "40860", type: "Ext" },
     { name: "MAU", number: "40191", type: "Ext" },
     { name: "Frailty Unit", number: "40275", type: "Ext" },
     { name: "Pharmacy", number: "42470 / 41471", type: "Ext" },
     { name: "GAU", number: "43506 / 43505", type: "Ext" },
-    { name: "Bed Manager (Ext)", number: "40483 / 42033", type: "Ext" },
-    { name: "Endoscopy (Reception)", number: "40438", type: "Ext" },
-    { name: "Endoscopy (Nurses)", number: "43422", type: "Ext" },
+    { name: "Bed Manager (Ext)", number: "40483", type: "Ext" },
+    { name: "Stroke Nurse", number: "See mobile sheet", type: "Ext" },
+    { name: "Estates", number: "42555", type: "Ext" },
+
+    // --- IT & Admin ---
+    { name: "IT Helpdesk (24/7)", number: "41130", type: "Ext" },
+    { name: "ED IT (Office Hours)", number: "42277", type: "Ext" },
+    { name: "Admin Office (Undercroft)", number: "42257", type: "Ext" },
+    { name: "Admin Office (Minors)", number: "43091", type: "Ext" },
+    { name: "Switchboard", number: "0", type: "Ext" },
+    { name: "QE Switchboard (from BHH/GHH)", number: "6248", type: "Ext" },
+    { name: "Security", number: "42999", type: "Ext" },
+    { name: "Crash Call", number: "2222", type: "Ext" },
+
+    // --- Allied Bleeps (Verified from Poster) ---
+    { name: "Anaesthetics", number: "1290", type: "Bleep" },
+    { name: "Psych Liaison (Bleep)", number: "2088", type: "Bleep" },
+    { name: "Site Lead", number: "2470", type: "Bleep" },
+    { name: "Bed Manager (Bleep)", number: "2549", type: "Bleep" },
+    { name: "NIV Physio", number: "2715", type: "Bleep" },
+
+    // --- Medical Bleeps (Verified from Poster) ---
+    { name: "Medicine SpR (RMO)", number: "1085", type: "Bleep" },
+    { name: "Cardiac Triage Nurse", number: "2331", type: "Bleep" },
+    { name: "Frailty Team (OPAL)", number: "3274", type: "Bleep" },
+    { name: "ITU SpR", number: "2336", type: "Bleep" },
+    { name: "ID SpR", number: "2728", type: "Bleep" },
+    { name: "Paeds SpR", number: "2923", type: "Bleep" },
+    { name: "Respiratory SpR", number: "2633", type: "Bleep" },
+
+    // --- Surgical Bleeps (Verified from Poster) ---
+    { name: "Gen Surg SpR", number: "3215", type: "Bleep" },
+    { name: "Gen Surg SHO (RSO)", number: "3213", type: "Bleep" },
+    { name: "ENT SpR", number: "via Switch (MP)", type: "Switch" },
+    { name: "ENT SHO", number: "3214", type: "Bleep" },
+    { name: "T&O SpR", number: "3010", type: "Bleep" },
+    { name: "T&O SHO", number: "6028", type: "Bleep" },
+    { name: "Urology SpR", number: "via Switch (MP)", type: "Switch" },
+    { name: "Obs SpR", number: "2140", type: "Bleep" },
+    { name: "Gynae SpR", number: "3193", type: "Bleep" },
+    { name: "Vascular SpR", number: "via Switch (MP)", type: "Switch" },
+
+    // --- Other Specialties via Switch ---
+    { name: "Gastroenterology SpR", number: "via Switch", type: "Switch" },
+    { name: "Renal SpR", number: "via Switch", type: "Switch" },
+    { name: "Neurology SpR", number: "via Switch", type: "Switch" },
+    { name: "Neurosurgery (Urgent)", number: "via Switch (0)", type: "Switch" },
+    { name: "MaxFax", number: "via Switch (QE)", type: "Switch" },
+    { name: "Ophthalmology (City)", number: "via Switch", type: "Switch" },
+    { name: "Dermatology / Ophthalmology", number: "40492", type: "Ext" },
+
+    // --- Other Hospital Services ---
     { name: "Clinic 9", number: "42477", type: "Ext" },
     { name: "Bereavement Office", number: "41349", type: "Ext" },
     { name: "Cashiers", number: "40621", type: "Ext" },
     { name: "Chaplaincy", number: "41369", type: "Ext" },
     { name: "Clinical Coding", number: "43703", type: "Ext" },
     { name: "Equipment Library", number: "40660", type: "Ext" },
-    { name: "Estates", number: "40666 / 42555", type: "Ext" },
     { name: "Fracture Clinic", number: "40490", type: "Ext" },
     { name: "Legal Services", number: "40632", type: "Ext" },
     { name: "Library", number: "40637", type: "Ext" },
@@ -66,47 +117,7 @@ const directoryData = [
     { name: "Social Services", number: "40688", type: "Ext" },
     { name: "Theatres", number: "40692", type: "Ext" },
     { name: "ED Secretaries", number: "40679", type: "Ext" },
-    { name: "Admin Office (Undercroft)", number: "42257", type: "Ext" },
-    { name: "Admin Office (Minors)", number: "43091", type: "Ext" },
-    { name: "Switchboard", number: "0", type: "Ext" },
-    { name: "QE Switchboard (from BHH/GHH)", number: "6248", type: "Ext" },
-    { name: "Security", number: "42999", type: "Ext" },
-    { name: "IT Support (24/7)", number: "41130", type: "Ext" },
-    { name: "ED IT (Office Hours)", number: "42277", type: "Ext" },
-    { name: "Crash Call", number: "2222", type: "Ext" },
-
-    // --- Medical Bleeps ---
-    { name: "Medicine SpR (RMO)", number: "1085", type: "Bleep" },
-    { name: "Cardiac Triage Nurse", number: "2331", type: "Bleep" },
-    { name: "Frailty Team (OPAL)", number: "3274", type: "Bleep" },
-    { name: "ITU SpR", number: "2336", type: "Bleep" },
-    { name: "ID SpR", number: "2728", type: "Bleep" },
-    { name: "Paeds SpR", number: "2923", type: "Bleep" },
-    { name: "Respiratory SpR", number: "2633", type: "Bleep" },
-    { name: "Psych Liaison (Bleep)", number: "2088", type: "Bleep" },
-    { name: "NIV Physio", number: "2715", type: "Bleep" },
-    { name: "Gastroenterology SpR", number: "via switch", type: "Switch" },
-    { name: "Renal SpR", number: "via switch", type: "Switch" },
-    { name: "Neurology SpR", number: "via switch", type: "Switch" },
-    { name: "Dermatology / Ophthalmology", number: "40492", type: "Ext" },
-
-    // --- Surgical Bleeps ---
-    { name: "Anaesthetics", number: "1290", type: "Bleep" },
-    { name: "Gen Surg SpR", number: "3215", type: "Bleep" },
-    { name: "Gen Surg SHO (RSO)", number: "3213", type: "Bleep" },
-    { name: "ENT SpR", number: "via switch (MP)", type: "Switch" },
-    { name: "ENT SHO", number: "3214", type: "Bleep" },
-    { name: "T&O SpR", number: "3010", type: "Bleep" },
-    { name: "T&O SHO", number: "6028", type: "Bleep" },
-    { name: "Urology SpR", number: "via switch (MP)", type: "Switch" },
-    { name: "Vascular SpR", number: "via switch (MP)", type: "Switch" },
-    { name: "Neurosurgery (Urgent)", number: "via switch (0)", type: "Switch" },
-    { name: "MaxFax", number: "via switch (QE)", type: "Switch" },
-    { name: "Ophthalmology (City)", number: "via switch", type: "Switch" },
-    { name: "Obs SpR", number: "2140", type: "Bleep" },
-    { name: "Gynae SpR", number: "3193", type: "Bleep" },
-    { name: "Site Lead", number: "2470", type: "Bleep" },
-    { name: "Bed Manager (Bleep)", number: "2549", type: "Bleep" },
+    { name: "Blood Bank (Issue)", number: "40674", type: "Ext" },
 
     // --- External / Teams ---
     { name: "Alcohol Care Team", number: "07778 932154", type: "Ext" },
@@ -130,7 +141,13 @@ const directoryData = [
     { name: "Dietetics", number: "42668", type: "Ext" },
     { name: "Discharge Lounge", number: "42323", type: "Ext" },
     { name: "Discharge Team", number: "42292", type: "Ext" },
-    { name: "Early Pregnancy Unit (EPU)", number: "43508", type: "Ext" }
+    { name: "Early Pregnancy Unit (EPU)", number: "43508", type: "Ext" },
+
+    // --- Specialty ACPs ---
+    { name: "Cardiac ACP", number: "8212", type: "Bleep" },
+    { name: "Heart Failure ACP", number: "3719", type: "Bleep" },
+    { name: "OPAL Consultant", number: "2060", type: "Bleep" },
+    { name: "OPAL Therapist", number: "0213", type: "Bleep" }
 ];
 
 // --- Dark Mode Logic ---
@@ -320,5 +337,6 @@ if (guidelineSearchInput) {
 function getBadgeColor(type) {
     if (type === 'Code') return 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300';
     if (type === 'Bleep') return 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300';
+    if (type === 'Switch') return 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300';
     return 'bg-gray-100 dark:bg-slate-600 text-gray-800 dark:text-gray-200';
 }
