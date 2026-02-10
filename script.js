@@ -1,6 +1,6 @@
-// Data for Search (Merged from all source files & 'Bleep Numbers BHH' Poster)
+// Data for Search (Merged from all source files)
 const directoryData = [
-    // --- ED Areas (Updated from Photo) ---
+    // --- Key Internal Numbers (Extensions) ---
     { name: "Majors A Nurse in Charge", number: "42274 / 42263", type: "Ext" },
     { name: "Majors A Reception", number: "42265 / 42257", type: "Ext" },
     { name: "Majors B Nurse in Charge", number: "43166", type: "Ext" },
@@ -15,7 +15,7 @@ const directoryData = [
     { name: "Paeds Reception", number: "40481 / 52274", type: "Ext" },
     { name: "Halo Office", number: "40741", type: "Ext" },
 
-    // --- Imaging (Updated from Photo & Stickies) ---
+    // --- Imaging ---
     { name: "ED Xray", number: "41274", type: "Ext" },
     { name: "X-Ray Reception", number: "42288 / 41264", type: "Ext" },
     { name: "CT Room", number: "41289 / 51761", type: "Ext" },
@@ -25,7 +25,7 @@ const directoryData = [
     { name: "X-Ray (Radiographer Bleep)", number: "2448", type: "Bleep" },
     { name: "Duty Radiologist (Bleep)", number: "3186", type: "Bleep" },
 
-    // --- Laboratory (Updated from Photo) ---
+    // --- Laboratory ---
     { name: "Biochemistry (Lab)", number: "43842", type: "Ext" },
     { name: "Pathology", number: "43242 / 41185", type: "Ext" },
     { name: "Blood Bank", number: "40706", type: "Ext" },
@@ -35,7 +35,7 @@ const directoryData = [
     { name: "Biochemistry (Bleep)", number: "2529", type: "Bleep" },
     { name: "Haem / Blood Bank (Bleep)", number: "2449", type: "Bleep" },
 
-    // --- Allied Teams & Departments (Merged) ---
+    // --- Allied Teams & Departments ---
     { name: "Psych Liaison (Ext)", number: "40860", type: "Ext" },
     { name: "MAU", number: "40191", type: "Ext" },
     { name: "Frailty Unit", number: "40275", type: "Ext" },
@@ -75,7 +75,7 @@ const directoryData = [
     { name: "ED IT (Office Hours)", number: "42277", type: "Ext" },
     { name: "Crash Call", number: "2222", type: "Ext" },
 
-    // --- Medical Bleeps (Updated from Photo) ---
+    // --- Medical Bleeps ---
     { name: "Medicine SpR (RMO)", number: "1085", type: "Bleep" },
     { name: "Cardiac Triage Nurse", number: "2331", type: "Bleep" },
     { name: "Frailty Team (OPAL)", number: "3274", type: "Bleep" },
@@ -90,7 +90,7 @@ const directoryData = [
     { name: "Neurology SpR", number: "via switch", type: "Switch" },
     { name: "Dermatology / Ophthalmology", number: "40492", type: "Ext" },
 
-    // --- Surgical Bleeps (Updated from Photo) ---
+    // --- Surgical Bleeps ---
     { name: "Anaesthetics", number: "1290", type: "Bleep" },
     { name: "Gen Surg SpR", number: "3215", type: "Bleep" },
     { name: "Gen Surg SHO (RSO)", number: "3213", type: "Bleep" },
@@ -108,7 +108,7 @@ const directoryData = [
     { name: "Site Lead", number: "2470", type: "Bleep" },
     { name: "Bed Manager (Bleep)", number: "2549", type: "Bleep" },
 
-    // --- External / Teams (Original File Data) ---
+    // --- External / Teams ---
     { name: "Alcohol Care Team", number: "07778 932154", type: "Ext" },
     { name: "Crisis Team (Mental Health)", number: "0121 301 5500", type: "Ext" },
     { name: "District Nursing", number: "0300 555 1919", type: "Ext" },
